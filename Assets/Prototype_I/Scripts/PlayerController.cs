@@ -1,28 +1,54 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Input Manager")]
+    public InputAction arrowControls;
+    public InputAction moveControls;
+
     private Rigidbody playerRb;
     public float speed = 5.0f;
-    private GameObject focalPoint;
+    private GameObject moveIndicator;
+    public float rotationSpeed;
+    public float forwardInput;
+
+    [Header("PowerUP Variables")]
     public bool hasPowerup;
     private float powerupStrength = 15.0f;
     private float powerupDuration = 7f;
     public GameObject powerupIndicator;
-   
+
+    private void OnEnable()
+    {
+        arrowControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        arrowControls.Disable();
+    }
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        focalPoint = GameObject.Find("FocalPoint");
+        moveIndicator = GameObject.Find("MoveIndicator");
     }
     
     void Update()
     {
-        float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
+        //float forwardInput = Input.GetAxis("Vertical");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
+        }
+        
 
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+
+        float horizontalInput = arrowControls.ReadValue<float>();
+        moveIndicator.transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
     }    
 
     private void OnTriggerEnter(Collider other)
