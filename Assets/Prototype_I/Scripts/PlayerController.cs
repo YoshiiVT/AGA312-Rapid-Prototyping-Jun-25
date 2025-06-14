@@ -1,18 +1,28 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    # region(References)
+
     [Header("Input Manager")]
     public InputAction arrowControls;
     public InputAction moveControls;
 
-    private Rigidbody playerRb;
+    [Header("Physics Variables")]
     public float speed = 5.0f;
-    private GameObject moveIndicator;
     public float rotationSpeed;
     public float forwardInput;
+    private Rigidbody playerRb;
+    [ReadOnly, SerializeField] private bool isMoving;
+    [ReadOnly, SerializeField] private bool isPushed;
+    [ReadOnly, SerializeField] private float currentSpeed;
+
+    [Header("Referencess")]
+    [SerializeField] private GameObject moveArrow; private Component moveArrowImage;
+    [ReadOnly, SerializeField] private GameObject moveIndicator;
 
     [Header("PowerUP Variables")]
     public bool hasPowerup;
@@ -20,6 +30,9 @@ public class PlayerController : MonoBehaviour
     private float powerupDuration = 7f;
     public GameObject powerupIndicator;
 
+    #endregion
+
+    #region(Onload / Start)
     private void OnEnable()
     {
         arrowControls.Enable();
@@ -34,22 +47,51 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         moveIndicator = GameObject.Find("MoveIndicator");
+        moveArrow = GameObject.Find("Arrow");
+        moveArrowImage = moveArrow.GetComponent<Image>();
     }
-    
+    #endregion(Onload / Start)
+
     void Update()
     {
         //float forwardInput = Input.GetAxis("Vertical");
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            playerRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
+            if (!isMoving)
+            {
+                playerRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
+                isMoving = true; isPushed = true;
+            }
+            else print("Can't push while moving");
         }
         
+        moveIndicator.transform.position = transform.position;
 
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
 
         float horizontalInput = arrowControls.ReadValue<float>();
         moveIndicator.transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
+
+        currentSpeed = RigidBodyX.GetSpeedRB(playerRb);
+
+        if (isMoving)
+        {
+            moveArrow.GetComponent<Image>().color = Color.grey;
+            if (currentSpeed >= 1) isPushed = false;
+
+            if (!isPushed && isMoving && currentSpeed <= 1)
+            {
+                StartCoroutine(WaitForForceStop(playerRb));
+            }
+        }
+        else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
     }    
+
+    private IEnumerator WaitForForceStop(Rigidbody playerRb)
+    {
+        yield return StartCoroutine(RigidBodyX.ForceStopGraduallyRB(playerRb));
+        isMoving = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -80,4 +122,5 @@ public class PlayerController : MonoBehaviour
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse); //ForceMode.Impulse?        
         }
     }
+
 }

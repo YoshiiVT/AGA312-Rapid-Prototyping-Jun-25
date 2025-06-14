@@ -4,11 +4,11 @@ public class Enemy : MonoBehaviour
 {
     public float speed;
     private Rigidbody enemyRb;
-    private GameObject player;
+    [SerializeField] private GameObject player;
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player");
+        player = GameObject.Find("PlayerMesh");
     }
 
     void Update()
