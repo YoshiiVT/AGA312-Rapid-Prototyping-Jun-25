@@ -1,23 +1,31 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : GameBehaviour
 {
+    private int currentWave;
     public GameObject enemyPrefab;
     private float spawnRange = 9;
     public int enemyCount;
-    public int waveNumber = 1;
     public GameObject powerupPrefab;
+
+    [SerializeField, ReadOnly] private GameManager _GM;
     void Start()
     {
-        SpawnEnemyWave(waveNumber);
+
+        GameObject gmObject = GameObject.Find("GameManager");
+        _GM = gmObject.GetComponent<GameManager>(); 
+        currentWave = _GM.FindCurrentWave();
+
+
+        SpawnEnemyWave(currentWave);
         Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
 
     private void Update()
     {
         enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length; //FindObjectsSortMode???
-        if (enemyCount == 0) { waveNumber++; SpawnEnemyWave(waveNumber); Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); }
+        if (enemyCount == 0) { currentWave = _GM.NewWave(); SpawnEnemyWave(currentWave); Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); }
     }
 
     private void SpawnEnemyWave(int enemiesToSpawn)

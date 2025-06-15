@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
-
+    //protected static GameManager _GM { get { return GameManager.instance; } }
 
     #region Coroutine Helpers
 
