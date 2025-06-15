@@ -3,37 +3,42 @@ using UnityEngine.Rendering;
 
 public class SpawnManager : GameBehaviour
 {
-    private int currentWave;
+    [Header("Prefabs")]
     public GameObject enemyPrefab;
-    private float spawnRange = 9;
-    public int enemyCount;
     public GameObject powerupPrefab;
 
-    [SerializeField, ReadOnly] private GameManager _GM;
+    [Header("WaveState")]
+    private int currentWave;
+    private float spawnRange = 9;
+    [SerializeField, ReadOnly] private int enemyCount;
+
+    [Header("References")]
+    [SerializeField, ReadOnly] private BattleSystem _BS;
+
     void Start()
     {
-
         GameObject gmObject = GameObject.Find("GameManager");
-        _GM = gmObject.GetComponent<GameManager>(); 
-        currentWave = _GM.FindCurrentWave();
-
+        _BS = gmObject.GetComponent<BattleSystem>(); 
+        currentWave = _BS.FindCurrentWave();
 
         SpawnEnemyWave(currentWave);
-        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
 
     private void Update()
     {
         enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length; //FindObjectsSortMode???
-        if (enemyCount == 0) { currentWave = _GM.NewWave(); SpawnEnemyWave(currentWave); Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); }
+        if (enemyCount == 0) { currentWave = _BS.NewWave(); SpawnEnemyWave(currentWave);}
     }
 
     private void SpawnEnemyWave(int enemiesToSpawn)
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+            GameObject enemyToSpawn = Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+            _BS.unitList.Add(enemyToSpawn);
+
         }
+        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
     private Vector3 GenerateSpawnPosition()
     {

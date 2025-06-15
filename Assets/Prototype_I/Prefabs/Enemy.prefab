@@ -152,7 +152,7 @@ Rigidbody:
   m_GameObject: {fileID: 5695820668433555258}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.5
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -192,6 +192,7 @@ MonoBehaviour:
   enemyState: 0
   moveArrowImage: {fileID: 8484242492864657461}
   moveIndicator: {fileID: 8013959657214358901}
+  _BS: {fileID: 0}
 --- !u!1 &6190445575959269286
 GameObject:
   m_ObjectHideFlags: 0

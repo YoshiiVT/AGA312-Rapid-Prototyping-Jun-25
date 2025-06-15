@@ -24,13 +24,20 @@ public class Enemy : MonoBehaviour
     [ReadOnly, SerializeField] private float currentSpeed;
     [ReadOnly, SerializeField] private EnemyState enemyState;
 
-
     [Header("Referencess")]
     [SerializeField] private Component moveArrowImage;
     [SerializeField] private GameObject moveIndicator;
 
+    [Header("Turn Variables")]
+    [ReadOnly, SerializeField] private bool myTurn = false;
+
+    [Header("ManagerReferences")]
+    [SerializeField, ReadOnly] private BattleSystem _BS;
     void Start()
     {
+        GameObject gmObject = GameObject.Find("GameManager");
+        _BS = gmObject.GetComponent<BattleSystem>();
+
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("PlayerMesh");
         StartCoroutine(TempAi());
@@ -47,13 +54,37 @@ public class Enemy : MonoBehaviour
     {
         if (transform.position.y <= -10)
         {
-            Destroy(gameObject);
+            GameObject enemyParentGO = transform.parent?.gameObject; //Find the parent object this object is under
+            _BS.unitList.Remove(enemyParentGO);
+            Destroy(enemyParentGO);
         }
 
-        moveIndicator.transform.position = transform.position;
-        moveIndicator.transform.LookAt(player.transform.position);
-
         currentSpeed = RigidBodyX.GetSpeedRB(enemyRb);
+        moveIndicator.transform.position = transform.position;
+
+        switch (enemyState)
+        {
+            case EnemyState.Waiting:
+                {
+                    if (!myTurn) {return;}
+                    else
+                    {
+                        enemyState = EnemyState.Aiming;
+                        break;
+                    }
+                }
+            case EnemyState.Aiming:
+                {
+                    moveIndicator.transform.LookAt(player.transform.position);
+                    break;
+                }
+            case EnemyState.Moving:
+                {
+                    break;
+                }
+        }
+       
+        
 
         if (isMoving)
         {
