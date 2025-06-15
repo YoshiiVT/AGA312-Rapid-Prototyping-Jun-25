@@ -183,12 +183,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  speed: 0.1
-  rotationSpeed: 0
-  forwardInput: 0
+  speed: 50
+  rotationSpeed: 100
+  forwardInput: 7
   isMoving: 0
   isPushed: 0
   currentSpeed: 0
+  enemyState: 0
   moveArrowImage: {fileID: 8484242492864657461}
   moveIndicator: {fileID: 8013959657214358901}
 --- !u!1 &6190445575959269286

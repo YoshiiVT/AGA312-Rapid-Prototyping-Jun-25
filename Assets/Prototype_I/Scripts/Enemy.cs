@@ -2,6 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum EnemyState
+{
+    Waiting,
+    Aiming,
+    Moving
+}
+
 public class Enemy : MonoBehaviour
 {
     
@@ -15,6 +22,7 @@ public class Enemy : MonoBehaviour
     [ReadOnly, SerializeField] private bool isMoving;
     [ReadOnly, SerializeField] private bool isPushed;
     [ReadOnly, SerializeField] private float currentSpeed;
+    [ReadOnly, SerializeField] private EnemyState enemyState;
 
 
     [Header("Referencess")]
@@ -25,20 +33,54 @@ public class Enemy : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("PlayerMesh");
+        StartCoroutine(TempAi());
     }
 
+    private IEnumerator TempAi()
+    {
+        yield return new WaitForSeconds(10);
+        EnemyAiPush();
+        StartCoroutine(TempAi());
+    }
 
     void Update()
     {
-        Vector3 lookDirection = (player.transform.position - transform.position).normalized;
-        enemyRb.AddForce((lookDirection * speed));  //Look up what normalized means later
-
         if (transform.position.y <= -10)
         {
             Destroy(gameObject);
         }
 
         moveIndicator.transform.position = transform.position;
-        moveIndicator.transform.LookAt(player.transform.position); 
+        moveIndicator.transform.LookAt(player.transform.position);
+
+        currentSpeed = RigidBodyX.GetSpeedRB(enemyRb);
+
+        if (isMoving)
+        {
+            moveArrowImage.GetComponent<Image>().color = Color.grey;
+            if (currentSpeed >= 1) isPushed = false;
+
+            if (!isPushed && isMoving && currentSpeed <= 1)
+            {
+                StartCoroutine(WaitForForceStop(enemyRb));
+            }
+        }
+        else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
+    }
+
+    private void EnemyAiPush()
+    {
+        if (!isMoving)
+        {
+            enemyRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
+            isMoving = true; isPushed = true;
+        }
+        else print("Enemy AI tried to push while moving");
+    }
+
+    private IEnumerator WaitForForceStop(Rigidbody enemyrRb)
+    {
+        yield return StartCoroutine(RigidBodyX.ForceStopGraduallyRB(enemyRb));
+        isMoving = false;
     }
 }

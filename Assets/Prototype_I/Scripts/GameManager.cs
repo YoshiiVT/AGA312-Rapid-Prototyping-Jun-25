@@ -6,7 +6,7 @@ public class GameManager : GameBehaviour
 
     public int NewWave()
     {   
-        waveNumber++;
+        //waveNumber++;
         return waveNumber; 
     }
     public int FindCurrentWave()
