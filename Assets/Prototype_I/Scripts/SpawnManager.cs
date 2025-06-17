@@ -15,30 +15,42 @@ public class SpawnManager : GameBehaviour
     [Header("References")]
     [SerializeField, ReadOnly] private BattleSystem _BS;
 
-    void Start()
+    void Awake()
     {
         GameObject gmObject = GameObject.Find("GameManager");
         _BS = gmObject.GetComponent<BattleSystem>(); 
-        currentWave = _BS.FindCurrentWave();
-
-        SpawnEnemyWave(currentWave);
     }
 
-    private void Update()
+
+
+    public void StartGame(int enemiesToSpawn)
+    {
+        SpawnEnemyWave(enemiesToSpawn);
+    }
+
+    public void CheckEnemyCount()
     {
         enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length; //FindObjectsSortMode???
         if (enemyCount == 0) { currentWave = _BS.NewWave(); SpawnEnemyWave(currentWave);}
     }
 
+
+
     private void SpawnEnemyWave(int enemiesToSpawn)
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
+            if (enemyPrefab == null)
+            {
+                Debug.LogError("Enemy Prefab is not assigned!");
+                return;
+            }
+
             GameObject enemyToSpawn = Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
             _BS.unitList.Add(enemyToSpawn);
-
         }
         Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+        _BS.NextWaveSpawned();
     }
     private Vector3 GenerateSpawnPosition()
     {

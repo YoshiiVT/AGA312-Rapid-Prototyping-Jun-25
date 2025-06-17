@@ -29,18 +29,21 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject moveIndicator;
 
     [Header("Turn Variables")]
-    [ReadOnly, SerializeField] private bool myTurn = false;
+    [ReadOnly, SerializeField] private bool hadTurn = false;
 
     [Header("ManagerReferences")]
     [SerializeField, ReadOnly] private BattleSystem _BS;
+    [SerializeField, ReadOnly] private SpawnManager _SM;
     void Start()
     {
         GameObject gmObject = GameObject.Find("GameManager");
         _BS = gmObject.GetComponent<BattleSystem>();
 
+        GameObject gmObject1 = GameObject.Find("SpawnManager");
+        _SM = gmObject1.GetComponent<SpawnManager>();
+
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("PlayerMesh");
-        StartCoroutine(TempAi());
     }
 
     private IEnumerator TempAi()
@@ -56,6 +59,7 @@ public class Enemy : MonoBehaviour
         {
             GameObject enemyParentGO = transform.parent?.gameObject; //Find the parent object this object is under
             _BS.unitList.Remove(enemyParentGO);
+            _SM.CheckEnemyCount();
             Destroy(enemyParentGO);
         }
 
@@ -66,7 +70,7 @@ public class Enemy : MonoBehaviour
         {
             case EnemyState.Waiting:
                 {
-                    if (!myTurn) {return;}
+                    if (!hadTurn) {return;}
                     else
                     {
                         enemyState = EnemyState.Aiming;
