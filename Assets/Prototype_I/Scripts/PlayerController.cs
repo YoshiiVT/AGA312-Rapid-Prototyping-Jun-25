@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -30,6 +31,9 @@ public class PlayerController : MonoBehaviour
     private float powerupDuration = 7f;
     public GameObject powerupIndicator;
 
+    [Header("TurnBased Variables")]
+    [ReadOnly, SerializeField] private bool playerTurn = false;
+    [ReadOnly, SerializeField] private GameObject battleSystem;
     #endregion
 
     #region(Onload / Start)
@@ -49,22 +53,20 @@ public class PlayerController : MonoBehaviour
         moveIndicator = GameObject.Find("MoveIndicator");
         moveArrow = GameObject.Find("Arrow");
         moveArrowImage = moveArrow.GetComponent<Image>();
+        moveArrow.SetActive(false);
+        battleSystem = GameObject.Find("GameManager");
     }
     #endregion(Onload / Start)
 
-    void Update()
+    public void PlayerTurnStarts()
     {
-        //float forwardInput = Input.GetAxis("Vertical");
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (!isMoving)
-            {
-                playerRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
-                isMoving = true; isPushed = true;
-            }
-            else print("Can't push while moving");
-        }
-        
+        moveArrow.SetActive(true);
+        playerTurn = true;
+    }
+
+    #region (Movement Methods)
+    void Update()
+    {        
         moveIndicator.transform.position = transform.position;
 
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
@@ -76,23 +78,44 @@ public class PlayerController : MonoBehaviour
 
         if (isMoving)
         {
+   
             moveArrow.GetComponent<Image>().color = Color.grey;
-            if (currentSpeed >= 1) isPushed = false;
+
+            if (currentSpeed >= 1.1) { isPushed = false; Debug.Log("Player no longer pushed"); }
 
             if (!isPushed && isMoving && currentSpeed <= 1)
             {
-                StartCoroutine(WaitForForceStop(playerRb));
+                if (currentSpeed <= 0) { isMoving = false; Debug.Log("Player no longer moving"); }
+
+                RigidBodyX.ForceStopRB(playerRb);
+                Debug.Log("Forcestopping player");
             }
+
         }
         else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
-    }    
 
-    private IEnumerator WaitForForceStop(Rigidbody playerRb)
-    {
-        yield return StartCoroutine(RigidBodyX.ForceStopGraduallyRB(playerRb));
-        isMoving = false;
+
+        if (!playerTurn) //If it is not the players turn, Do not regester any input.
+        {
+            return;
+        }
+
+        //float forwardInput = Input.GetAxis("Vertical");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isMoving)
+            {
+                playerRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
+                isMoving = true; isPushed = true;
+                battleSystem.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+                PlayerTurnEnds();
+            }
+            else print("Can't push while moving");
+        }
     }
+    #endregion
 
+    #region (Powerup Methods)
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Powerup"))
@@ -122,5 +145,12 @@ public class PlayerController : MonoBehaviour
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse); //ForceMode.Impulse?        
         }
     }
+    #endregion
 
+
+    private void PlayerTurnEnds()
+    {
+        moveArrow.SetActive(false);
+        playerTurn = false;
+    }
 }

@@ -57,9 +57,9 @@ public class Enemy : MonoBehaviour
     {
         if (transform.position.y <= -10)
         {
+            Debug.Log("EnemyFell");
             GameObject enemyParentGO = transform.parent?.gameObject; //Find the parent object this object is under
             _BS.unitList.Remove(enemyParentGO);
-            _SM.CheckEnemyCount();
             Destroy(enemyParentGO);
         }
 

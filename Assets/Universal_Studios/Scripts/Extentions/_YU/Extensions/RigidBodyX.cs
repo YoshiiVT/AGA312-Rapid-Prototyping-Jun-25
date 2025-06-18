@@ -15,6 +15,15 @@ public static class RigidBodyX
         float speed = _rb.linearVelocity.magnitude;
         return speed;
     }
+
+    static public bool IsStillMovingRB(Rigidbody _rb)
+    {
+        if (_rb.linearVelocity.sqrMagnitude > 0.01f || _rb.angularVelocity.sqrMagnitude > 0.01f)
+        {
+            return true;
+        }
+        return false;
+    }
     /// <summary>
     /// Forces a moving Rigidbody to filly stop
     /// </summary>

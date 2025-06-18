@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class SpawnManager : GameBehaviour
 {
@@ -36,16 +37,27 @@ public class SpawnManager : GameBehaviour
     }
     #endregion
 
+    
     /// <summary>
-    /// This is called everytime an enemy dies. It Checks if there are any enemies left alive, if not it sets a new wave and spawns it in
+    /// This is called  at the end of every turn, it checks to see if there are enemies left. False if no, true if yes
     /// </summary>
-    public void CheckEnemyCount()
+    /// <returns></returns>
+    public bool AreEnemiesLeft()
     {
+        Debug.Log("Checking Enemy Count");
         enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length; //FindObjectsSortMode???
-        if (enemyCount == 0) { currentWave = _BS.NewWave(); SpawnEnemyWave(currentWave);}
+        if (enemyCount == 0) { return false; } //currentWave = _BS.NewWave(); SpawnEnemyWave(currentWave);
+        else { return true; }
     }
 
     #region (Enemy and Powerup Spawning Methods)
+
+    public void SpawnNextWave(GameObject gameObject)
+    {
+        if (gameObject.GetComponent<BattleSystem>() == null) { Debug.LogError(gameObject + "tried spawning new wave without clearance"); return; } //Safety precaution: Only BattleSystem can run this script
+        SpawnEnemyWave(currentWave);
+    }
+
     /// <summary>
     /// The two methods below generate enemies and powerup depending on how many is specified
     /// </summary>
@@ -62,8 +74,11 @@ public class SpawnManager : GameBehaviour
 
             GameObject enemyToSpawn = Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
             _BS.unitList.Add(enemyToSpawn);
+            enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length;
         }
         Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+
+        _BS.NewRound();
     }
     private Vector3 GenerateSpawnPosition()
     {
