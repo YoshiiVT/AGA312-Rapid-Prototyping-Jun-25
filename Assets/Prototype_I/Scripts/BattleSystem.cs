@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -164,9 +165,6 @@ public class BattleSystem : GameBehaviour
         unitToPass.GetComponent<Unit>().hadTurn = true;
     }
 
-    
- 
-
     public void UnitSubmitsPush(GameObject unitSubmission)
     {
         if (unitSubmission.GetComponentInParent<Unit>() == null) { Debug.LogError("Script not associated to either player or enemy tried to end turn"); return; } //Safety precaution: Only Players and Enemies should be able to call this script
@@ -222,6 +220,7 @@ public class BattleSystem : GameBehaviour
         //if (unitSubmission.GetComponent<PlayerController>() != null) { Debug.LogError("Something other than the player tried to end the Game"); return; } //Safety precaution: Only the player dying can cause the game to end!
         state = GameState.GAMEOVER;
         Debug.Log("GAMEOVER!!!");
+        SceneManager.LoadScene("P1_MainMenu");
     }
     #endregion
 
