@@ -62,15 +62,6 @@ public class Enemy : MonoBehaviour
         moveArrow.SetActive(true);
         enemyTurn = true;
     }
-
-    /* //Old logic from when I was making the pushed based movement system
-    private IEnumerator TempAi()
-    {
-        yield return new WaitForSeconds(10);
-        EnemyAiPush();
-        StartCoroutine(TempAi());
-    }
-    */
     #endregion
 
     #region(Movement Methods)
@@ -97,20 +88,22 @@ public class Enemy : MonoBehaviour
 
             if (currentSpeed >= 1.1)
             {
-                isPushed = false; Debug.Log("Enemy no longer pushed"); }
+                isPushed = false; //Debug.Log("Enemy no longer pushed"); }
 
                 if (!isPushed && isMoving && currentSpeed <= 1)
                 {
                     if (currentSpeed <= 0)
                     {
-                        isMoving = false; Debug.Log("Enemy no longer moving"); }
+                        isMoving = false;
+                    } //Debug.Log("Enemy no longer moving"); }
 
-                        RigidBodyX.ForceStopRB(enemyRb);
-                        Debug.Log("Forcestopping Enemy");
-                    }
-
+                    RigidBodyX.ForceStopRB(enemyRb);
+                    //Debug.Log("Forcestopping Enemy");
                 }
-                else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
+
+            }
+        }
+        else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
 
 
                 switch (enemyState) //This Switch statement will be the core of the enemy Ai, cycling through 3 states
@@ -147,40 +140,8 @@ public class Enemy : MonoBehaviour
                 }
         }
 
-        /* //This Logic and needs to be Updated like the Player's, and suited for the Ai
-        if (isMoving)
-        {
-            moveArrowImage.GetComponent<Image>().color = Color.grey;
-            if (currentSpeed >= 1) isPushed = false;
-
-            if (!isPushed && isMoving && currentSpeed <= 1)
-            {
-                StartCoroutine(WaitForForceStop(enemyRb));
-            }
-        }
-        else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
-        */
+      
     }
-
-    /* //This Logic and needs to be Updated like the Player's, and suited for the Ai
-    private void EnemyAiPush() 
-    {
-        if (!isMoving)
-        {
-            enemyRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
-            isMoving = true; isPushed = true;
-        }
-        else print("Enemy AI tried to push while moving");
-    }
-    */
-
-    /* //This Logic and needs to be Updated like the Player's, and suited for the Ai
-    private IEnumerator WaitForForceStop(Rigidbody enemyrRb)
-    {
-        yield return StartCoroutine(RigidBodyX.ForceStopGraduallyRB(enemyRb));
-        isMoving = false;
-    }
-    */
     #endregion
 
     private IEnumerator EnemyAiming() //Chat helped me with this bit!
@@ -219,14 +180,6 @@ public class Enemy : MonoBehaviour
         _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
         EnemyTurnEnds();
     }
-
-    /*
-    private IEnumerator EnemyTurnLifetime()
-    {
-        yield return new WaitForSeconds(1);
-        EnemyTurnEnds();
-    }
-    */
 
     private void OnCollisionEnter(Collision collision)
     {

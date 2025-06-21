@@ -1,28 +1,19 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 public enum GameState
 {
     START, 
-    BETWEEN_TURN,
     PLAYER_TURN, 
     ENEMY_TURN, 
     GAMEOVER
-}
-public enum TurnState
-{
-    WAITING,
-    AIMING,
-    PUSHING
 }
 
 public class BattleSystem : GameBehaviour
 {
     #region (References and Variables)
     [SerializeField, ReadOnly] private GameState state;
-    [SerializeField, ReadOnly] private TurnState tState;
     [SerializeField, ReadOnly] private int waveNumber = 1;
     [ReadOnly] public List<GameObject> unitList;
 
@@ -42,7 +33,6 @@ public class BattleSystem : GameBehaviour
         _RBM = gmObject2.GetComponent<RigidBodyManager>();
 
         state = GameState.START;
-        tState = TurnState.WAITING;
 
         //This Finds the Player and puts them on the top of the list
         GameObject playerGO = GameObject.Find("Player");
@@ -52,6 +42,7 @@ public class BattleSystem : GameBehaviour
         //StartCoroutine(FirstWaveDelay());
     }
 
+    /*
     /// <summary>
     /// Temporary Input to help cycle through turns
     /// Stops it from all happening at once and stuck in a loop
@@ -60,9 +51,8 @@ public class BattleSystem : GameBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Q)) { CheckWhoIsNext(); }
     }
+    */
     #endregion
-
-   
 
     #region (Wave Managing Methods)
     /// <summary>
@@ -101,6 +91,7 @@ public class BattleSystem : GameBehaviour
     /// </summary>
     private void CheckWhoIsNext()
     {
+        if (state == GameState.GAMEOVER) { return; }
         if (CheckWhoHasntHadTurn() == true) { Debug.Log("Unit Found"); } //The Logic of having the selected unit do its actions will be in CheckUnitType()
         else { Debug.Log("No Unit Found, Starting new round."); NewRound(); } //Put Logic Here to Reset Units for new Round
     }
@@ -149,7 +140,6 @@ public class BattleSystem : GameBehaviour
             Debug.Log("UnitType: PLAYER was found");
 
             state = GameState.PLAYER_TURN;
-            tState = TurnState.AIMING;
             
             unitToTest.GetComponentInChildren<PlayerController>().PlayerTurnStarts();
             HadTurn(unitToTest);
@@ -159,7 +149,6 @@ public class BattleSystem : GameBehaviour
             Debug.Log("UnitType: ENEMY was found");
 
             state = GameState.ENEMY_TURN;
-            tState = TurnState.AIMING;
 
             unitToTest.GetComponentInChildren<Enemy>().EnemyTurnStarts();
             HadTurn(unitToTest);
@@ -176,7 +165,7 @@ public class BattleSystem : GameBehaviour
     }
 
     
-    #endregion
+ 
 
     public void UnitSubmitsPush(GameObject unitSubmission)
     {
@@ -186,7 +175,6 @@ public class BattleSystem : GameBehaviour
 
         if (unitSubmission.GetComponent<PlayerController>() != null && state == GameState.ENEMY_TURN) { Debug.LogError("Player tried to end Enemy's turn"); return; } //Safety precaution: Only Enemies can call this script during ENEMY_TURN
         
-        tState = TurnState.PUSHING;
         StartCoroutine(PushDelay());
     }
     /// <summary>
@@ -214,7 +202,6 @@ public class BattleSystem : GameBehaviour
         }
         else
         {
-            tState = TurnState.WAITING;
             if (_SM.AreEnemiesLeft() == true)
             {
                 CheckWhoIsNext();
@@ -229,5 +216,13 @@ public class BattleSystem : GameBehaviour
         }
         
     }
+
+    public void GameOver(GameObject unitSubmission)
+    {
+        //if (unitSubmission.GetComponent<PlayerController>() != null) { Debug.LogError("Something other than the player tried to end the Game"); return; } //Safety precaution: Only the player dying can cause the game to end!
+        state = GameState.GAMEOVER;
+        Debug.Log("GAMEOVER!!!");
+    }
+    #endregion
 
 }

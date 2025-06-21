@@ -69,7 +69,16 @@ public class PlayerController : MonoBehaviour
 
     #region (Movement Methods)
     void Update()
-    {      
+    {
+        //This will despawn the ball if it falls below -10, and lets the SpawnManager know
+        if (transform.position.y <= -10)
+        {
+            Debug.Log("Player Fell");
+            GameObject enemyParentGO = transform.parent?.gameObject;
+            battleSystem.GetComponent<BattleSystem>().GameOver(gameObject);
+            Destroy(enemyParentGO);
+        }
+
         moveIndicator.transform.position = transform.position;
 
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
