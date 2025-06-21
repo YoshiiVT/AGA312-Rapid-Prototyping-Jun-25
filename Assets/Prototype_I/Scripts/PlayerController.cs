@@ -82,11 +82,11 @@ public class PlayerController : MonoBehaviour
    
             moveArrow.GetComponent<Image>().color = Color.grey;
 
-            if (currentSpeed >= 1.1) { isPushed = false; Debug.Log("Player no longer pushed"); }
+            if (currentSpeed >= 1.1) { isPushed = false; } //Debug.Log("Player no longer pushed"); 
 
             if (!isPushed && isMoving && currentSpeed <= 1)
             {
-                if (currentSpeed <= 0) { isMoving = false; Debug.Log("Player no longer moving"); }
+                if (currentSpeed <= 0) { isMoving = false;} //Debug.Log("Player no longer moving"); 
 
                 RigidBodyX.ForceStopRB(playerRb);
                 Debug.Log("Forcestopping player");

@@ -82,13 +82,38 @@ public class Enemy : MonoBehaviour
             Debug.Log("EnemyFell");
             GameObject enemyParentGO = transform.parent?.gameObject; //Find the parent object this object is under
             _BS.unitList.Remove(enemyParentGO);
+            //_BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
             Destroy(enemyParentGO);
         }
 
         currentSpeed = RigidBodyX.GetSpeedRB(enemyRb); //Gets the current velocity (Speed) of the rigidbody
         moveIndicator.transform.position = transform.position; //Keeps the centerpoint of the moveArrow to the centre of the ball
 
-        switch (enemyState) //This Switch statement will be the core of the enemy Ai, cycling through 3 states
+        if (!isMoving) { isPushed = false; }
+        if (isMoving)
+        {
+
+            moveArrow.GetComponent<Image>().color = Color.grey;
+
+            if (currentSpeed >= 1.1)
+            {
+                isPushed = false; Debug.Log("Enemy no longer pushed"); }
+
+                if (!isPushed && isMoving && currentSpeed <= 1)
+                {
+                    if (currentSpeed <= 0)
+                    {
+                        isMoving = false; Debug.Log("Enemy no longer moving"); }
+
+                        RigidBodyX.ForceStopRB(enemyRb);
+                        Debug.Log("Forcestopping Enemy");
+                    }
+
+                }
+                else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
+
+
+                switch (enemyState) //This Switch statement will be the core of the enemy Ai, cycling through 3 states
         {
             case EnemyState.Waiting:
                 {
@@ -105,6 +130,7 @@ public class Enemy : MonoBehaviour
 
                     if (!isAiming)
                     {
+                        Debug.Log("Enemy is Aiming");
                         StartCoroutine(EnemyAiming());
                         isAiming = true;
                     }
@@ -180,22 +206,32 @@ public class Enemy : MonoBehaviour
         float zDeviation = Random.Range(-accuracy, accuracy);
         aimPoint = baseTarget + new Vector3(xDeviation, 0f, zDeviation);
 
-        enemyState = EnemyState.Waiting; // Change to Moving Later, or get rid of moving?
+        enemyState = EnemyState.Moving; // Change to Moving Later, or get rid of moving?
         isAiming = false; // So you can re-enter aiming later if needed
-        StartCoroutine(EnemyTurnLifetime()); enemyTurn = false;
-        _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+        EnemyPushing();
     }
 
+    private void EnemyPushing()
+    {
+        Debug.Log("Enemy is Pushing");
+        enemyRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
+        isMoving = true; isPushed = true;
+        _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+        EnemyTurnEnds();
+    }
 
+    /*
     private IEnumerator EnemyTurnLifetime()
     {
         yield return new WaitForSeconds(1);
         EnemyTurnEnds();
     }
+    */
 
     private void EnemyTurnEnds()
     {
         moveArrow.SetActive(false);
-        //enemyTurn = false; Add this back, just for testing its moving earlier
+        enemyTurn = false;
+        enemyState = EnemyState.Waiting;
     }
 }
