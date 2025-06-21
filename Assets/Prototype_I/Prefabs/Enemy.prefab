@@ -206,8 +206,10 @@ MonoBehaviour:
   enemyState: 0
   moveArrowImage: {fileID: 8484242492864657461}
   moveIndicator: {fileID: 8013959657214358901}
-  hadTurn: 0
+  moveArrow: {fileID: 7582471803796567220}
+  enemyTurn: 0
   _BS: {fileID: 0}
+  _SM: {fileID: 0}
 --- !u!1 &6190445575959269286
 GameObject:
   m_ObjectHideFlags: 0

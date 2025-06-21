@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     #region (Movement Methods)
     void Update()
-    {        
+    {      
         moveIndicator.transform.position = transform.position;
 
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed = RigidBodyX.GetSpeedRB(playerRb);
 
+        if (!isMoving) { isPushed = false; }
         if (isMoving)
         {
    
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+
     #region (Powerup Methods)
     private void OnTriggerEnter(Collider other)
     {
@@ -143,6 +145,11 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("Collided with " + collision.gameObject.name + " with powerup set to " + hasPowerup);
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse); //ForceMode.Impulse?        
+        }
+
+        if (collision.gameObject.CompareTag("Enemy") && !playerTurn)
+        {
+            isMoving = true; isPushed = true; Debug.Log("Player Pushed By an Enemy");
         }
     }
     #endregion

@@ -160,7 +160,8 @@ public class BattleSystem : GameBehaviour
 
             state = GameState.ENEMY_TURN;
             tState = TurnState.AIMING;
-            
+
+            unitToTest.GetComponentInChildren<Enemy>().EnemyTurnStarts();
             HadTurn(unitToTest);
         }
     }

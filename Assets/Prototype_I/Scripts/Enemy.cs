@@ -11,9 +11,7 @@ public enum EnemyState
 
 public class Enemy : MonoBehaviour
 {
-    
-    [SerializeField] private GameObject player;
-
+    #region(References)
     [Header("Physics Variables")]
     public float speed = 5.0f;
     public float rotationSpeed;
@@ -25,15 +23,21 @@ public class Enemy : MonoBehaviour
     [ReadOnly, SerializeField] private EnemyState enemyState;
 
     [Header("Referencess")]
-    [SerializeField] private Component moveArrowImage;
+    [ReadOnly, SerializeField] private GameObject player;
     [SerializeField] private GameObject moveIndicator;
+    [SerializeField] private GameObject moveArrow;
+    [SerializeField] private Component moveArrowImage;
+    
 
     [Header("Turn Variables")]
-    [ReadOnly, SerializeField] private bool hadTurn = false;
+    [ReadOnly, SerializeField] private bool enemyTurn = false;
 
     [Header("ManagerReferences")]
     [SerializeField, ReadOnly] private BattleSystem _BS;
     [SerializeField, ReadOnly] private SpawnManager _SM;
+    #endregion
+
+    #region(OnLoad / Start)
     void Start()
     {
         GameObject gmObject = GameObject.Find("GameManager");
@@ -44,18 +48,34 @@ public class Enemy : MonoBehaviour
 
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("PlayerMesh");
+
+        moveArrow.SetActive(false);
     }
 
+    public void EnemyTurnStarts()
+    {
+        moveArrow.SetActive(true);
+        enemyTurn = true;
+
+        StartCoroutine(EnemyTurnLifetime()); //This is Temporary, it gives the enemy ai three seconds for a turn before ending turn.
+        _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+    }
+
+    /* //Old logic from when I was making the pushed based movement system
     private IEnumerator TempAi()
     {
         yield return new WaitForSeconds(10);
         EnemyAiPush();
         StartCoroutine(TempAi());
     }
+    */
+    #endregion
 
+    #region(Movement Methods)
     void Update()
     {
-        if (transform.position.y <= -10)
+        //This will despawn the ball if it falls below -10, and lets the SpawnManager know
+        if (transform.position.y <= -10) 
         {
             Debug.Log("EnemyFell");
             GameObject enemyParentGO = transform.parent?.gameObject; //Find the parent object this object is under
@@ -63,14 +83,14 @@ public class Enemy : MonoBehaviour
             Destroy(enemyParentGO);
         }
 
-        currentSpeed = RigidBodyX.GetSpeedRB(enemyRb);
-        moveIndicator.transform.position = transform.position;
+        currentSpeed = RigidBodyX.GetSpeedRB(enemyRb); //Gets the current velocity (Speed) of the rigidbody
+        moveIndicator.transform.position = transform.position; //Keeps the centerpoint of the moveArrow to the centre of the ball
 
-        switch (enemyState)
+        switch (enemyState) //This Switch statement will be the core of the enemy Ai, cycling through 3 states
         {
             case EnemyState.Waiting:
                 {
-                    if (!hadTurn) {return;}
+                    if (!enemyTurn) {return;}
                     else
                     {
                         enemyState = EnemyState.Aiming;
@@ -87,9 +107,8 @@ public class Enemy : MonoBehaviour
                     break;
                 }
         }
-       
-        
 
+        /* //This Logic and needs to be Updated like the Player's, and suited for the Ai
         if (isMoving)
         {
             moveArrowImage.GetComponent<Image>().color = Color.grey;
@@ -101,9 +120,11 @@ public class Enemy : MonoBehaviour
             }
         }
         else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
+        */
     }
 
-    private void EnemyAiPush()
+    /* //This Logic and needs to be Updated like the Player's, and suited for the Ai
+    private void EnemyAiPush() 
     {
         if (!isMoving)
         {
@@ -112,10 +133,26 @@ public class Enemy : MonoBehaviour
         }
         else print("Enemy AI tried to push while moving");
     }
+    */
 
+    /* //This Logic and needs to be Updated like the Player's, and suited for the Ai
     private IEnumerator WaitForForceStop(Rigidbody enemyrRb)
     {
         yield return StartCoroutine(RigidBodyX.ForceStopGraduallyRB(enemyRb));
         isMoving = false;
+    }
+    */
+    #endregion
+
+    private IEnumerator EnemyTurnLifetime()
+    {
+        yield return new WaitForSeconds(3);
+        EnemyTurnEnds();
+    }
+
+    private void EnemyTurnEnds()
+    {
+        moveArrow.SetActive(false);
+        enemyTurn = false;
     }
 }
