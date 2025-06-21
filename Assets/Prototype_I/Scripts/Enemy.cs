@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 {
     #region(References)
     [Header("Physics Variables")]
-    public float speed = 5.0f;
+    public float speed = 3.0f;
     public float rotationSpeed;
     public float forwardInput;
     private Rigidbody enemyRb;
@@ -22,12 +22,17 @@ public class Enemy : MonoBehaviour
     [ReadOnly, SerializeField] private float currentSpeed;
     [ReadOnly, SerializeField] private EnemyState enemyState;
 
-    [Header("Referencess")]
-    [ReadOnly, SerializeField] private GameObject player;
+    [Header("Arrow Referencess")]
     [SerializeField] private GameObject moveIndicator;
     [SerializeField] private GameObject moveArrow;
     [SerializeField] private Component moveArrowImage;
-    
+
+    [Header("Aiming Refereces")]
+    [ReadOnly, SerializeField] private GameObject player;
+    [ReadOnly, SerializeField] private bool isAiming = false;
+    [ReadOnly, SerializeField] private Vector3 aimPoint;
+    [SerializeField] private int accuracy = 5; //The lower the number the higher the accuracy
+
 
     [Header("Turn Variables")]
     [ReadOnly, SerializeField] private bool enemyTurn = false;
@@ -56,9 +61,6 @@ public class Enemy : MonoBehaviour
     {
         moveArrow.SetActive(true);
         enemyTurn = true;
-
-        StartCoroutine(EnemyTurnLifetime()); //This is Temporary, it gives the enemy ai three seconds for a turn before ending turn.
-        _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
     }
 
     /* //Old logic from when I was making the pushed based movement system
@@ -99,7 +101,18 @@ public class Enemy : MonoBehaviour
                 }
             case EnemyState.Aiming:
                 {
-                    moveIndicator.transform.LookAt(player.transform.position);
+                    moveIndicator.transform.LookAt(aimPoint);
+
+                    if (!isAiming)
+                    {
+                        StartCoroutine(EnemyAiming());
+                        isAiming = true;
+                    }
+
+                    /* //This is stupid as I can just change aimPoint using a Random.Range()
+                    Vector3 aimRangeA = aimPoint + new Vector3(5f, 0f, 0f);
+                    Vector3 aimRangeB = aimPoint + new Vector3(-5f, 0f, 0f);
+                    */
                     break;
                 }
             case EnemyState.Moving:
@@ -144,15 +157,45 @@ public class Enemy : MonoBehaviour
     */
     #endregion
 
+    private IEnumerator EnemyAiming() //Chat helped me with this bit!
+    {
+        Vector3 baseTarget = player.transform.position;
+        float time = 0f;
+        float duration = 3f;
+        float bounceSpeed = 5f; // how fast it bounces
+        float bounceWidth = accuracy * 2; // how far left/right it bounces
+
+        while (time < duration)
+        {
+            // Horizontal side-to-side sine bounce around the base target
+            float xOffset = Mathf.Sin(time * bounceSpeed) * bounceWidth;
+            aimPoint = baseTarget + new Vector3(xOffset, 0f, 0f);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // After 3 seconds, apply final deviation
+        float xDeviation = Random.Range(-accuracy, accuracy);
+        float zDeviation = Random.Range(-accuracy, accuracy);
+        aimPoint = baseTarget + new Vector3(xDeviation, 0f, zDeviation);
+
+        enemyState = EnemyState.Waiting; // Change to Moving Later, or get rid of moving?
+        isAiming = false; // So you can re-enter aiming later if needed
+        StartCoroutine(EnemyTurnLifetime()); enemyTurn = false;
+        _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+    }
+
+
     private IEnumerator EnemyTurnLifetime()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         EnemyTurnEnds();
     }
 
     private void EnemyTurnEnds()
     {
         moveArrow.SetActive(false);
-        enemyTurn = false;
+        //enemyTurn = false; Add this back, just for testing its moving earlier
     }
 }
