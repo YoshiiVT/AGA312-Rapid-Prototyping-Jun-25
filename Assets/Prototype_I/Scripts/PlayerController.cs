@@ -28,12 +28,14 @@ public class PlayerController : MonoBehaviour
     [Header("PowerUP Variables")]
     public bool hasPowerup;
     private float powerupStrength = 15.0f;
-    private float powerupDuration = 7f;
+    [SerializeField] private int powerupDuration = 1;
+    private int durationLeft;
     public GameObject powerupIndicator;
 
     [Header("TurnBased Variables")]
     [ReadOnly, SerializeField] private bool playerTurn = false;
     [ReadOnly, SerializeField] private GameObject battleSystem;
+    private bool pushedThisTurn = false;
     #endregion
 
     #region(Onload / Start)
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         moveArrow.SetActive(true);
         playerTurn = true;
+        PowerUpDurationDecreaser();
     }
 
     #region (Movement Methods)
@@ -104,12 +107,12 @@ public class PlayerController : MonoBehaviour
         //float forwardInput = Input.GetAxis("Vertical");
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!isMoving)
+            if (!isMoving && !pushedThisTurn)
             {
                 playerRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
                 isMoving = true; isPushed = true;
-                battleSystem.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
-                PlayerTurnEnds();
+                StartCoroutine(PlayerTurnLifetime());
+                pushedThisTurn = true;
             }
             else print("Can't push while moving");
         }
@@ -124,17 +127,21 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             Destroy(other.gameObject);
-            StartCoroutine(PowerupCountdownRoutine());
+            durationLeft = powerupDuration;
             powerupIndicator.gameObject.SetActive(true);
         }
     }
 
-    IEnumerator PowerupCountdownRoutine()
+    private void PowerUpDurationDecreaser()
     {
-        yield return new WaitForSeconds(powerupDuration);
-        hasPowerup = false;
-        powerupIndicator.gameObject.SetActive(false);
+        if (durationLeft == 0)
+        {
+            hasPowerup = false;
+            powerupIndicator.gameObject.SetActive(false);
+        }
+        else { durationLeft--; }
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -154,10 +161,16 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-
+    private IEnumerator PlayerTurnLifetime()
+    {
+        yield return new WaitForSeconds(3);
+        battleSystem.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+        PlayerTurnEnds();
+    }
     private void PlayerTurnEnds()
     {
         moveArrow.SetActive(false);
+        pushedThisTurn = false;
         playerTurn = false;
     }
 }

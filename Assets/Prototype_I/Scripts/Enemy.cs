@@ -228,6 +228,20 @@ public class Enemy : MonoBehaviour
     }
     */
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+        if (collision.gameObject.CompareTag("Enemy") && !enemyTurn)
+        {
+            isMoving = true; isPushed = true; Debug.Log("Enemy Pushed By an Enemy");
+        }
+
+        if (collision.gameObject.CompareTag("Player") && !enemyTurn)
+        {
+            isMoving = true; isPushed = true; Debug.Log("Enemy Pushed By Player");
+        }
+    }
+
     private void EnemyTurnEnds()
     {
         moveArrow.SetActive(false);

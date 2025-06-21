@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class SpawnManager : GameBehaviour
 {
@@ -9,7 +8,7 @@ public class SpawnManager : GameBehaviour
     public GameObject powerupPrefab;
 
     [Header("WaveState")]
-    private int currentWave;
+    [SerializeField] private int currentWave;
     private float spawnRange = 9;
     [SerializeField, ReadOnly] private int enemyCount;
 
@@ -55,6 +54,7 @@ public class SpawnManager : GameBehaviour
     public void SpawnNextWave(GameObject gameObject)
     {
         if (gameObject.GetComponent<BattleSystem>() == null) { Debug.LogError(gameObject + "tried spawning new wave without clearance"); return; } //Safety precaution: Only BattleSystem can run this script
+        currentWave = _BS.FindCurrentWave();
         SpawnEnemyWave(currentWave);
     }
 
