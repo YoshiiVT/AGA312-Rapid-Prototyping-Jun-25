@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-//using DG.Tweening;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public static class FadeX
 {
-  /* public static void FadeIn(CanvasGroup _canvasGroup, float _tweenTime, Ease _ease, bool _interactable = true, Action _onSuccess = null)
+  public static void FadeIn(CanvasGroup _canvasGroup, float _tweenTime, Ease _ease, bool _interactable = true, Action _onSuccess = null)
     {
         _canvasGroup.gameObject.SetActive(true);
         if (_canvasGroup.alpha == 1) return;
@@ -90,6 +90,4 @@ public static class FadeX
         _canvasGroup.interactable = _interactable;
         _canvasGroup.blocksRaycasts = _interactable;
     }
-  
-    */
 }
