@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class NoteBehaviour : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class NoteBehaviour : MonoBehaviour
     [SerializeField] private Column startColumn;
     [SerializeField, ReadOnly] private Column currentColumn;
     [SerializeField] private Column endColumn;
+
+    [SerializeField] private float moveTweenTime = 1f; //This can be changed for difficulty
+    [SerializeField] private Ease moveEase;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,7 +33,7 @@ public class NoteBehaviour : MonoBehaviour
         */
 
         Column nextColumn = currentColumn.GetNextColumn(); Debug.Log("Found Next Coloumn: " + nextColumn);
-        note.transform.position = nextColumn.transform.position;
+        note.transform.DOMoveX(nextColumn.transform.position.x, moveTweenTime);//note.transform.position = nextColumn.transform.position;
         currentColumn = nextColumn;
     }
 }
