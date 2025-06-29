@@ -33,7 +33,9 @@ public class NoteBehaviour : MonoBehaviour
         */
 
         Column nextColumn = currentColumn.GetNextColumn(); Debug.Log("Found Next Coloumn: " + nextColumn);
-        note.transform.DOMoveX(nextColumn.transform.position.x, moveTweenTime);//note.transform.position = nextColumn.transform.position;
+        if (nextColumn.IsStart() == true) { note.transform.position = nextColumn.transform.position; }
+        else { note.transform.DOMoveX(nextColumn.transform.position.x, moveTweenTime); }
         currentColumn = nextColumn;
+        if (currentColumn.IsEnd() == true) { note.transform.DOMoveY(-200, moveTweenTime); /*Put failed logic here...*/ }
     }
 }
