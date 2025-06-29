@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Powerup
   - Enemy
+  - Yellow
+  - Red
+  - Green
   layers:
   - Default
   - TransparentFX
