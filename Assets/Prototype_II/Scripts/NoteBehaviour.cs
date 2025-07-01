@@ -1,41 +1,63 @@
 using UnityEngine;
+using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 
-public class NoteBehaviour : MonoBehaviour
+public class NoteBehaviour : GameBehaviour<NoteBehaviour>
 {
-    [SerializeField] private GameObject note;
+    [SerializeField] public List<GameObject> notes;
+
+    [SerializeField] private GameObject note; //This is what the player will hit
+    [SerializeField] private GameObject beat; //This is what the player will ignore
+
+    [SerializeField] private float beatTempo; //This can be changed for speed and difficulty. Adverage is 120bpm
+
+    [SerializeField] private bool isManual;
 
     [SerializeField] private Column startColumn;
-    [SerializeField, ReadOnly] private Column currentColumn;
-    [SerializeField] private Column endColumn;
 
-    [SerializeField] private float moveTweenTime = 1f; //This can be changed for difficulty
-    [SerializeField] private Ease moveEase;
+    [SerializeField] private Canvas noteArea;
+
+    [SerializeField] private TMP_Text tempText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        note.transform.position = startColumn.transform.position;
-        currentColumn = startColumn;
+        beatTempo = beatTempo / 60f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) { MoveNote(); Debug.Log("Moving Note"); }
+        if(isManual) 
+        { 
+            if (Input.GetKeyDown(KeyCode.Q)) { TempMoveNote(); /*Debug.Log("Moving Notes");*/ }
+            if (Input.GetKeyDown(KeyCode.E)) { SpawnNote(); Debug.Log("Spawning Note"); tempText.text = "Spawning Note"; }
+        }
     }
 
-    private void MoveNote()
+    private void SpawnNote()
     {
-        /*
-        Column column = currentColumn.GetComponent<Column>();
-        if ( column == null) { Debug.LogError("Current Column does NOT have Column script."); }
-        */
+        GameObject noteToSpawn = Instantiate(note, startColumn.transform.position, Quaternion.identity);
 
-        Column nextColumn = currentColumn.GetNextColumn(); Debug.Log("Found Next Coloumn: " + nextColumn);
-        if (nextColumn.IsStart() == true) { note.transform.position = nextColumn.transform.position; }
-        else { note.transform.DOMoveX(nextColumn.transform.position.x, moveTweenTime); }
-        currentColumn = nextColumn;
-        if (currentColumn.IsEnd() == true) { note.transform.DOMoveY(-200, moveTweenTime); /*Put failed logic here...*/ }
+        // Set the parent to the noteArea Canvas (without changing world position)
+        noteToSpawn.transform.SetParent(noteArea.transform, worldPositionStays: false);
+
+        noteToSpawn.GetComponent<Note>().Initialize(startColumn);
+
+        notes.Add(noteToSpawn);
     }
+
+    private void TempMoveNote()
+    {
+        Debug.Log("Moving Notes");
+        for (int i = 0; i < notes.Count; i++)
+        {
+            tempText.text = "Spawning Note " + i;
+            Debug.Log("Moving Note " + i);
+            GameObject noteToMove = notes[i];
+            noteToMove.GetComponent<Note>().MoveNote(2/*beatTempo * Time.deltaTime*/);
+        }
+    }
+    
 }
