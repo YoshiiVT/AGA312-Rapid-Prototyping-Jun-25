@@ -9,6 +9,7 @@ public class BeatData : ScriptableObject
     public bool speedDownBPM; //If True, then the BPM is decreased for the next beat
     
     public BeatID beatID;
+
 }
 public enum BeatID
 {

@@ -45,7 +45,7 @@ namespace PROTOTYPE_2
             // Set the parent to the noteArea Canvas (without changing world position)
             noteToSpawn.transform.SetParent(noteArea.transform, worldPositionStays: false);
 
-            noteToSpawn.GetComponent<Note>().Initialize(startColumn);
+            noteToSpawn.GetComponent<BeatBehaviour>().Initialize(startColumn);
 
             notes.Add(noteToSpawn);
         }
@@ -58,7 +58,7 @@ namespace PROTOTYPE_2
                 tempText.text = "Spawning Note " + i;
                 Debug.Log("Moving Note " + i);
                 GameObject noteToMove = notes[i];
-                noteToMove.GetComponent<Note>().MoveNote(2/*beatTempo * Time.deltaTime*/);
+                noteToMove.GetComponent<BeatBehaviour>().MoveNote(2/*beatTempo * Time.deltaTime*/);
             }
         }
 
