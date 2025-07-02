@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PT2_TweenManager : GameBehaviour<PT2_TweenManager>
+public class Beat : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

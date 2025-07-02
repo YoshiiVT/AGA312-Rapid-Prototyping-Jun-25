@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+namespace PROTOTYPE_1
 {
-    public bool hadTurn = false;
+    public class Unit : MonoBehaviour
+    {
+        public bool hadTurn = false;
+    }
 }

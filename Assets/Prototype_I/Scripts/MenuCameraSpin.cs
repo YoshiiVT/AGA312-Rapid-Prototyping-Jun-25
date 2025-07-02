@@ -1,12 +1,14 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class MenuCameraSpin : MonoBehaviour
+namespace PROTOTYPE_1
 {
-    public float rotationSpeed;
-
-    void Update()
+    public class MenuCameraSpin : MonoBehaviour
     {
-        transform.Rotate(Vector3.up, 1 * rotationSpeed * Time.deltaTime);
+        public float rotationSpeed;
+
+        void Update()
+        {
+            transform.Rotate(Vector3.up, 1 * rotationSpeed * Time.deltaTime);
+        }
     }
 }

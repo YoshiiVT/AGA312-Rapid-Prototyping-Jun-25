@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class P1MenuManager : MonoBehaviour
+namespace PROTOTYPE_1
 {
-    public void StartGame()
+    public class P1MenuManager : MonoBehaviour
     {
-        SceneManager.LoadScene("Prototype 1");
-    }
+        public void StartGame()
+        {
+            SceneManager.LoadScene("Prototype 1");
+        }
 
-    public void QuitGame()
-    {
-        Application.Quit();
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

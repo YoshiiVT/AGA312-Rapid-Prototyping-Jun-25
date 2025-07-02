@@ -1,24 +1,27 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RotateCamera : MonoBehaviour
+namespace PROTOTYPE_1
 {
-    public float rotationSpeed;
-    public InputAction cameraControls;
-
-    private void OnEnable()
+    public class RotateCamera : MonoBehaviour
     {
-        cameraControls.Enable();
-    }
+        public float rotationSpeed;
+        public InputAction cameraControls;
 
-    private void OnDisable()
-    {
-        cameraControls.Disable();
-    }
+        private void OnEnable()
+        {
+            cameraControls.Enable();
+        }
 
-    void Update()
-    {
-        float horizontalInput = cameraControls.ReadValue<float>(); //Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
+        private void OnDisable()
+        {
+            cameraControls.Disable();
+        }
+
+        void Update()
+        {
+            float horizontalInput = cameraControls.ReadValue<float>(); //Input.GetAxis("Horizontal");
+            transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
+        }
     }
 }

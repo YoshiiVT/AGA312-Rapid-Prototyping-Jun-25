@@ -2,203 +2,206 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum EnemyState
+namespace PROTOTYPE_1
 {
-    Waiting,
-    Aiming,
-    Moving
-}
-
-public class Enemy : MonoBehaviour
-{
-    #region(References)
-    [Header("Physics Variables")]
-    public float speed = 3.0f;
-    public float rotationSpeed;
-    public float forwardInput;
-    private Rigidbody enemyRb;
-    [ReadOnly, SerializeField] private bool isMoving;
-    [ReadOnly, SerializeField] private bool isPushed;
-    [ReadOnly, SerializeField] private float currentSpeed;
-    [ReadOnly, SerializeField] private EnemyState enemyState;
-
-    [Header("Arrow Referencess")]
-    [SerializeField] private GameObject moveIndicator;
-    [SerializeField] private GameObject moveArrow;
-    [SerializeField] private Component moveArrowImage;
-
-    [Header("Aiming Refereces")]
-    [ReadOnly, SerializeField] private GameObject player;
-    [ReadOnly, SerializeField] private bool isAiming = false;
-    [ReadOnly, SerializeField] private Vector3 aimPoint;
-    [SerializeField] private int accuracy = 5; //The lower the number the higher the accuracy
-
-
-    [Header("Turn Variables")]
-    [ReadOnly, SerializeField] private bool enemyTurn = false;
-
-    [Header("ManagerReferences")]
-    [SerializeField, ReadOnly] private BattleSystem _BS;
-    [SerializeField, ReadOnly] private SpawnManager _SM;
-    #endregion
-
-    #region(OnLoad / Start)
-    void Start()
+    public enum EnemyState
     {
-        GameObject gmObject = GameObject.Find("GameManager");
-        _BS = gmObject.GetComponent<BattleSystem>();
-
-        GameObject gmObject1 = GameObject.Find("SpawnManager");
-        _SM = gmObject1.GetComponent<SpawnManager>();
-
-        enemyRb = GetComponent<Rigidbody>();
-        player = GameObject.Find("PlayerMesh");
-
-        moveArrow.SetActive(false);
+        Waiting,
+        Aiming,
+        Moving
     }
 
-    public void EnemyTurnStarts()
+    public class Enemy : MonoBehaviour
     {
-        moveArrow.SetActive(true);
-        enemyTurn = true;
-    }
-    #endregion
+        #region(References)
+        [Header("Physics Variables")]
+        public float speed = 3.0f;
+        public float rotationSpeed;
+        public float forwardInput;
+        private Rigidbody enemyRb;
+        [ReadOnly, SerializeField] private bool isMoving;
+        [ReadOnly, SerializeField] private bool isPushed;
+        [ReadOnly, SerializeField] private float currentSpeed;
+        [ReadOnly, SerializeField] private EnemyState enemyState;
 
-    #region(Movement Methods)
-    void Update()
-    {
-        //This will despawn the ball if it falls below -10, and lets the SpawnManager know
-        if (transform.position.y <= -10) 
+        [Header("Arrow Referencess")]
+        [SerializeField] private GameObject moveIndicator;
+        [SerializeField] private GameObject moveArrow;
+        [SerializeField] private Component moveArrowImage;
+
+        [Header("Aiming Refereces")]
+        [ReadOnly, SerializeField] private GameObject player;
+        [ReadOnly, SerializeField] private bool isAiming = false;
+        [ReadOnly, SerializeField] private Vector3 aimPoint;
+        [SerializeField] private int accuracy = 5; //The lower the number the higher the accuracy
+
+
+        [Header("Turn Variables")]
+        [ReadOnly, SerializeField] private bool enemyTurn = false;
+
+        [Header("ManagerReferences")]
+        [SerializeField, ReadOnly] private BattleSystem _BS;
+        [SerializeField, ReadOnly] private SpawnManager _SM;
+        #endregion
+
+        #region(OnLoad / Start)
+        void Start()
         {
-            Debug.Log("EnemyFell");
-            GameObject enemyParentGO = transform.parent?.gameObject; //Find the parent object this object is under
-            _BS.unitList.Remove(enemyParentGO);
-            //_BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
-            Destroy(enemyParentGO);
+            GameObject gmObject = GameObject.Find("GameManager");
+            _BS = gmObject.GetComponent<BattleSystem>();
+
+            GameObject gmObject1 = GameObject.Find("SpawnManager");
+            _SM = gmObject1.GetComponent<SpawnManager>();
+
+            enemyRb = GetComponent<Rigidbody>();
+            player = GameObject.Find("PlayerMesh");
+
+            moveArrow.SetActive(false);
         }
 
-        currentSpeed = RigidBodyX.GetSpeedRB(enemyRb); //Gets the current velocity (Speed) of the rigidbody
-        moveIndicator.transform.position = transform.position; //Keeps the centerpoint of the moveArrow to the centre of the ball
-
-        if (!isMoving) { isPushed = false; }
-        if (isMoving)
+        public void EnemyTurnStarts()
         {
+            moveArrow.SetActive(true);
+            enemyTurn = true;
+        }
+        #endregion
 
-            moveArrow.GetComponent<Image>().color = Color.grey;
-
-            if (currentSpeed >= 1.1)
+        #region(Movement Methods)
+        void Update()
+        {
+            //This will despawn the ball if it falls below -10, and lets the SpawnManager know
+            if (transform.position.y <= -10)
             {
-                isPushed = false; //Debug.Log("Enemy no longer pushed"); }
-
-                if (!isPushed && isMoving && currentSpeed <= 1)
-                {
-                    if (currentSpeed <= 0)
-                    {
-                        isMoving = false;
-                    } //Debug.Log("Enemy no longer moving"); }
-
-                    RigidBodyX.ForceStopRB(enemyRb);
-                    //Debug.Log("Forcestopping Enemy");
-                }
-
+                Debug.Log("EnemyFell");
+                GameObject enemyParentGO = transform.parent?.gameObject; //Find the parent object this object is under
+                _BS.unitList.Remove(enemyParentGO);
+                //_BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+                Destroy(enemyParentGO);
             }
-        }
-        else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
 
+            currentSpeed = RigidBodyX.GetSpeedRB(enemyRb); //Gets the current velocity (Speed) of the rigidbody
+            moveIndicator.transform.position = transform.position; //Keeps the centerpoint of the moveArrow to the centre of the ball
 
-                switch (enemyState) //This Switch statement will be the core of the enemy Ai, cycling through 3 states
-        {
-            case EnemyState.Waiting:
+            if (!isMoving) { isPushed = false; }
+            if (isMoving)
+            {
+
+                moveArrow.GetComponent<Image>().color = Color.grey;
+
+                if (currentSpeed >= 1.1)
                 {
-                    if (!enemyTurn) {return;}
-                    else
+                    isPushed = false; //Debug.Log("Enemy no longer pushed"); }
+
+                    if (!isPushed && isMoving && currentSpeed <= 1)
                     {
-                        enemyState = EnemyState.Aiming;
+                        if (currentSpeed <= 0)
+                        {
+                            isMoving = false;
+                        } //Debug.Log("Enemy no longer moving"); }
+
+                        RigidBodyX.ForceStopRB(enemyRb);
+                        //Debug.Log("Forcestopping Enemy");
+                    }
+
+                }
+            }
+            else ColorX.SetColorFromHex(moveArrowImage, "#C8FFC6"); //moveArrow.GetComponent<Image>().color = Color.green;
+
+
+            switch (enemyState) //This Switch statement will be the core of the enemy Ai, cycling through 3 states
+            {
+                case EnemyState.Waiting:
+                    {
+                        if (!enemyTurn) { return; }
+                        else
+                        {
+                            enemyState = EnemyState.Aiming;
+                            break;
+                        }
+                    }
+                case EnemyState.Aiming:
+                    {
+                        moveIndicator.transform.LookAt(aimPoint);
+
+                        if (!isAiming)
+                        {
+                            Debug.Log("Enemy is Aiming");
+                            StartCoroutine(EnemyAiming());
+                            isAiming = true;
+                        }
+
+                        /* //This is stupid as I can just change aimPoint using a Random.Range()
+                        Vector3 aimRangeA = aimPoint + new Vector3(5f, 0f, 0f);
+                        Vector3 aimRangeB = aimPoint + new Vector3(-5f, 0f, 0f);
+                        */
                         break;
                     }
-                }
-            case EnemyState.Aiming:
-                {
-                    moveIndicator.transform.LookAt(aimPoint);
-
-                    if (!isAiming)
+                case EnemyState.Moving:
                     {
-                        Debug.Log("Enemy is Aiming");
-                        StartCoroutine(EnemyAiming());
-                        isAiming = true;
+                        break;
                     }
+            }
 
-                    /* //This is stupid as I can just change aimPoint using a Random.Range()
-                    Vector3 aimRangeA = aimPoint + new Vector3(5f, 0f, 0f);
-                    Vector3 aimRangeB = aimPoint + new Vector3(-5f, 0f, 0f);
-                    */
-                    break;
-                }
-            case EnemyState.Moving:
-                {
-                    break;
-                }
+
         }
+        #endregion
 
-      
-    }
-    #endregion
-
-    private IEnumerator EnemyAiming() //Chat helped me with this bit!
-    {
-        Vector3 baseTarget = player.transform.position;
-        float time = 0f;
-        float duration = 3f;
-        float bounceSpeed = 5f; // how fast it bounces
-        float bounceWidth = accuracy * 2; // how far left/right it bounces
-
-        while (time < duration)
+        private IEnumerator EnemyAiming() //Chat helped me with this bit!
         {
-            // Horizontal side-to-side sine bounce around the base target
-            float xOffset = Mathf.Sin(time * bounceSpeed) * bounceWidth;
-            aimPoint = baseTarget + new Vector3(xOffset, 0f, 0f);
+            Vector3 baseTarget = player.transform.position;
+            float time = 0f;
+            float duration = 3f;
+            float bounceSpeed = 5f; // how fast it bounces
+            float bounceWidth = accuracy * 2; // how far left/right it bounces
 
-            time += Time.deltaTime;
-            yield return null;
+            while (time < duration)
+            {
+                // Horizontal side-to-side sine bounce around the base target
+                float xOffset = Mathf.Sin(time * bounceSpeed) * bounceWidth;
+                aimPoint = baseTarget + new Vector3(xOffset, 0f, 0f);
+
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            // After 3 seconds, apply final deviation
+            float xDeviation = Random.Range(-accuracy, accuracy);
+            float zDeviation = Random.Range(-accuracy, accuracy);
+            aimPoint = baseTarget + new Vector3(xDeviation, 0f, zDeviation);
+
+            enemyState = EnemyState.Moving; // Change to Moving Later, or get rid of moving?
+            isAiming = false; // So you can re-enter aiming later if needed
+            EnemyPushing();
         }
 
-        // After 3 seconds, apply final deviation
-        float xDeviation = Random.Range(-accuracy, accuracy);
-        float zDeviation = Random.Range(-accuracy, accuracy);
-        aimPoint = baseTarget + new Vector3(xDeviation, 0f, zDeviation);
-
-        enemyState = EnemyState.Moving; // Change to Moving Later, or get rid of moving?
-        isAiming = false; // So you can re-enter aiming later if needed
-        EnemyPushing();
-    }
-
-    private void EnemyPushing()
-    {
-        Debug.Log("Enemy is Pushing");
-        enemyRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
-        isMoving = true; isPushed = true;
-        _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
-        EnemyTurnEnds();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-        if (collision.gameObject.CompareTag("Enemy") && !enemyTurn)
+        private void EnemyPushing()
         {
-            isMoving = true; isPushed = true; Debug.Log("Enemy Pushed By an Enemy");
+            Debug.Log("Enemy is Pushing");
+            enemyRb.AddForce(moveIndicator.transform.forward * speed * forwardInput);
+            isMoving = true; isPushed = true;
+            _BS.GetComponent<BattleSystem>().UnitSubmitsPush(gameObject);
+            EnemyTurnEnds();
         }
 
-        if (collision.gameObject.CompareTag("Player") && !enemyTurn)
+        private void OnCollisionEnter(Collision collision)
         {
-            isMoving = true; isPushed = true; Debug.Log("Enemy Pushed By Player");
-        }
-    }
 
-    private void EnemyTurnEnds()
-    {
-        moveArrow.SetActive(false);
-        enemyTurn = false;
-        enemyState = EnemyState.Waiting;
+            if (collision.gameObject.CompareTag("Enemy") && !enemyTurn)
+            {
+                isMoving = true; isPushed = true; Debug.Log("Enemy Pushed By an Enemy");
+            }
+
+            if (collision.gameObject.CompareTag("Player") && !enemyTurn)
+            {
+                isMoving = true; isPushed = true; Debug.Log("Enemy Pushed By Player");
+            }
+        }
+
+        private void EnemyTurnEnds()
+        {
+            moveArrow.SetActive(false);
+            enemyTurn = false;
+            enemyState = EnemyState.Waiting;
+        }
     }
 }
