@@ -15,5 +15,4 @@ MonoBehaviour:
   playerBeat: 1
   speedUpBPM: 0
   speedDownBPM: 0
-  beatID: 1
-  song: 0
+  beatID: 0
