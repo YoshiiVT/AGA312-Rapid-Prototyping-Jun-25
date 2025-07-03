@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Beat", menuName = "Beats", order = 1)]
@@ -15,3 +14,4 @@ public enum BeatID
 {
     PlayerBeat, PlayerSpeedUp, PlayerSpeedDown, StandardBeat, SpeedUpBeat, SpeedDownBeat
 }
+

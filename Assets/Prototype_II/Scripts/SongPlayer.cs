@@ -2,18 +2,35 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 namespace PROTOTYPE_2
 {
     public class SongPlayer : GameBehaviour  
     {
+        [Header("Song Loaders")]
         [SerializeField] private SongData songData;
         [SerializeField] private List<BeatID> beatList;
         [SerializeField] private int startingBPM;
         [SerializeField] private SongID songID;
 
+        [Header("BeatReferences")]
+        [SerializeField] private List<BeatData> playableBeats;
+        [SerializeField] private GameObject beatPrefab;
+
+        [Header("Timing")]
         [SerializeField, ReadOnly] private int BPM; //Beats per Minute
         [SerializeField, ReadOnly] private int BPS; //Beats per Second
+        [SerializeField, ReadOnly] private int currentBeat = 0;
+
+        [Header("DEV Controls")]
+        [SerializeField] private bool isManual;
+        [SerializeField, ReadOnly] private bool isLastNote;
+
+        [Header("PlayArea")]
+        [SerializeField] private Column startColumn;
+        [SerializeField] private Canvas noteArea;
+
 
         public void Initialize(SongData _songData)
         {
@@ -27,23 +44,95 @@ namespace PROTOTYPE_2
 
         public void Update()
         {
+            if (isManual)
+            {
+                //if (Input.GetKeyDown(KeyCode.Q)) { ManualMoveNote(); /*Debug.Log("Moving Notes");*/ }
+                if (Input.GetKeyDown(KeyCode.Alpha0)) { ManualSpawnNote(0); /*Debug.Log("Spawning Note");*/}
+                if (Input.GetKeyDown(KeyCode.Alpha1)) { ManualSpawnNote(1); /*Debug.Log("Spawning Note");*/}
+                if (Input.GetKeyDown(KeyCode.Alpha2)) { ManualSpawnNote(2); /*Debug.Log("Spawning Note");*/}
+                if (Input.GetKeyDown(KeyCode.Alpha3)) { ManualSpawnNote(3); /*Debug.Log("Spawning Note");*/}
+                if (Input.GetKeyDown(KeyCode.Alpha4)) { ManualSpawnNote(4); /*Debug.Log("Spawning Note");*/}
+                if (Input.GetKeyDown(KeyCode.Alpha5)) { ManualSpawnNote(5); /*Debug.Log("Spawning Note");*/}
+            }
+
             BPS = BPM / 60; //This convers BPM to seconds, and will continue to update if the beat quickens or slows
+        }
+
+        private void SpawnNote(BeatData _beatData)
+        {
+            GameObject nextBeat = Instantiate(beatPrefab, startColumn.transform.position, Quaternion.identity);
+            nextBeat.GetComponent<Beat>().Initialize(_beatData, currentBeat);
+            nextBeat.GetComponent<BeatBehaviour>().Initialize(startColumn);
         }
 
         private IEnumerator BeatPlayer()
         {
-            for (int i = 0; i < BPS; i++)
-            {
-                //This should should run as many beats there are in a second (So 2BPS, so this loop will run 2 times a second.
-                //This is where the note moving script will go.
+            //This Logic goes through the beat list, spawning/initializing the next beat in line.
+            BeatData beatToGet = BeatIDToData(GetNextBeat());
+            SpawnNote(beatToGet);
 
-                //This could also have the logic that goes through the beat list, and can tell if the song ended.
-            }
-            yield return new WaitForSeconds(1);
-            StartCoroutine(BeatPlayer());
+            float SPB = BPS / 1; //Converts BeatsPerSecond into SecondsPerBeat
+            yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
+            //I.e if there are 2BPS this script will run twice
+
+            //This is where the note moving script will go.
+
+            if (!isManual || !isLastNote) { StartCoroutine(BeatPlayer()); } //This loops the script over again if it isnt manual or last note 
+            //End song script here
         }
 
-        //Add logic to play the stored beats in the beatList.
+        
+        private BeatID GetNextBeat()
+        {
+            if(currentBeat + 1 > beatList.Count) { isLastNote = true; } //This will run EXACTLY on the last note, not after
+            return beatList[currentBeat];
+        }
+
+        private BeatData BeatIDToData(BeatID _BeatID)
+        {
+            switch (_BeatID) //PlayerBeat = 0, PlayerSpeedUp = 1, PlayerSpeedDown = 2, StandardBeat = 3, SpeedUpBeat = 4, SpeedDownBeat = 5
+            {
+                case BeatID.PlayerBeat:
+                    return playableBeats[0];
+                case BeatID.PlayerSpeedUp:
+                    return playableBeats[1];
+                case BeatID.PlayerSpeedDown:
+                    return playableBeats[2];
+                case BeatID.StandardBeat:
+                    return playableBeats[3];
+                case BeatID.SpeedUpBeat:
+                    return playableBeats[4];
+                case BeatID.SpeedDownBeat:
+                    return playableBeats[5];
+                default : return null;
+            }
+        }
+
+        private void ManualSpawnNote(int i)
+        {
+            switch (i) 
+            {
+                case 0:
+                    SpawnNote(playableBeats[0]);
+                    break;
+                case 1:
+                    SpawnNote(playableBeats[0]);
+                    break;
+                case 2:
+                    SpawnNote(playableBeats[0]);
+                    break;
+                case 3:
+                    SpawnNote(playableBeats[0]);
+                    break;
+                case 4:
+                    SpawnNote(playableBeats[0]);
+                    break;
+                case 5:
+                    SpawnNote(playableBeats[0]);
+                    break;
+
+            }
+        }
     }
 }
 

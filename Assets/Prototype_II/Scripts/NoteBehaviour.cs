@@ -28,15 +28,6 @@ namespace PROTOTYPE_2
             beatTempo = beatTempo / 60f;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (isManual)
-            {
-                if (Input.GetKeyDown(KeyCode.Q)) { TempMoveNote(); /*Debug.Log("Moving Notes");*/ }
-                if (Input.GetKeyDown(KeyCode.E)) { SpawnNote(); Debug.Log("Spawning Note"); tempText.text = "Spawning Note"; }
-            }
-        }
 
         private void SpawnNote()
         {
