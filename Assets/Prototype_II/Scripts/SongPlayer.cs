@@ -31,10 +31,17 @@ namespace PROTOTYPE_2
         [SerializeField] private Column startColumn;
         [SerializeField] private Canvas noteArea;
 
+        [Header("GameVariables")]
+        public List<GameObject> beatsInPlay;
 
-        public void Initialize(SongData _songData)
+        //this is temp
+        public void Start()
         {
-            songData = _songData;
+            Initialize();
+        }
+        public void Initialize(/*SongData _songData*/)
+        {
+            //songData = _songData;
             beatList = songData.beatList;
             startingBPM = songData.startingBPM;
             songID = songData.songID;
@@ -61,8 +68,8 @@ namespace PROTOTYPE_2
         private void SpawnNote(BeatData _beatData)
         {
             GameObject nextBeat = Instantiate(beatPrefab, startColumn.transform.position, Quaternion.identity);
-            nextBeat.GetComponent<Beat>().Initialize(_beatData, currentBeat);
-            nextBeat.GetComponent<BeatBehaviour>().Initialize(startColumn);
+            nextBeat.GetComponent<BeatBehaviour>().Initialize(startColumn,_beatData, currentBeat);
+            beatsInPlay.Add(nextBeat);
         }
 
         private IEnumerator BeatPlayer()
@@ -108,6 +115,18 @@ namespace PROTOTYPE_2
             }
         }
 
+        private void TempMoveNote()
+        {
+            Debug.Log("Moving Notes");
+            for (int i = 0; i < beatsInPlay.Count; i++)
+            {
+                Debug.Log("Moving Note " + i);
+                GameObject noteToMove = beatsInPlay[i];
+                noteToMove.GetComponent<BeatBehaviour>().MoveNote(2/*beatTempo * Time.deltaTime*/);
+            }
+        }
+
+
         private void ManualSpawnNote(int i)
         {
             switch (i) 
@@ -116,19 +135,19 @@ namespace PROTOTYPE_2
                     SpawnNote(playableBeats[0]);
                     break;
                 case 1:
-                    SpawnNote(playableBeats[0]);
+                    SpawnNote(playableBeats[1]);
                     break;
                 case 2:
-                    SpawnNote(playableBeats[0]);
+                    SpawnNote(playableBeats[2]);
                     break;
                 case 3:
-                    SpawnNote(playableBeats[0]);
+                    SpawnNote(playableBeats[3]);
                     break;
                 case 4:
-                    SpawnNote(playableBeats[0]);
+                    SpawnNote(playableBeats[4]);
                     break;
                 case 5:
-                    SpawnNote(playableBeats[0]);
+                    SpawnNote(playableBeats[5]);
                     break;
 
             }
