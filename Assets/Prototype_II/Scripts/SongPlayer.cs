@@ -53,7 +53,7 @@ namespace PROTOTYPE_2
         {
             if (isManual)
             {
-                //if (Input.GetKeyDown(KeyCode.Q)) { ManualMoveNote(); /*Debug.Log("Moving Notes");*/ }
+                if (Input.GetKeyDown(KeyCode.Q)) { ManualMoveNote(); /*Debug.Log("Moving Notes");*/ }
                 if (Input.GetKeyDown(KeyCode.Alpha0)) { ManualSpawnNote(0); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha1)) { ManualSpawnNote(1); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha2)) { ManualSpawnNote(2); /*Debug.Log("Spawning Note");*/}
@@ -68,6 +68,7 @@ namespace PROTOTYPE_2
         private void SpawnNote(BeatData _beatData)
         {
             GameObject nextBeat = Instantiate(beatPrefab, startColumn.transform.position, Quaternion.identity);
+            nextBeat.transform.SetParent(noteArea.transform);
             nextBeat.GetComponent<BeatBehaviour>().Initialize(startColumn,_beatData, currentBeat);
             beatsInPlay.Add(nextBeat);
         }
@@ -122,7 +123,7 @@ namespace PROTOTYPE_2
             {
                 Debug.Log("Moving Note " + i);
                 GameObject noteToMove = beatsInPlay[i];
-                noteToMove.GetComponent<BeatBehaviour>().MoveNote(2/*beatTempo * Time.deltaTime*/);
+                noteToMove.GetComponent<BeatBehaviour>().MoveNote(BPS);
             }
         }
 
@@ -151,6 +152,11 @@ namespace PROTOTYPE_2
                     break;
 
             }
+        }
+
+        private void ManualMoveNote()
+        {
+            TempMoveNote();
         }
     }
 }

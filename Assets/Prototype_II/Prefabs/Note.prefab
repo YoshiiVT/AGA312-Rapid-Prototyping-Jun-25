@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.6631136, y: 6.6631136, z: 6.6631136}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6384585356774996345}
@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0810a9e2fa5ce45925b6853da719b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBeat: 0
+  speedUpBPM: 0
+  speedDownBPM: 0
+  beatOrder: 0
+  beatBehaviour: {fileID: 0}
   currentColumn: {fileID: 0}
   endColumn: {fileID: 0}
   moveEase: 0
@@ -84,7 +89,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 714}
+  m_SizeDelta: {x: 75, y: 714}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9070550025597712033
 CanvasRenderer:
