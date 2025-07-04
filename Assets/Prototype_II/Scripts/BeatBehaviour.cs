@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PROTOTYPE_2
 {
@@ -14,6 +15,7 @@ namespace PROTOTYPE_2
         private BeatData beatData;
         [SerializeField] private BeatBehaviour beatBehaviour;
 
+        [SerializeField] private Image panel;
 
         [Header("Coloum References")]
         [SerializeField, ReadOnly] private Column currentColumn;
@@ -35,6 +37,8 @@ namespace PROTOTYPE_2
             speedUpBPM = _beatData.speedUpBPM;
             speedDownBPM = _beatData.speedDownBPM;
             beatOrder = _beatOrder;
+
+            panel.color = _beatData.colour;
         }
 
         public void MoveNote(float _BPM)

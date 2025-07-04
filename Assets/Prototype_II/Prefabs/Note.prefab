@@ -50,6 +50,7 @@ MonoBehaviour:
   speedDownBPM: 0
   beatOrder: 0
   beatBehaviour: {fileID: 0}
+  panel: {fileID: 5578775626964308485}
   currentColumn: {fileID: 0}
   endColumn: {fileID: 0}
   moveEase: 0

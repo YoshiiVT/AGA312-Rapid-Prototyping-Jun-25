@@ -53,7 +53,7 @@ namespace PROTOTYPE_2
         {
             if (isManual)
             {
-                if (Input.GetKeyDown(KeyCode.Q)) { ManualMoveNote(); /*Debug.Log("Moving Notes");*/ }
+                if (Input.GetKeyDown(KeyCode.Q)) { MoveNote(); /*Debug.Log("Moving Notes");*/ }
                 if (Input.GetKeyDown(KeyCode.Alpha0)) { ManualSpawnNote(0); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha1)) { ManualSpawnNote(1); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha2)) { ManualSpawnNote(2); /*Debug.Log("Spawning Note");*/}
@@ -61,6 +61,7 @@ namespace PROTOTYPE_2
                 if (Input.GetKeyDown(KeyCode.Alpha4)) { ManualSpawnNote(4); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha5)) { ManualSpawnNote(5); /*Debug.Log("Spawning Note");*/}
             }
+            if (!isManual) { if (Input.GetKeyDown(KeyCode.Q)) { StartCoroutine(BeatPlayer()); } }  
 
             BPS = BPM / 60; //This convers BPM to seconds, and will continue to update if the beat quickens or slows
         }
@@ -83,6 +84,7 @@ namespace PROTOTYPE_2
             yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
+            MoveNote();
             //This is where the note moving script will go.
 
             if (!isManual || !isLastNote) { StartCoroutine(BeatPlayer()); } //This loops the script over again if it isnt manual or last note 
@@ -116,7 +118,7 @@ namespace PROTOTYPE_2
             }
         }
 
-        private void TempMoveNote()
+        private void MoveNote()
         {
             Debug.Log("Moving Notes");
             for (int i = 0; i < beatsInPlay.Count; i++)
@@ -152,11 +154,6 @@ namespace PROTOTYPE_2
                     break;
 
             }
-        }
-
-        private void ManualMoveNote()
-        {
-            TempMoveNote();
         }
     }
 }
