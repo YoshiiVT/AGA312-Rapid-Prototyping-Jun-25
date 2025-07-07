@@ -21,6 +21,7 @@ namespace PROTOTYPE_2
         [Header("Timing")]
         [SerializeField, ReadOnly] private int BPM; //Beats per Minute
         [SerializeField, ReadOnly] private int BPS; //Beats per Second
+        [SerializeField, ReadOnly] private float SPB; //Seconds per Beat
         [SerializeField, ReadOnly] private int currentBeat = 0;
 
         [Header("DEV Controls")]
@@ -53,7 +54,7 @@ namespace PROTOTYPE_2
         {
             if (isManual)
             {
-                if (Input.GetKeyDown(KeyCode.Q)) { MoveNote(); /*Debug.Log("Moving Notes");*/ }
+                if (Input.GetKeyDown(KeyCode.Q)) { MoveNotes(); /*Debug.Log("Moving Notes");*/ }
                 if (Input.GetKeyDown(KeyCode.Alpha0)) { ManualSpawnNote(0); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha1)) { ManualSpawnNote(1); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha2)) { ManualSpawnNote(2); /*Debug.Log("Spawning Note");*/}
@@ -84,21 +85,25 @@ namespace PROTOTYPE_2
 
             currentBeat++;
 
-            float SPB = BPS / 1; //Converts BeatsPerSecond into SecondsPerBeat
+            SPB = BPS / 1; //Converts BeatsPerSecond into SecondsPerBeat
             yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
-            MoveNote();
+            MoveNotes();
             //This is where the note moving script will go.
 
             if (!isManual)
             {
                 if (!isLastNote)
-                { 
+                {
                     StartCoroutine(BeatPlayer()); //This loops the script over again if it isnt manual or last note 
-                } 
+                    yield return null;
+                }
+                else
+                {
+                    StartCoroutine(MoveEndNotes());
+                }
             }
-            //End song script here
         }
 
         
@@ -129,7 +134,7 @@ namespace PROTOTYPE_2
             }
         }
 
-        private void MoveNote()
+        private void MoveNotes()
         {
             Debug.Log("Moving Notes");
             for (int i = 0; i < beatsInPlay.Count; i++)
@@ -166,6 +171,15 @@ namespace PROTOTYPE_2
 
             }
         }
+
+        private IEnumerator MoveEndNotes()
+        {
+            MoveNotes();
+            yield return new WaitForSeconds(SPB);
+            if (beatsInPlay.Count >= 0) StartCoroutine(MoveEndNotes());
+
+        }
+
     }
 }
 
