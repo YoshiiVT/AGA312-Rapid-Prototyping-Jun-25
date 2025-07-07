@@ -16,4 +16,4 @@ MonoBehaviour:
   speedUpBPM: 0
   speedDownBPM: 1
   beatID: 2
-  colour: {r: 0, g: 1, b: 0.6782589, a: 0}
+  colour: {r: 0, g: 1, b: 0.6782589, a: 1}

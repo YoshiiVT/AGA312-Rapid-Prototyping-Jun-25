@@ -76,9 +76,13 @@ namespace PROTOTYPE_2
 
         private IEnumerator BeatPlayer()
         {
+            Debug.LogWarning("Playing Beat" + GetNextBeat());
             //This Logic goes through the beat list, spawning/initializing the next beat in line.
             BeatData beatToGet = BeatIDToData(GetNextBeat());
+            
             SpawnNote(beatToGet);
+
+            currentBeat++;
 
             float SPB = BPS / 1; //Converts BeatsPerSecond into SecondsPerBeat
             yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
@@ -87,14 +91,20 @@ namespace PROTOTYPE_2
             MoveNote();
             //This is where the note moving script will go.
 
-            if (!isManual || !isLastNote) { StartCoroutine(BeatPlayer()); } //This loops the script over again if it isnt manual or last note 
+            if (!isManual)
+            {
+                if (!isLastNote)
+                { 
+                    StartCoroutine(BeatPlayer()); //This loops the script over again if it isnt manual or last note 
+                } 
+            }
             //End song script here
         }
 
         
         private BeatID GetNextBeat()
         {
-            if(currentBeat + 1 > beatList.Count) { isLastNote = true; } //This will run EXACTLY on the last note, not after
+            if(currentBeat + 1 == beatList.Count) { isLastNote = true; } //This will run EXACTLY on the last note, not after
             return beatList[currentBeat];
         }
 
