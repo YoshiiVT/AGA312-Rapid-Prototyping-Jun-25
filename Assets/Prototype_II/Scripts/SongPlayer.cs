@@ -57,7 +57,7 @@ namespace PROTOTYPE_2
         {
             if (isManual)
             {
-                if (Input.GetKeyDown(KeyCode.Q)) { MoveNotes(); /*Debug.Log("Moving Notes");*/ }
+                if (Input.GetKeyDown(KeyCode.Q)) { StartCoroutine(BeatPlayer()); /*Debug.Log("Moving Notes");*/ }
                 if (Input.GetKeyDown(KeyCode.Alpha0)) { ManualSpawnNote(0); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha1)) { ManualSpawnNote(1); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha2)) { ManualSpawnNote(2); /*Debug.Log("Spawning Note");*/}
@@ -92,10 +92,10 @@ namespace PROTOTYPE_2
             yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(5); }
+
             MoveNotes();
             //This is where the note moving script will go.
-
-            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(5); }
 
             if (!isManual)
             {

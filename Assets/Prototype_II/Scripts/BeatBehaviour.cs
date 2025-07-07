@@ -48,7 +48,7 @@ namespace PROTOTYPE_2
         public void MoveNote(float _BPM)
         {
             if (isDead) return;
-            Column nextColumn = currentColumn.GetNextColumn(); Debug.Log("Found Next Coloumn: " + nextColumn);
+            Column nextColumn = currentColumn.GetNextColumn(); //Debug.Log("Found Next Coloumn: " + nextColumn);
             if (nextColumn.IsStart() == true) { transform.position = nextColumn.transform.position; }
             else { transform.DOMoveX(nextColumn.transform.position.x, _BPM); }
             currentColumn = nextColumn;
@@ -64,7 +64,8 @@ namespace PROTOTYPE_2
 
         public bool IsPlayerBeat()
         {
-            if (playerBeat) return true;
+            Debug.Log("Checking if beat is playable");
+            if (playerBeat == true) return true;
             else return false;
         }
     }

@@ -66,7 +66,7 @@ namespace PROTOTYPE_2
 
         public bool CentreNotePlayer()
         {
-            Debug.LogWarning("Checking Centre");
+            Debug.Log("Checking Centre");
             
             pointerEventData = new PointerEventData(eventSystem)
             {
@@ -81,13 +81,18 @@ namespace PROTOTYPE_2
                 GameObject hitObj = result.gameObject;
                 Debug.Log("Checking " + hitObj);
 
-                BeatBehaviour beat = hitObj.GetComponent<BeatBehaviour>();
-                if (beat != null && beat.IsPlayerBeat())
+                BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
+                if (beat != null) 
                 {
-                    Debug.Log("Is player note");
-                    return true; 
+                    if (beat.IsPlayerBeat()) 
+                    {
+                        Debug.LogWarning("Is player note");
+                        return true;
+                    }
+                    else { Debug.Log("Was not playable note"); return false; }
                 }
-                else { Debug.Log("Was not playable note"); return false; }
+                Debug.LogError("Note component returned null");
+                
             }
             Debug.Log("No notes detected");
             return false;
