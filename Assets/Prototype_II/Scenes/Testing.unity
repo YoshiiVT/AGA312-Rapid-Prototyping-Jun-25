@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 559016215}
   - component: {fileID: 559016214}
   m_Layer: 0
-  m_Name: PlayerInput
+  m_Name: PlayerBeats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1141,12 +1141,14 @@ MonoBehaviour:
   beatPrefab: {fileID: 3509219865146633426, guid: 3eff5ac1b3a6ab148aac495c5d67ff20, type: 3}
   BPM: 0
   BPS: 0
+  SPB: 0
   currentBeat: 0
   isManual: 0
   isLastNote: 0
   startColumn: {fileID: 326803793}
   noteArea: {fileID: 2143546708}
   beatsInPlay: []
+  playerNoteReader: {fileID: 559016213}
 --- !u!4 &1840196457
 Transform:
   m_ObjectHideFlags: 0

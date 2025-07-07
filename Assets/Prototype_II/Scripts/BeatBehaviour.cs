@@ -1,4 +1,6 @@
 using DG.Tweening;
+using System.Collections;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +18,8 @@ namespace PROTOTYPE_2
         [SerializeField] private BeatBehaviour beatBehaviour;
 
         [SerializeField] private Image panel;
+
+        [SerializeField, ReadOnly] bool isDead = false;
 
         [Header("Coloum References")]
         [SerializeField, ReadOnly] private Column currentColumn;
@@ -43,11 +47,25 @@ namespace PROTOTYPE_2
 
         public void MoveNote(float _BPM)
         {
+            if (isDead) return;
             Column nextColumn = currentColumn.GetNextColumn(); Debug.Log("Found Next Coloumn: " + nextColumn);
             if (nextColumn.IsStart() == true) { transform.position = nextColumn.transform.position; }
             else { transform.DOMoveX(nextColumn.transform.position.x, _BPM); }
             currentColumn = nextColumn;
-            if (currentColumn.IsEnd() == true) { tempManager.beatsInPlay.Remove(gameObject); Destroy(gameObject); } //Put failed logic here...
+            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath()); } //Put failed logic here...
+        }
+
+        private IEnumerator NoteDeath()
+        {
+
+            yield return new WaitForSeconds(1);
+            tempManager.beatsInPlay.Remove(gameObject); Destroy(gameObject);
+        }
+
+        public bool IsPlayerBeat()
+        {
+            if (playerBeat) return true;
+            else return false;
         }
     }
 }

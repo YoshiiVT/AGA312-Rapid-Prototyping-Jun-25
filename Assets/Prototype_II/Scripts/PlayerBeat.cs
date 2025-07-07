@@ -20,8 +20,6 @@ namespace PROTOTYPE_2
                 Debug.LogError("GraphicRaycaster not found! Make sure your Canvas has one.");
             if (eventSystem == null)
                 Debug.LogError("EventSystem not found! Add one to your scene.");
-
-            //Im not good at raycasting.... Thanks ChatGPT
         }
 
         void Update()
@@ -34,7 +32,6 @@ namespace PROTOTYPE_2
 
         void CheckColorAtCenter()
         {
-            // Create pointer data for the center of the screen
             pointerEventData = new PointerEventData(eventSystem)
             {
                 position = new Vector2(Screen.width / 2, Screen.height / 2)
@@ -45,7 +42,6 @@ namespace PROTOTYPE_2
 
             foreach (RaycastResult result in results)
             {
-                // Check tag or attached script to identify panel color
                 GameObject hitObj = result.gameObject;
 
                 switch (hitObj.tag)
@@ -66,6 +62,35 @@ namespace PROTOTYPE_2
             }
 
             Debug.Log("No UI panel at center.");
+        }
+
+        public bool CentreNotePlayer()
+        {
+            Debug.LogWarning("Checking Centre");
+            
+            pointerEventData = new PointerEventData(eventSystem)
+            {
+                position = new Vector2(Screen.width / 2, Screen.height / 2)
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            raycaster.Raycast(pointerEventData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                GameObject hitObj = result.gameObject;
+                Debug.Log("Checking " + hitObj);
+
+                BeatBehaviour beat = hitObj.GetComponent<BeatBehaviour>();
+                if (beat != null && beat.IsPlayerBeat())
+                {
+                    Debug.Log("Is player note");
+                    return true; 
+                }
+                else { Debug.Log("Was not playable note"); return false; }
+            }
+            Debug.Log("No notes detected");
+            return false;
         }
     }
 }

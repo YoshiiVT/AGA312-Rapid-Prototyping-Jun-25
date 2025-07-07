@@ -35,6 +35,9 @@ namespace PROTOTYPE_2
         [Header("GameVariables")]
         public List<GameObject> beatsInPlay;
 
+        [Header("PlayerNoteReader")]
+        [SerializeField] private GameObject playerNoteReader;
+
         //this is temp
         public void Start()
         {
@@ -69,7 +72,7 @@ namespace PROTOTYPE_2
 
         private void SpawnNote(BeatData _beatData)
         {
-            Debug.LogWarning("Spawning in " +  _beatData);
+            //Debug.LogWarning("Spawning in " +  _beatData);
             GameObject nextBeat = Instantiate(beatPrefab, startColumn.transform.position, Quaternion.identity);
             nextBeat.transform.SetParent(noteArea.transform);
             nextBeat.GetComponent<BeatBehaviour>().Initialize(startColumn,_beatData, currentBeat);
@@ -92,6 +95,8 @@ namespace PROTOTYPE_2
             MoveNotes();
             //This is where the note moving script will go.
 
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(5); }
+
             if (!isManual)
             {
                 if (!isLastNote)
@@ -110,7 +115,7 @@ namespace PROTOTYPE_2
         private BeatID GetNextBeat()
         {
             if(currentBeat + 1 == beatList.Count) { isLastNote = true; } //This will run EXACTLY on the last note, not after
-            Debug.LogWarning("Playing Beat " + beatList[currentBeat]);
+            //Debug.LogWarning("Playing Beat " + beatList[currentBeat]);
             return beatList[currentBeat];
         }
 
@@ -136,10 +141,10 @@ namespace PROTOTYPE_2
 
         private void MoveNotes()
         {
-            Debug.Log("Moving Notes");
+            //Debug.Log("Moving Notes");
             for (int i = 0; i < beatsInPlay.Count; i++)
             {
-                Debug.Log("Moving Note " + i);
+                //Debug.Log("Moving Note " + i);
                 GameObject noteToMove = beatsInPlay[i];
                 noteToMove.GetComponent<BeatBehaviour>().MoveNote(BPS);
             }
@@ -176,6 +181,7 @@ namespace PROTOTYPE_2
         {
             MoveNotes();
             yield return new WaitForSeconds(SPB);
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(5); }
             if (beatsInPlay.Count >= 0) StartCoroutine(MoveEndNotes());
 
         }
