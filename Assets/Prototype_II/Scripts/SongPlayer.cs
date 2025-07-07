@@ -6,7 +6,7 @@ using TMPro;
 
 namespace PROTOTYPE_2
 {
-    public class SongPlayer : GameBehaviour  
+    public class SongPlayer : GameBehaviour<SongPlayer>  
     {
         [Header("Song Loaders")]
         [SerializeField] private SongData songData;
@@ -92,7 +92,7 @@ namespace PROTOTYPE_2
             yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
-            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(5); }
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(SPB * 1.5f); }
 
             MoveNotes();
             //This is where the note moving script will go.
@@ -181,9 +181,24 @@ namespace PROTOTYPE_2
         {
             MoveNotes();
             yield return new WaitForSeconds(SPB);
-            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(5); }
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(SPB * 1.5f); }
             if (beatsInPlay.Count >= 0) StartCoroutine(MoveEndNotes());
+        }
 
+        public void DestroyNote(int _beatToDestroy)
+        {
+            for (int i = beatsInPlay.Count - 1; i >= 0; i--)
+            {
+                GameObject beatObj = beatsInPlay[i];
+                BeatBehaviour beat = beatObj.GetComponent<BeatBehaviour>();
+
+                if (beat != null && beat.GetBeatOrder() == _beatToDestroy)
+                {
+                    beatsInPlay.RemoveAt(i);
+                    Destroy(beatObj);
+                    Debug.Log($"Destroyed beat with order {_beatToDestroy}");
+                }
+            }
         }
 
     }

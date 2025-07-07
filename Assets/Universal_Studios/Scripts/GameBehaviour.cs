@@ -1,3 +1,4 @@
+using PROTOTYPE_2;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
-    //protected static GameManager _GM { get { return GameManager.instance; } }
+    //protected static SongPlayer _SP { get { return SongPlayer.instance; } }
 
     #region Coroutine Helpers
 

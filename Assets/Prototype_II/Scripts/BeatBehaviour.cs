@@ -68,5 +68,10 @@ namespace PROTOTYPE_2
             if (playerBeat == true) return true;
             else return false;
         }
+
+        public int GetBeatOrder()
+        {
+            return beatOrder;
+        }
     }
 }

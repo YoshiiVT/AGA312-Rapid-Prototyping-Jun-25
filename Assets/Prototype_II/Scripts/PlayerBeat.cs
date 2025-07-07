@@ -10,6 +10,8 @@ namespace PROTOTYPE_2
         [SerializeField] private GraphicRaycaster raycaster;
         [SerializeField, ReadOnly] private PointerEventData pointerEventData;
         [SerializeField] private EventSystem eventSystem;
+        [SerializeField] private SongPlayer _SP;
+        [SerializeField, ReadOnly] private bool canHit;
 
         void Start()
         {
@@ -26,7 +28,7 @@ namespace PROTOTYPE_2
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                CheckColorAtCenter();
+                HitNote();
             }
         }
 
@@ -64,10 +66,10 @@ namespace PROTOTYPE_2
             Debug.Log("No UI panel at center.");
         }
 
-        public bool CentreNotePlayer()
+        private void HitNote()
         {
-            Debug.Log("Checking Centre");
-            
+            Debug.Log("Hitting Centre");
+
             pointerEventData = new PointerEventData(eventSystem)
             {
                 position = new Vector2(Screen.width / 2, Screen.height / 2)
@@ -82,19 +84,52 @@ namespace PROTOTYPE_2
                 Debug.Log("Checking " + hitObj);
 
                 BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
+                if (beat != null)
+                {
+                    if (beat.IsPlayerBeat())
+                    {
+                        Debug.LogWarning("Has Hit player note");
+                        _SP.DestroyNote(beat.GetBeatOrder());
+                        return;
+                    }
+                    else { Debug.Log("Hit was not playable note"); return; }
+                }
+                Debug.LogError("Note component returned null"); return;
+            }
+            Debug.Log("No notes detected");
+        }
+
+        public bool CentreNotePlayer()
+        {
+            //Debug.Log("Checking Centre");
+            
+            pointerEventData = new PointerEventData(eventSystem)
+            {
+                position = new Vector2(Screen.width / 2, Screen.height / 2)
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            raycaster.Raycast(pointerEventData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                GameObject hitObj = result.gameObject;
+                //Debug.Log("Checking " + hitObj);
+
+                BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
                 if (beat != null) 
                 {
                     if (beat.IsPlayerBeat()) 
                     {
-                        Debug.LogWarning("Is player note");
+                        //Debug.LogWarning("Is player note");
                         return true;
                     }
-                    else { Debug.Log("Was not playable note"); return false; }
+                    else { /*Debug.Log("Was not playable note"); */ return false; }
                 }
-                Debug.LogError("Note component returned null");
+                //Debug.LogError("Note component returned null");
                 
             }
-            Debug.Log("No notes detected");
+            //Debug.Log("No notes detected");
             return false;
         }
     }
