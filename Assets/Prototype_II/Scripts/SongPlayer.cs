@@ -31,6 +31,7 @@ namespace PROTOTYPE_2
         [Header("PlayArea")]
         [SerializeField] private Column startColumn;
         [SerializeField] private Canvas noteArea;
+        [SerializeField] private GameObject noteContainer;
 
         [Header("GameVariables")]
         public List<GameObject> beatsInPlay;
@@ -74,7 +75,7 @@ namespace PROTOTYPE_2
         {
             //Debug.LogWarning("Spawning in " +  _beatData);
             GameObject nextBeat = Instantiate(beatPrefab, startColumn.transform.position, Quaternion.identity);
-            nextBeat.transform.SetParent(noteArea.transform);
+            nextBeat.transform.SetParent(noteContainer.transform);
             nextBeat.GetComponent<BeatBehaviour>().Initialize(startColumn,_beatData, currentBeat);
             beatsInPlay.Add(nextBeat);
         }
@@ -92,7 +93,13 @@ namespace PROTOTYPE_2
             yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
-            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(SPB * 1.5f); }
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer())
+            {
+                Debug.LogWarning("Player Note in centre, waiting....");
+                playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
+                yield return new WaitForSeconds(SPB * 1.5f);
+                playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
+            }
 
             MoveNotes();
             //This is where the note moving script will go.
@@ -181,7 +188,13 @@ namespace PROTOTYPE_2
         {
             MoveNotes();
             yield return new WaitForSeconds(SPB);
-            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer()) { Debug.LogWarning("Player Note in centre, waiting...."); yield return new WaitForSeconds(SPB * 1.5f); }
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer())
+            {
+                Debug.LogWarning("Player Note in centre, waiting....");
+                playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
+                yield return new WaitForSeconds(SPB * 1.5f);
+                playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
+            }
             if (beatsInPlay.Count >= 0) StartCoroutine(MoveEndNotes());
         }
 

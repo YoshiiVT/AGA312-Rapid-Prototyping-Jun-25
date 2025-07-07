@@ -11,7 +11,9 @@ namespace PROTOTYPE_2
         [SerializeField, ReadOnly] private PointerEventData pointerEventData;
         [SerializeField] private EventSystem eventSystem;
         [SerializeField] private SongPlayer _SP;
-        [SerializeField, ReadOnly] private bool canHit;
+
+        [SerializeField, ReadOnly] private bool canHit = false;
+        [SerializeField] private Image buttonImage;
 
         void Start()
         {
@@ -26,10 +28,15 @@ namespace PROTOTYPE_2
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (canHit)
             {
-                HitNote();
+                buttonImage.color = Color.white;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    HitNote();
+                }
             }
+            else { buttonImage.color = Color.gray; }
         }
 
         void CheckColorAtCenter()
@@ -131,6 +138,10 @@ namespace PROTOTYPE_2
             }
             //Debug.Log("No notes detected");
             return false;
+        }
+        public void ButtonToggle()
+        {
+            canHit = !canHit;
         }
     }
 }
