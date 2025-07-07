@@ -68,6 +68,7 @@ namespace PROTOTYPE_2
 
         private void SpawnNote(BeatData _beatData)
         {
+            Debug.LogWarning("Spawning in " +  _beatData);
             GameObject nextBeat = Instantiate(beatPrefab, startColumn.transform.position, Quaternion.identity);
             nextBeat.transform.SetParent(noteArea.transform);
             nextBeat.GetComponent<BeatBehaviour>().Initialize(startColumn,_beatData, currentBeat);
@@ -76,7 +77,6 @@ namespace PROTOTYPE_2
 
         private IEnumerator BeatPlayer()
         {
-            Debug.LogWarning("Playing Beat" + GetNextBeat());
             //This Logic goes through the beat list, spawning/initializing the next beat in line.
             BeatData beatToGet = BeatIDToData(GetNextBeat());
             
@@ -105,6 +105,7 @@ namespace PROTOTYPE_2
         private BeatID GetNextBeat()
         {
             if(currentBeat + 1 == beatList.Count) { isLastNote = true; } //This will run EXACTLY on the last note, not after
+            Debug.LogWarning("Playing Beat " + beatList[currentBeat]);
             return beatList[currentBeat];
         }
 

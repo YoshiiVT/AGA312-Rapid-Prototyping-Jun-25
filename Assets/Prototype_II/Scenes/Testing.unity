@@ -1133,11 +1133,11 @@ MonoBehaviour:
   songID: 4
   playableBeats:
   - {fileID: 11400000, guid: 7761bc93d622a9a40b229f34e1243d75, type: 2}
-  - {fileID: 11400000, guid: a3e061098932d8447bfc68a276b4395d, type: 2}
   - {fileID: 11400000, guid: 7701f1a2baa0fda4fbcb2604b59cd976, type: 2}
-  - {fileID: 11400000, guid: 4ef3d90d12d8cef4abf16cee2792eea1, type: 2}
-  - {fileID: 11400000, guid: 42f8d2dd72d2dba4e8eccbff7962679b, type: 2}
+  - {fileID: 11400000, guid: a3e061098932d8447bfc68a276b4395d, type: 2}
   - {fileID: 11400000, guid: f1aa22faee6bd1343aa6d305ac085692, type: 2}
+  - {fileID: 11400000, guid: 42f8d2dd72d2dba4e8eccbff7962679b, type: 2}
+  - {fileID: 11400000, guid: 4ef3d90d12d8cef4abf16cee2792eea1, type: 2}
   beatPrefab: {fileID: 3509219865146633426, guid: 3eff5ac1b3a6ab148aac495c5d67ff20, type: 3}
   BPM: 0
   BPS: 0
