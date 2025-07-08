@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,7 +53,7 @@ namespace PROTOTYPE_2
             if (nextColumn.IsStart() == true) { transform.position = nextColumn.transform.position; }
             else { transform.DOMoveX(nextColumn.transform.position.x, _BPM); }
             currentColumn = nextColumn;
-            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath(_BPM)); tempGameManager.NoteMissed(); } //Put failed logic here...
+            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath(_BPM)); if (playerBeat) { tempGameManager.NoteMissed(); } }
         }
 
         private IEnumerator NoteDeath(float _BPM)

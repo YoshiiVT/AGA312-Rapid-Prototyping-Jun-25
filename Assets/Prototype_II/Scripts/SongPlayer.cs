@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.UI;
-using TMPro;
 
 namespace PROTOTYPE_2
 {
