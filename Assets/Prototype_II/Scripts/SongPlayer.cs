@@ -30,6 +30,7 @@ namespace PROTOTYPE_2
         [SerializeField] private Column startColumn;
         [SerializeField] private Canvas noteArea;
         [SerializeField] private GameObject noteContainer;
+        [SerializeField] private Arrow arrow;
 
         [Header("GameVariables")]
         public List<GameObject> beatsInPlay;
@@ -85,15 +86,16 @@ namespace PROTOTYPE_2
         {
             MoveNotes();
             //This is where the note moving script will go.
+            if (playerNoteReader.GetComponent<PlayerBeat>().IsNoteInCentre())
+            { arrow.HitNote(SPB / 4); }
 
-            yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
-            //I.e if there are 2BPS this script will run twice
+            yield return new WaitForSeconds(SPB);
 
             if (playerNoteReader.GetComponent<PlayerBeat>().CentreNote())
             {
                 Debug.LogWarning("Player Note in centre, waiting....");
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
-                yield return new WaitForSeconds(SPB * 1.5f);
+                yield return new WaitForSeconds(SPB / 2);
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
             }
 
@@ -187,14 +189,21 @@ namespace PROTOTYPE_2
         private IEnumerator MoveEndNotes()
         {
             MoveNotes();
+            //This is where the note moving script will go.
+            if (playerNoteReader.GetComponent<PlayerBeat>().IsNoteInCentre())
+            { arrow.HitNote(SPB / 4); }
+
             yield return new WaitForSeconds(SPB);
+
             if (playerNoteReader.GetComponent<PlayerBeat>().CentreNote())
             {
                 Debug.LogWarning("Player Note in centre, waiting....");
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
-                yield return new WaitForSeconds(SPB * 1.5f);
+                yield return new WaitForSeconds(SPB / 2);
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
             }
+
+            currentBeat++;
             if (beatsInPlay.Count >= 0) StartCoroutine(MoveEndNotes());
         }
 

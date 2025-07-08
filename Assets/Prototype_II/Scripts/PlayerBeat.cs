@@ -74,6 +74,32 @@ namespace PROTOTYPE_2
             Debug.Log("No notes detected");
         }
 
+        public bool IsNoteInCentre()
+        {
+
+            pointerEventData = new PointerEventData(eventSystem)
+            {
+                position = new Vector2(Screen.width / 2, Screen.height / 2)
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            raycaster.Raycast(pointerEventData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                GameObject hitObj = result.gameObject;
+
+                BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
+                if (beat != null)
+                {
+                    Debug.Log("Note in Centre");
+                    return true;
+                }
+                Debug.LogError("Object Detected that was not note"); return false; 
+            }
+            Debug.Log("No notes detected"); return false;
+        }
+
         public bool CentreNote()
         {
             //Debug.Log("Checking Centre");
