@@ -39,40 +39,6 @@ namespace PROTOTYPE_2
             else { buttonImage.color = Color.gray; }
         }
 
-        void CheckColorAtCenter()
-        {
-            pointerEventData = new PointerEventData(eventSystem)
-            {
-                position = new Vector2(Screen.width / 2, Screen.height / 2)
-            };
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            raycaster.Raycast(pointerEventData, results);
-
-            foreach (RaycastResult result in results)
-            {
-                GameObject hitObj = result.gameObject;
-
-                switch (hitObj.tag)
-                {
-                    case "Red":
-                        Debug.Log("UI Panel: RED!");
-                        return;
-                    case "Yellow":
-                        Debug.Log("UI Panel: YELLOW!");
-                        return;
-                    case "Green":
-                        Debug.Log("UI Panel: GREEN!");
-                        return;
-                    default:
-                        Debug.Log("UI Panel: Unknown or untagged object.");
-                        return;
-                }
-            }
-
-            Debug.Log("No UI panel at center.");
-        }
-
         private void HitNote()
         {
             Debug.Log("Hitting Centre");
@@ -106,7 +72,7 @@ namespace PROTOTYPE_2
             Debug.Log("No notes detected");
         }
 
-        public bool CentreNotePlayer()
+        public bool CentreNote()
         {
             //Debug.Log("Checking Centre");
             
@@ -126,6 +92,16 @@ namespace PROTOTYPE_2
                 BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
                 if (beat != null) 
                 {
+                    if (beat.IsSpeedUp())
+                    {
+                        Debug.Log("IS Speed up Note");
+                        _SP.IncreaseBPM();
+                    }
+                    if (beat.IsSpeedDown())
+                    {
+                        Debug.Log("IS Down up Note");
+                        _SP.DecreaseBPM();
+                    }
                     if (beat.IsPlayerBeat()) 
                     {
                         //Debug.LogWarning("Is player note");

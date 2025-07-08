@@ -19,8 +19,8 @@ namespace PROTOTYPE_2
         [SerializeField] private GameObject beatPrefab;
 
         [Header("Timing")]
-        [SerializeField, ReadOnly] private int BPM; //Beats per Minute
-        [SerializeField, ReadOnly] private int BPS; //Beats per Second
+        [SerializeField, ReadOnly] private float BPM; //Beats per Minute
+        [SerializeField, ReadOnly] private float BPS; //Beats per Second
         [SerializeField, ReadOnly] private float SPB; //Seconds per Beat
         [SerializeField, ReadOnly] private int currentBeat = 0;
 
@@ -69,6 +69,7 @@ namespace PROTOTYPE_2
             if (!isManual) { if (Input.GetKeyDown(KeyCode.Q)) { StartCoroutine(BeatPlayer()); } }  
 
             BPS = BPM / 60; //This convers BPM to seconds, and will continue to update if the beat quickens or slows
+            SPB = 1 / BPS; //Converts BeatsPerSecond into SecondsPerBeat
         }
 
         private void SpawnNote(BeatData _beatData)
@@ -89,11 +90,10 @@ namespace PROTOTYPE_2
 
             currentBeat++;
 
-            SPB = BPS / 1; //Converts BeatsPerSecond into SecondsPerBeat
             yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
-            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer())
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNote())
             {
                 Debug.LogWarning("Player Note in centre, waiting....");
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
@@ -153,7 +153,7 @@ namespace PROTOTYPE_2
             {
                 //Debug.Log("Moving Note " + i);
                 GameObject noteToMove = beatsInPlay[i];
-                noteToMove.GetComponent<BeatBehaviour>().MoveNote(BPS);
+                noteToMove.GetComponent<BeatBehaviour>().MoveNote(SPB);
             }
         }
 
@@ -188,7 +188,7 @@ namespace PROTOTYPE_2
         {
             MoveNotes();
             yield return new WaitForSeconds(SPB);
-            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNotePlayer())
+            if (playerNoteReader.GetComponent<PlayerBeat>().CentreNote())
             {
                 Debug.LogWarning("Player Note in centre, waiting....");
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
@@ -212,6 +212,16 @@ namespace PROTOTYPE_2
                     Debug.Log($"Destroyed beat with order {_beatToDestroy}");
                 }
             }
+        }
+
+        public void IncreaseBPM()
+        {
+            BPM = BPM * 2;
+        }
+
+        public void DecreaseBPM()
+        {
+            BPM = BPM / 2;
         }
 
     }

@@ -64,8 +64,22 @@ namespace PROTOTYPE_2
 
         public bool IsPlayerBeat()
         {
-            Debug.Log("Checking if beat is playable");
+            //Debug.Log("Checking if beat is playable");
             if (playerBeat == true) return true;
+            else return false;
+        }
+
+        public bool IsSpeedUp()
+        {
+            Debug.Log("Checking if beat speeds up");
+            if (speedUpBPM == true) return true;
+            else return false;
+        }
+
+        public bool IsSpeedDown()
+        {
+            Debug.Log("Checking if beat speeds down");
+            if (speedDownBPM == true) return true;
             else return false;
         }
 
