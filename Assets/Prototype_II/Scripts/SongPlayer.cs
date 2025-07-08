@@ -83,14 +83,10 @@ namespace PROTOTYPE_2
 
         private IEnumerator BeatPlayer()
         {
-            //This Logic goes through the beat list, spawning/initializing the next beat in line.
-            BeatData beatToGet = BeatIDToData(GetNextBeat());
-            
-            SpawnNote(beatToGet);
+            MoveNotes();
+            //This is where the note moving script will go.
 
-            currentBeat++;
-
-            yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
+            yield return new WaitForSeconds(SPB + 0.1f); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
             if (playerNoteReader.GetComponent<PlayerBeat>().CentreNote())
@@ -101,8 +97,12 @@ namespace PROTOTYPE_2
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
             }
 
-            MoveNotes();
-            //This is where the note moving script will go.
+            //This Logic goes through the beat list, spawning/initializing the next beat in line.
+            BeatData beatToGet = BeatIDToData(GetNextBeat());
+
+            SpawnNote(beatToGet);
+
+            currentBeat++;
 
             if (!isManual)
             {

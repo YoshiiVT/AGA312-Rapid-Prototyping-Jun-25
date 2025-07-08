@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songData: {fileID: 11400000, guid: 140dec25c91aff44abdabc4f24079e76, type: 2}
   beatList: 
-  startingBPM: 60
+  startingBPM: 120
   songID: 4
   playableBeats:
   - {fileID: 11400000, guid: 7761bc93d622a9a40b229f34e1243d75, type: 2}
