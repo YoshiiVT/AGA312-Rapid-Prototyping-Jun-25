@@ -53,6 +53,7 @@ namespace PROTOTYPE_2
             songID = songData.songID;
 
             BPM = startingBPM; //I made BPM different from startingBPM so that BPM could change freely while keeping track of what it started at
+            StartCoroutine(BeatPlayer());
         }
 
         public void Update()
@@ -67,7 +68,7 @@ namespace PROTOTYPE_2
                 if (Input.GetKeyDown(KeyCode.Alpha4)) { ManualSpawnNote(4); /*Debug.Log("Spawning Note");*/}
                 if (Input.GetKeyDown(KeyCode.Alpha5)) { ManualSpawnNote(5); /*Debug.Log("Spawning Note");*/}
             }
-            if (!isManual) { if (Input.GetKeyDown(KeyCode.Q)) { StartCoroutine(BeatPlayer()); } }  
+            if (!isManual) { if (Input.GetKeyDown(KeyCode.Escape)) { Application.Quit(); } }  
 
             BPS = BPM / 60; //This convers BPM to seconds, and will continue to update if the beat quickens or slows
             SPB = 1 / BPS; //Converts BeatsPerSecond into SecondsPerBeat
