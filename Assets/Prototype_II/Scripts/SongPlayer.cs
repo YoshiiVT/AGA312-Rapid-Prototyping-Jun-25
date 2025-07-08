@@ -35,9 +35,11 @@ namespace PROTOTYPE_2
 
         [Header("GameVariables")]
         public List<GameObject> beatsInPlay;
+        public bool playerNoteAlive;
 
         [Header("PlayerNoteReader")]
         [SerializeField] private GameObject playerNoteReader;
+        [SerializeField] private GameManager _GM;
 
         //this is temp
         public void Start()
@@ -86,7 +88,7 @@ namespace PROTOTYPE_2
             MoveNotes();
             //This is where the note moving script will go.
 
-            yield return new WaitForSeconds(SPB + 0.1f); //Meaning this script will run as many beats are in a second
+            yield return new WaitForSeconds(SPB); //Meaning this script will run as many beats are in a second
             //I.e if there are 2BPS this script will run twice
 
             if (playerNoteReader.GetComponent<PlayerBeat>().CentreNote())
@@ -216,12 +218,12 @@ namespace PROTOTYPE_2
 
         public void IncreaseBPM()
         {
-            BPM = BPM * 2;
+            BPM = BPM + 30;
         }
 
         public void DecreaseBPM()
         {
-            BPM = BPM / 2;
+            BPM = BPM - 30;
         }
 
     }

@@ -27,14 +27,16 @@ namespace PROTOTYPE_2
 
         [SerializeField] private Ease moveEase;
 
-        [SerializeField] private SongPlayer tempManager;
+        [SerializeField] private SongPlayer tempSongPlayer;
+        [SerializeField] private GameManager tempGameManager;
 
         
         public void Initialize(Column startColumn, BeatData _beatData, int _beatOrder)
         {
             transform.position = startColumn.transform.position;
             currentColumn = startColumn;
-            tempManager = GameObject.Find("SongPlayer").GetComponent<SongPlayer>();
+            tempSongPlayer = GameObject.Find("SongPlayer").GetComponent<SongPlayer>();
+            tempGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
             beatData = _beatData;
             playerBeat = _beatData.playerBeat;
@@ -52,14 +54,14 @@ namespace PROTOTYPE_2
             if (nextColumn.IsStart() == true) { transform.position = nextColumn.transform.position; }
             else { transform.DOMoveX(nextColumn.transform.position.x, _BPM); }
             currentColumn = nextColumn;
-            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath()); } //Put failed logic here...
+            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath(_BPM)); tempGameManager.NoteMissed(); } //Put failed logic here...
         }
 
-        private IEnumerator NoteDeath()
+        private IEnumerator NoteDeath(float _BPM)
         {
 
-            yield return new WaitForSeconds(1);
-            tempManager.beatsInPlay.Remove(gameObject); Destroy(gameObject);
+            yield return new WaitForSeconds(_BPM);
+            tempSongPlayer.beatsInPlay.Remove(gameObject); Destroy(gameObject);
         }
 
         public bool IsPlayerBeat()
@@ -71,14 +73,14 @@ namespace PROTOTYPE_2
 
         public bool IsSpeedUp()
         {
-            Debug.Log("Checking if beat speeds up");
+            //Debug.Log("Checking if beat speeds up");
             if (speedUpBPM == true) return true;
             else return false;
         }
 
         public bool IsSpeedDown()
         {
-            Debug.Log("Checking if beat speeds down");
+            //Debug.Log("Checking if beat speeds down");
             if (speedDownBPM == true) return true;
             else return false;
         }

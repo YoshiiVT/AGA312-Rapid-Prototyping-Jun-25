@@ -11,6 +11,7 @@ namespace PROTOTYPE_2
         [SerializeField, ReadOnly] private PointerEventData pointerEventData;
         [SerializeField] private EventSystem eventSystem;
         [SerializeField] private SongPlayer _SP;
+        [SerializeField] private GameManager _GM;
 
         [SerializeField, ReadOnly] private bool canHit = false;
         [SerializeField] private Image buttonImage;
@@ -41,7 +42,7 @@ namespace PROTOTYPE_2
 
         private void HitNote()
         {
-            Debug.Log("Hitting Centre");
+            //Debug.Log("Hitting Centre");
 
             pointerEventData = new PointerEventData(eventSystem)
             {
@@ -54,7 +55,7 @@ namespace PROTOTYPE_2
             foreach (RaycastResult result in results)
             {
                 GameObject hitObj = result.gameObject;
-                Debug.Log("Checking " + hitObj);
+                //Debug.Log("Checking " + hitObj);
 
                 BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
                 if (beat != null)
@@ -62,6 +63,7 @@ namespace PROTOTYPE_2
                     if (beat.IsPlayerBeat())
                     {
                         Debug.LogWarning("Has Hit player note");
+                        _GM.NoteHit();
                         _SP.DestroyNote(beat.GetBeatOrder());
                         return;
                     }
@@ -94,12 +96,12 @@ namespace PROTOTYPE_2
                 {
                     if (beat.IsSpeedUp())
                     {
-                        Debug.Log("IS Speed up Note");
+                        //Debug.Log("IS Speed up Note");
                         _SP.IncreaseBPM();
                     }
                     if (beat.IsSpeedDown())
                     {
-                        Debug.Log("IS Down up Note");
+                        //Debug.Log("IS Down up Note");
                         _SP.DecreaseBPM();
                     }
                     if (beat.IsPlayerBeat()) 
