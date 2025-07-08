@@ -20,6 +20,12 @@ public class TweenFun : GameBehaviour
     [SerializeField] private Ease ScoreEase;
     private int score;
 
+    public void Start()
+    {
+        player.GetComponent<Renderer>().material.color = _SAVE.GetPlayerColour;
+        score = _SAVE.GetHighestScore;
+        player.position = _SAVE.GetLastCheckpoint;
+    }
 
     private void Update()
     {
@@ -73,6 +79,9 @@ public class TweenFun : GameBehaviour
     private void TweenComplete()
     {
         ScreenShake(); isMoving = false;
+        _SAVE.SetPlayerColour(ColorX.GetRandomColour());
+        _SAVE.SetScore(score);
+        _SAVE.SetLastCheckpoint(player.position);
     }
 
     private void ChangeColour() => player.GetComponent<Renderer>().material.DOColor(ColorX.GetRandomColour(), moveTweenTime);

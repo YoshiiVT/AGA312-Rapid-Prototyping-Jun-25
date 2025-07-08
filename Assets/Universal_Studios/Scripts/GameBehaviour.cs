@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
-    //protected static SongPlayer _SP { get { return SongPlayer.instance; } }
-
+    protected static SongPlayer _SP { get { return SongPlayer.Instance; } }
+    protected static SaveManager _SAVE => SaveManager.Instance;
     #region Coroutine Helpers
 
     /// <summary>
