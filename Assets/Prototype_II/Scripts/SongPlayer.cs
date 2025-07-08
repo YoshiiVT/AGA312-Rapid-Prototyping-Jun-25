@@ -85,22 +85,23 @@ namespace PROTOTYPE_2
         private IEnumerator BeatPlayer()
         {
             MoveNotes();
-            //This is where the note moving script will go.
-            if (playerNoteReader.GetComponent<PlayerBeat>().IsNoteInCentre())
-            { arrow.HitNote(SPB / 4); }
 
             yield return new WaitForSeconds(SPB);
+
+            if (playerNoteReader.GetComponent<PlayerBeat>().IsNoteInCentre())
+            { arrow.HitNote(SPB / 4); }
 
             if (playerNoteReader.GetComponent<PlayerBeat>().CentreNote())
             {
                 Debug.LogWarning("Player Note in centre, waiting....");
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
-                yield return new WaitForSeconds(SPB / 2);
+                yield return new WaitForSeconds(SPB);
                 playerNoteReader.GetComponent<PlayerBeat>().ButtonToggle();
             }
+            else yield return new WaitForSeconds(SPB);
 
-            //This Logic goes through the beat list, spawning/initializing the next beat in line.
-            BeatData beatToGet = BeatIDToData(GetNextBeat());
+                //This Logic goes through the beat list, spawning/initializing the next beat in line.
+                BeatData beatToGet = BeatIDToData(GetNextBeat());
 
             SpawnNote(beatToGet);
 
@@ -189,7 +190,9 @@ namespace PROTOTYPE_2
         private IEnumerator MoveEndNotes()
         {
             MoveNotes();
-            //This is where the note moving script will go.
+
+            yield return new WaitForSeconds(SPB);
+
             if (playerNoteReader.GetComponent<PlayerBeat>().IsNoteInCentre())
             { arrow.HitNote(SPB / 4); }
 
