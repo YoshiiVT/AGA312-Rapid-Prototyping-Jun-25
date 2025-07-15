@@ -10,7 +10,7 @@ public class CardManager : MonoBehaviour
 
     public int handCound = 5;
 
-    public CardData GetCard(int _cardID) => cardData.Find(x => x.cardID == _cardID);
+    //public CardData GetCard(int _cardID) => cardData.Find(x => x.cardID == _cardID);
 
     public List<GameObject> cardsInHand;
 
