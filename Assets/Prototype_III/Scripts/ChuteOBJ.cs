@@ -4,7 +4,7 @@ public class ChuteOBJ : MonoBehaviour
 {
     [SerializeField] private ChuteObjData chuteObjData;
     [SerializeField] private Color renderColour;
-    [SerializeField] private ChuteObject objectType;
+    public ChuteObject objectType;
     public void Initialize(ChuteObjData _chuteObjData)
     {
         chuteObjData = _chuteObjData;
