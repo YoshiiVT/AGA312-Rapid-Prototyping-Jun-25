@@ -40,8 +40,16 @@ namespace PROTOTYPE_3
         {
             bowlList.Add(_bowl);
         }
-
-        public void StortBowl()
+        public void SortBowl()
+        {
+            SortBowlLoop(() =>
+            {
+                print("Bowl Loop completed");
+                BakeCake();
+            });
+        }
+        
+        public void SortBowlLoop(Action _onComplete = null)
         {
             foreach (GameObject _bowlOBJ in bowlList)
             {
@@ -76,6 +84,39 @@ namespace PROTOTYPE_3
                         }
                 }
             }
+            _onComplete?.Invoke();
+        }
+
+        public void BakeCake()
+        {
+            if (trashPurity.Count >= 4 || ingredientPurity.Count <= 2)
+            {
+                Debug.Log("You made a trash cake");
+                return;
+            }
+
+            if (chocolatePurity.Count >= 4 && strawberryPurity.Count <= 2 && icecreamPurity.Count <= 2)
+            {
+                Debug.Log("You made a chocolate cake");
+                return;
+            }
+            if (strawberryPurity.Count >= 4 && chocolatePurity.Count <= 2 && icecreamPurity.Count <= 2)
+            {
+                Debug.Log("You made a strawberry cake");
+                return;
+            }
+            if (icecreamPurity.Count >= 4 && strawberryPurity.Count <= 2 && chocolatePurity.Count <= 2)
+            {
+                Debug.Log("You made an ice-cream cake");
+                return;
+            }
+            if (icecreamPurity.Count <= 2 && strawberryPurity.Count <= 2 && chocolatePurity.Count <= 2)
+            {
+                Debug.Log("You made a vanilla cake");
+                return;
+            }
+
+            Debug.Log("You made a mixed cake");
         }
     }
 }

@@ -66,7 +66,7 @@ namespace PROTOTYPE_3
                 print("Game is Over!!!");
                 gameoverScreen.SetActive(true);
                 disablePivot = true;
-                _CM.StortBowl();
+                _CM.SortBowl();
             });
         }
 
