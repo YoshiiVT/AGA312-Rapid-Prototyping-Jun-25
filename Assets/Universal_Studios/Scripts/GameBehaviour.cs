@@ -1,4 +1,5 @@
 using PROTOTYPE_2;
+using PROTOTYPE_3;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,11 @@ public class GameBehaviour : MonoBehaviour
 {
     protected static SongPlayer _SP { get { return SongPlayer.Instance; } }
     protected static SaveManager _SAVE => SaveManager.Instance;
+    
+    #region Prototype III
+    protected static CakeManager _CM { get { return CakeManager.Instance; } }
+    #endregion
+
     #region Coroutine Helpers
 
     /// <summary>

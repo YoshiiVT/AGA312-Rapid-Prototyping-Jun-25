@@ -1,18 +1,38 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 namespace PROTOTYPE_3
 {
     public class CakeManager : GameBehaviour<CakeManager>
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        #region Singleton
+        // Singleton Set Up
 
+        public static CakeManager Instance;
+
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Debug.Log("Cake Manager already instanced");
+                return;
+            }
+            Instance = this;
+        }
+        #endregion
+
+        [SerializeField] private List<GameObject> trashList;
+        [SerializeField] private List<GameObject> bowlList;
+
+        public void addTrash(GameObject _trash)
+        {
+            trashList.Add(_trash);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void addBowl(GameObject _bowl)
         {
-
+            bowlList.Add(_bowl);
         }
     }
 }
