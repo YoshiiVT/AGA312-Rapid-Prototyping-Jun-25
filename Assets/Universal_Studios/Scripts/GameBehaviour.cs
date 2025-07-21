@@ -12,6 +12,8 @@ public class GameBehaviour : MonoBehaviour
     
     #region Prototype III
     protected static CakeManager _CM { get { return CakeManager.Instance; } }
+    protected static PROTOTYPE_3.GameManager _GM {  get { return PROTOTYPE_3.GameManager.Instance; } }
+    protected static ChuteManager _ChM { get { return ChuteManager.Instance; } }
     #endregion
 
     #region Coroutine Helpers
