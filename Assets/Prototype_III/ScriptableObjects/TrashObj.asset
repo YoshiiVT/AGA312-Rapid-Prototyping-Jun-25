@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
   m_Name: TrashObj
   m_EditorClassIdentifier: 
-  meshPrefab: {fileID: -3134868848098072870, guid: 8d66397b8a6d15946a5f62377b82bb23, type: 3}
-  materialPrefab: {fileID: 2100000, guid: 34537b69fb1bfc84cb9124b7bfe20563, type: 2}
-  chuteObj: 0
-  objectID: 0
+  model:
+  - {fileID: 9156520718126511041, guid: f93f99de02242044ebe221f007b54812, type: 3}
   flavourID: 0

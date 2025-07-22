@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
-  m_Name: Ingredient4Obj
+  m_Name: IngredientObj
   m_EditorClassIdentifier: 
-  meshPrefab: {fileID: -1821892634128329563, guid: 9f3fbb5b5cebdb942967ea100d417fb1, type: 3}
-  materialPrefab: {fileID: 2100000, guid: 9866fda0e61a7904087eb0ec5ab17e03, type: 2}
-  chuteObj: 1
-  objectID: 0
-  flavourID: 0
+  model:
+  - {fileID: 7777221344657950699, guid: 0d9ad6904debda946b3bccbbe7b440f8, type: 3}
+  flavourID: 1

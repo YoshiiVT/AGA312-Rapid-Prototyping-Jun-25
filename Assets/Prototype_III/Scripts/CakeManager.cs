@@ -57,27 +57,27 @@ namespace PROTOTYPE_3
 
                 switch (_bowlOBJType.objectType)
                 {
-                    case ChuteObject.Trash:
+                    case FlavourID.Trash:
                         {
                             trashPurity.Add(_bowlOBJ);
                             break;
                         }
-                    case ChuteObject.Ingredient:
+                    case FlavourID.Ingredient:
                         {
                             ingredientPurity.Add(_bowlOBJ);
                             break;
                         }
-                    case ChuteObject.Chocolate:
+                    case FlavourID.Chocolate:
                         {
                             chocolatePurity.Add(_bowlOBJ);
                             break;
                         }
-                    case ChuteObject.Strawberry:
+                    case FlavourID.Strawberry:
                         {
                             strawberryPurity.Add(_bowlOBJ);
                             break;
                         }
-                    case ChuteObject.IceCream:
+                    case FlavourID.IceCream:
                         {
                             icecreamPurity.Add(_bowlOBJ);
                             break;

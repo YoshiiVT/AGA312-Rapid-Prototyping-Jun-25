@@ -12,8 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
   m_Name: ChocolateObj
   m_EditorClassIdentifier: 
-  meshPrefab: {fileID: 2236559785095540902, guid: 51c7876eb1f4eed459c25636231df9b7, type: 3}
-  materialPrefab: {fileID: 2826255712310437202, guid: 51c7876eb1f4eed459c25636231df9b7, type: 3}
-  chuteObj: 2
-  objectID: 0
-  flavourID: 0
+  model: []
+  flavourID: 2

@@ -12,8 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
   m_Name: StrawberryObj
   m_EditorClassIdentifier: 
-  meshPrefab: {fileID: 3840383602836954559, guid: 184933852d2eb42438b8c17a3b1aa4cc, type: 3}
-  materialPrefab: {fileID: -915216440286173917, guid: 184933852d2eb42438b8c17a3b1aa4cc, type: 3}
-  chuteObj: 3
-  objectID: 0
-  flavourID: 0
+  model: []
+  flavourID: 3

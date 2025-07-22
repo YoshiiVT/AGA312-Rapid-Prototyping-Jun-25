@@ -24,41 +24,40 @@ namespace PROTOTYPE_3
 
         [SerializeField] private GameObject chuteDispenser;
 
+        [SerializeField] private List<FlavourID> flavoursInChute;
         [SerializeField] private List<ChuteObjData> chuteObjList;
         [SerializeField] private List<GameObject> objectsPlayed;
 
         [SerializeField] private GameObject chuteObjPrefab;
 
-        [SerializeField, ReadOnly] private int chuteObjListCount;
-
-        private int objectCounter;
-
         public void StartGame()
         {
-            chuteObjListCount = chuteObjList.Count;
-            ListX.ShuffleList(chuteObjList);
+            ListX.ShuffleList(flavoursInChute);
             StartCoroutine(EmptyChute());
         }
 
         private IEnumerator EmptyChute()
         {
-            yield return new WaitForSeconds(1);
-            SpawnObj();
-            if (objectCounter <= chuteObjListCount) StartCoroutine(EmptyChute());
+            while (flavoursInChute.Count > 0)
+            {
+                yield return new WaitForSeconds(1);
+                SpawnObj();
+            }
+           
         }
 
         private void SpawnObj()
         {
-            if(objectCounter <= chuteObjListCount - 1) 
-            {
-                GameObject chuteObj = Instantiate(chuteObjPrefab, chuteDispenser.transform);
-                chuteObj.GetComponent<ChuteOBJ>().Initialize(chuteObjList[0]);
+            ChuteObjData _COD = chuteObjList.Find(x => x.flavourID == flavoursInChute[0]);
+            print(_COD.flavourID);
+            int modelID = Random.Range(0, _COD.model.Length);
+            GameObject chuteObj = Instantiate(_COD.model[modelID], chuteDispenser.transform);
+                //chuteObj.GetComponent<ChuteOBJ>().Initialize(chuteObjList[0]);
 
-                objectsPlayed.Add(chuteObj);
-                chuteObjList.Remove(chuteObjList[0]);
-                objectCounter++;
-            }
-            else { _GM.EndGame(); objectCounter++; }
+            objectsPlayed.Add(chuteObj);
+            flavoursInChute.Remove(flavoursInChute[0]);
+            
+            if (chuteObjList.Count == 0) { _GM.EndGame();}
         }
     }
 }

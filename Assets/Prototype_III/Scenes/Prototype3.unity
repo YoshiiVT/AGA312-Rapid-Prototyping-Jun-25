@@ -2946,40 +2946,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chuteDispenser: {fileID: 630227375}
+  flavoursInChute: 0000000000000000000000000000000000000000000000000000000000000000010000000100000001000000010000000100000001000000010000000100000001000000
   chuteObjList:
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
-  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
+  - {fileID: 11400000, guid: 4238fd5c43932434580d70a6f1ed3a7f, type: 2}
   - {fileID: 11400000, guid: 0d489abde516abb419ec64655aa4c735, type: 2}
-  - {fileID: 11400000, guid: 0d489abde516abb419ec64655aa4c735, type: 2}
-  - {fileID: 11400000, guid: 052dcfae686d870479b41827e08fb4de, type: 2}
-  - {fileID: 11400000, guid: 052dcfae686d870479b41827e08fb4de, type: 2}
-  - {fileID: 11400000, guid: 8d1160d48430d7640b0d7bc5a10d88be, type: 2}
-  - {fileID: 11400000, guid: 8d1160d48430d7640b0d7bc5a10d88be, type: 2}
-  - {fileID: 11400000, guid: 0026287af9616024f86fea2085f17d5b, type: 2}
-  - {fileID: 11400000, guid: 0026287af9616024f86fea2085f17d5b, type: 2}
-  - {fileID: 11400000, guid: 05375f97deab8184880f74f5fb9f04f9, type: 2}
-  - {fileID: 11400000, guid: 05375f97deab8184880f74f5fb9f04f9, type: 2}
-  - {fileID: 11400000, guid: 05375f97deab8184880f74f5fb9f04f9, type: 2}
-  - {fileID: 11400000, guid: 05375f97deab8184880f74f5fb9f04f9, type: 2}
-  - {fileID: 11400000, guid: 05375f97deab8184880f74f5fb9f04f9, type: 2}
   - {fileID: 11400000, guid: af8f5eb66b39ebe4b8f001b04969facc, type: 2}
-  - {fileID: 11400000, guid: af8f5eb66b39ebe4b8f001b04969facc, type: 2}
-  - {fileID: 11400000, guid: af8f5eb66b39ebe4b8f001b04969facc, type: 2}
-  - {fileID: 11400000, guid: af8f5eb66b39ebe4b8f001b04969facc, type: 2}
-  - {fileID: 11400000, guid: af8f5eb66b39ebe4b8f001b04969facc, type: 2}
-  - {fileID: 11400000, guid: 4238fd5c43932434580d70a6f1ed3a7f, type: 2}
-  - {fileID: 11400000, guid: 4238fd5c43932434580d70a6f1ed3a7f, type: 2}
-  - {fileID: 11400000, guid: 4238fd5c43932434580d70a6f1ed3a7f, type: 2}
-  - {fileID: 11400000, guid: 4238fd5c43932434580d70a6f1ed3a7f, type: 2}
-  - {fileID: 11400000, guid: 4238fd5c43932434580d70a6f1ed3a7f, type: 2}
+  - {fileID: 11400000, guid: 572ef4a15e37d3447a64a18a3bba4b17, type: 2}
+  - {fileID: 11400000, guid: 05375f97deab8184880f74f5fb9f04f9, type: 2}
   objectsPlayed: []
   chuteObjPrefab: {fileID: 7217020672457752105, guid: be4e4d096edb7f24c9b9a99e2166f8bb, type: 3}
   chuteObjListCount: 0
