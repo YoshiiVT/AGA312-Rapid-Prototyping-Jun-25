@@ -92,31 +92,37 @@ namespace PROTOTYPE_3
             if (trashPurity.Count >= 4 || ingredientPurity.Count <= 2)
             {
                 Debug.Log("You made a trash cake");
+                _GM.CakeResult("Trash");
                 return;
             }
 
             if (chocolatePurity.Count >= 4 && strawberryPurity.Count <= 2 && icecreamPurity.Count <= 2)
             {
                 Debug.Log("You made a chocolate cake");
+                _GM.CakeResult("Chocolate");
                 return;
             }
             if (strawberryPurity.Count >= 4 && chocolatePurity.Count <= 2 && icecreamPurity.Count <= 2)
             {
                 Debug.Log("You made a strawberry cake");
+                _GM.CakeResult("Strawberry");
                 return;
             }
             if (icecreamPurity.Count >= 4 && strawberryPurity.Count <= 2 && chocolatePurity.Count <= 2)
             {
                 Debug.Log("You made an ice-cream cake");
+                _GM.CakeResult("Ice-Cream");
                 return;
             }
             if (icecreamPurity.Count <= 2 && strawberryPurity.Count <= 2 && chocolatePurity.Count <= 2)
             {
                 Debug.Log("You made a vanilla cake");
+                _GM.CakeResult("Vanila");
                 return;
             }
 
             Debug.Log("You made a mixed cake");
+            _GM.CakeResult("Mixed");
         }
     }
 }

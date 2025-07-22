@@ -24,6 +24,7 @@ namespace PROTOTYPE_3
         #endregion
 
         [SerializeField] private TMP_Text countdownText;
+        [SerializeField] private TMP_Text resultText;
         [SerializeField] private GameObject gameoverScreen;
         public bool disablePivot = false;
 
@@ -78,6 +79,11 @@ namespace PROTOTYPE_3
             {
                 _onComplete?.Invoke();
             });
+        }
+
+        public void CakeResult(string cake)
+        {
+            resultText.text = "You made a " + cake + " Cake!!!";
         }
     }
 

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
   m_Name: IceCreamObj
   m_EditorClassIdentifier: 
+  meshPrefab: {fileID: 3257574115263418326, guid: b5e34b2e7b12b504c8119df8fd3be8c4, type: 3}
+  materialPrefab: {fileID: -8848810374240701247, guid: b5e34b2e7b12b504c8119df8fd3be8c4, type: 3}
   chuteObj: 4
   objectID: 0
   flavourID: 0
-  meshColour: {r: 0.7877358, g: 0.9863118, b: 1, a: 0}

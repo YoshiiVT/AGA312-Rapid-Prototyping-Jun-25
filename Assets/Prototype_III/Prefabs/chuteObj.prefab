@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6991800790173283518}
   - component: {fileID: 7065662924158280544}
   - component: {fileID: 2750617901567971095}
-  - component: {fileID: 7449955053555331081}
   - component: {fileID: 604255240974740060}
   - component: {fileID: 3931243655375486653}
+  - component: {fileID: -1914213184102261937}
   m_Layer: 0
   m_Name: chuteObj
   m_TagString: Untagged
@@ -89,27 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7449955053555331081
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7217020672457752105}
-  m_Material: {fileID: 13400000, guid: fd9beada62786144da391e67b4ca19c0, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &604255240974740060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,5 +129,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chuteObjData: {fileID: 0}
-  renderColour: {r: 0, g: 0, b: 0, a: 0}
+  meshPrefab: {fileID: 0}
+  materialPrefab: {fileID: 0}
   objectType: 0
+--- !u!65 &-1914213184102261937
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217020672457752105}
+  m_Material: {fileID: 13400000, guid: fd9beada62786144da391e67b4ca19c0, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 0}
