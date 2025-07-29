@@ -9,6 +9,7 @@ TagManager:
   - Yellow
   - Red
   - Green
+  - Collision
   layers:
   - Default
   - TransparentFX

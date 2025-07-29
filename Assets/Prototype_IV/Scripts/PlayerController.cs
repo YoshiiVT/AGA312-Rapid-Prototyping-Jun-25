@@ -59,6 +59,15 @@ namespace PROTOTYPE_4
             lastPosition = transform.position;
             #endregion
         }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Collision"))
+            {
+                Debug.Log("Collision Detected");
+                Time.timeScale = 0;
+            }
+            else { Debug.LogWarning("Something Detected"); }
+        }
 
         void SetRotation(float zRotation)
         {
