@@ -12,7 +12,11 @@ namespace PROTOTYPE_4
 
     public class GameManager : GameBehaviour
     {
+        //Temp
+        [SerializeField] private PlayerController playerController;
         
+        [SerializeField] private GameObject deathPanel;
+
         [SerializeField] private GameState gameState; 
 
         [SerializeField, ReadOnly] private int points;
@@ -21,6 +25,7 @@ namespace PROTOTYPE_4
         public void Start()
         {
             UpdatePoints();
+            deathPanel.SetActive(false);
         }
 
         public void addpoint()
@@ -28,6 +33,19 @@ namespace PROTOTYPE_4
             points++;
             print(points);
             UpdatePoints();
+        }
+
+        public void Death()
+        {
+            deathPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+
+        public void Revive()
+        {
+            Time.timeScale = 1;
+            deathPanel.SetActive(false);
+            playerController.DestroyLastCollidedObj();
         }
 
         private void UpdatePoints()

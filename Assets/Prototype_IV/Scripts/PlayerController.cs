@@ -4,9 +4,13 @@ namespace PROTOTYPE_4
 {
     public class PlayerController : MonoBehaviour
     {
+        //Temp
+        private GameManager gameManager;
+
         public float velocity = 1;
         [SerializeField, ReadOnly] private Rigidbody2D rb;
 
+        private GameObject lastCollidedObj;
 
         [Header("Rotation Settings")]
         public float rotationSpeed = 2f; // How quickly the object rotates
@@ -19,6 +23,10 @@ namespace PROTOTYPE_4
 
         void Start()
         {
+            //Temp
+            GameObject gameManagerobj = GameObject.Find("GameManager");
+            gameManager = gameManagerobj.GetComponent<GameManager>();
+
             rb = GetComponent<Rigidbody2D>();
             if (rb == null) { Debug.LogError("Rigidbody NOT found"); }
         }
@@ -64,9 +72,16 @@ namespace PROTOTYPE_4
             if (collision.gameObject.CompareTag("Collision"))
             {
                 Debug.Log("Collision Detected");
-                Time.timeScale = 0;
+                lastCollidedObj = collision.gameObject;
+                gameManager.Death();
             }
             else { Debug.LogWarning("Something Detected"); }
+        }
+
+        public void DestroyLastCollidedObj()
+        {
+            GameObject lastCollidedObjParent = lastCollidedObj.transform.parent.gameObject;
+            Destroy(lastCollidedObjParent);
         }
 
         void SetRotation(float zRotation)
