@@ -20,6 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Prototype_III/Scenes/Prototype3.unity
     guid: 5c95fe8f717bebe4990fdef80c4045e0
+  - enabled: 1
+    path: Assets/Prototype_IV/Scenes/P4Title.unity
+    guid: 89eab46a56503f24cb3e95a347291278
+  - enabled: 1
+    path: Assets/Prototype_IV/Scenes/P4MainScene.unity
+    guid: 80470a44b20373b4f90720734042df53
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
