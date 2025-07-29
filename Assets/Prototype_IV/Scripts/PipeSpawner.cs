@@ -1,35 +1,53 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace PROTOTYPE_4
 {
     //This is a temp class, as I plan to add other obsticals later
-    public class PipeSpawner : MonoBehaviour
+    public class PipeSpawner : GameBehaviour
     {
+        //Temp
+        private GameManager gameManager;
+        
         [SerializeField] private GameObject pipePrefab;
-        private bool endStartingColumns;
+        [SerializeField] private GameObject spawnPoint;
+        [SerializeField] private GameObject obsticleParent;
+
+        
 
         private void Start()
         {
-            //Start spawning first few columns
-            StartCoroutine(StartingColumns()); StartingColumns();
+            //Temp
+            GameObject gameManagerobj = GameObject.Find("GameManager");
+            gameManager = gameManagerobj.GetComponent<GameManager>();
+
+            StartCoroutine(SpawnLoop());
         }
 
-        private IEnumerator StartingColumns()
+        private IEnumerator SpawnLoop()
         {
-            //Spawns first few columns
-            yield return new WaitForSeconds(1.5f);
-            SpawnColumn();
-            if (endStartingColumns == false)
+            while (gameManager.CurrentGameState() == GameState.PLAYING)
             {
-                StartCoroutine(StartingColumns());
+                int rndHeight = Random.Range(-10, 10);
+                int rndTime = Random.Range(2, 5);
+
+                SpawnColumn(rndHeight);
+
+                yield return new WaitForSeconds(rndTime);
             }
         }
 
-        private void SpawnColumn()
+        private void SpawnColumn(int rndHeight)
         {
             //Spawns columns
-            Instantiate(pipePrefab);
+            GameObject pipeSpawn = Instantiate(pipePrefab, spawnPoint.transform.position, Quaternion.identity);
+            pipeSpawn.transform.SetParent(obsticleParent.transform);
+
+            // Adjust y-position
+            Vector3 newPos = pipeSpawn.transform.position;
+            newPos.y += rndHeight;
+            pipeSpawn.transform.position = newPos;
         }
     }
 }
