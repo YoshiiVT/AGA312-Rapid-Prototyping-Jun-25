@@ -1441,6 +1441,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 90
   rb: {fileID: 0}
+  rotationSpeed: 2.5
+  maxUpRotation: 0
+  maxDownRotation: -180
+  defaultRotation: -90
 --- !u!1 &1539628327
 GameObject:
   m_ObjectHideFlags: 0
