@@ -12,9 +12,6 @@ namespace PROTOTYPE_4
         
         [SerializeField] private GameObject pipePrefab;
         [SerializeField] private GameObject spawnPoint;
-        [SerializeField] private GameObject obstacleParent;
-
-        
 
         private void Start()
         {
@@ -29,7 +26,7 @@ namespace PROTOTYPE_4
         {
             while (gameManager.CurrentGameState() == GameState.PLAYING)
             {
-                int rndHeight = Random.Range(-100, 100);
+                float rndHeight = Random.Range(-1f, 2f);
                 float rndTime = Random.Range(3.5f, 6);
 
                 SpawnColumn(rndHeight);
@@ -38,11 +35,10 @@ namespace PROTOTYPE_4
             }
         }
 
-        private void SpawnColumn(int rndHeight)
+        private void SpawnColumn(float rndHeight)
         {
             //Spawns columns
             GameObject pipeSpawn = Instantiate(pipePrefab, spawnPoint.transform.position, Quaternion.identity);
-            pipeSpawn.transform.SetParent(obstacleParent.transform);
 
             // Adjust y-position
             Vector3 newPos = pipeSpawn.transform.position;

@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99158975ecb2e55428c2e612eb65a927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
+  playerController: {fileID: 1341502738}
   deathPanel: {fileID: 1632187767}
   gameState: 0
   points: 0
@@ -2275,13 +2275,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341502733}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55695, y: 0, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.70710576, w: 0.70710784}
+  m_LocalPosition: {x: -3, y: 0, z: 1}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &1341502738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2294,7 +2294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff46c0ad85d62d47ae7387f756fea47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 1
+  velocity: 5
   rb: {fileID: 1341502734}
 --- !u!1001 &1414076688
 PrefabInstance:
@@ -2435,7 +2435,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 30, y: 11, z: 0}
+  m_LocalScale: {x: 30, y: 9, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1643901532}
@@ -2465,7 +2465,7 @@ Transform:
   m_GameObject: {fileID: 1561481159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: 0}
+  m_LocalPosition: {x: 15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3315,9 +3315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a672c64a3ea4645bf7c44f635ffc81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipePrefab: {fileID: 4415489398521476372, guid: 6c4e22c50a42f364b90d503b5468b676, type: 3}
-  spawnPoint: {fileID: 0}
-  obstacleParent: {fileID: 0}
+  pipePrefab: {fileID: 3008976458600742137, guid: 6c4e22c50a42f364b90d503b5468b676, type: 3}
+  spawnPoint: {fileID: 1561481159}
 --- !u!4 &1977105313
 Transform:
   m_ObjectHideFlags: 0
