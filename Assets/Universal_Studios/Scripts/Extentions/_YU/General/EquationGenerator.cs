@@ -6,6 +6,9 @@ public class EquationGenerator : GameBehaviour
     public enum Difficulty { EASY, MEDIUM, HARD}
     public Difficulty difficulty;
     
+    public enum EquationType { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION }
+    public EquationType equationType;
+
     public int numberOne;
     public int numberTwo;
     public int correctAnswer;
@@ -23,8 +26,55 @@ public class EquationGenerator : GameBehaviour
         if (Input.GetKeyDown(KeyCode.D)) GeneracteDivision();
     }
 
+    public void GenerateEquation()
+    {
+        int random = 0;
+
+        switch (difficulty)
+        {
+            case Difficulty.EASY:
+                // Higher chance of Addition and Subtraction
+                random = Random.Range(0, 10); // 0–9
+                if (random < 4)
+                    GenerateAddition();       // 40%
+                else if (random < 8)
+                    GenerateSubtraction();    // 40%
+                else if (random == 8)
+                    GenerateMultiplication(); // 10%
+                else
+                    GeneracteDivision();      // 10%
+                break;
+
+            case Difficulty.MEDIUM:
+                // Equal chance for all 4
+                random = Random.Range(0, 4); // 0–3
+                switch (random)
+                {
+                    case 0: GenerateAddition(); break;
+                    case 1: GenerateSubtraction(); break;
+                    case 2: GenerateMultiplication(); break;
+                    case 3: GeneracteDivision(); break;
+                }
+                break;
+
+            case Difficulty.HARD:
+                // Higher chance of Multiplication and Division
+                random = Random.Range(0, 10); // 0–9
+                if (random < 2)
+                    GenerateAddition();       // 20%
+                else if (random < 4)
+                    GenerateSubtraction();    // 20%
+                else if (random < 7)
+                    GenerateMultiplication(); // 30%
+                else
+                    GeneracteDivision();      // 30%
+                break;
+        }
+    }
+
     public void GenerateAddition()
     {
+        equationType = EquationType.ADDITION;
         GenerateRandomNumbers();
         correctAnswer = numberOne + numberTwo;
         Debug.Log(numberOne + " + " + numberTwo + " = " + correctAnswer);
@@ -33,6 +83,7 @@ public class EquationGenerator : GameBehaviour
 
     public void GenerateSubtraction()
     {
+        equationType = EquationType.SUBTRACTION;
         GenerateRandomNumbers();
         correctAnswer = numberOne - numberTwo;
         Debug.Log(numberOne + " - " + numberTwo + " = " + correctAnswer);
@@ -41,6 +92,7 @@ public class EquationGenerator : GameBehaviour
 
     public void GenerateMultiplication()
     {
+        equationType = EquationType.MULTIPLICATION;
         GenerateRandomNumbers();
         correctAnswer = numberOne * numberTwo;
         Debug.Log(numberOne + " x " + numberTwo + " = " + correctAnswer);
@@ -49,6 +101,7 @@ public class EquationGenerator : GameBehaviour
 
     public void GeneracteDivision()
     {
+        equationType = EquationType.DIVISION;
         GenerateRandomNumbers();
         float tempAnswer = numberOne / numberTwo;
         correctAnswer = Mathf.RoundToInt(tempAnswer);

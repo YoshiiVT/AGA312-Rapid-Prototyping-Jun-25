@@ -105,7 +105,6 @@ namespace PROTOTYPE_4
         public GameState CurrentGameState()
         {
             return gameState;
-            Button.ButtonClickedEvent()
         }
 
         private int GenerateRandomNumber()

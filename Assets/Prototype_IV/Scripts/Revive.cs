@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Revive : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Button buttonA;
+    [SerializeField] private Button buttonB;
+
+    public void GenerateRevivalQuestion()
     {
-        
+        RemoveListeners();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void RemoveListeners()
     {
-        
+        buttonA.onClick.RemoveAllListeners();
+        buttonB.onClick.RemoveAllListeners();
     }
 }
