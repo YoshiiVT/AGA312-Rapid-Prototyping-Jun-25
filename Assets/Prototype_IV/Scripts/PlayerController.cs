@@ -8,7 +8,7 @@ namespace PROTOTYPE_4
         private GameManager gameManager;
 
         public float velocity = 1;
-        [SerializeField, ReadOnly] private Rigidbody2D rb;
+        [SerializeField] private Rigidbody2D rb;
 
         private GameObject lastCollidedObj;
 
@@ -27,8 +27,6 @@ namespace PROTOTYPE_4
             GameObject gameManagerobj = GameObject.Find("GameManager");
             gameManager = gameManagerobj.GetComponent<GameManager>();
 
-            rb = GetComponent<Rigidbody2D>();
-            if (rb == null) { Debug.LogError("Rigidbody NOT found"); }
         }
 
         void Update()
