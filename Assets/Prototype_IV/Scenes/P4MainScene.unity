@@ -1016,6 +1016,8 @@ MonoBehaviour:
   answerText: {fileID: 525721721}
   fakeText: {fileID: 671658347}
   finalScoreText: {fileID: 1947859513}
+  buttonA: {fileID: 0}
+  buttonB: {fileID: 0}
   points: 0
   pointText: {fileID: 16227992}
 --- !u!4 &413454513
@@ -1196,6 +1198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 0
+  equationType: 0
   numberOne: 0
   numberTwo: 0
   correctAnswer: 0

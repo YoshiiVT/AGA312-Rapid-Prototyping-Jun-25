@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace PROTOTYPE_4
@@ -27,6 +28,9 @@ namespace PROTOTYPE_4
                 //Jump
                 rb.linearVelocity = Vector2.up * velocity;
             }
+
+            transform.rotation = Quaternion.Euler(0, 0, rb.linearVelocity.y * 4 - 90);
+
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
