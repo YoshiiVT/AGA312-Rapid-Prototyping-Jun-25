@@ -12,9 +12,6 @@ namespace PROTOTYPE_4
 
         private GameObject lastCollidedObj;
 
-        private Vector3 lastPosition;
-        private float currentRotation;
-
         void Start()
         {
             //Temp
@@ -46,11 +43,6 @@ namespace PROTOTYPE_4
         {
             GameObject lastCollidedObjParent = lastCollidedObj.transform.parent.gameObject;
             Destroy(lastCollidedObjParent);
-        }
-
-        void SetRotation(float zRotation)
-        {
-            transform.rotation = Quaternion.Euler(0f, 0f, zRotation);
         }
     }
 
