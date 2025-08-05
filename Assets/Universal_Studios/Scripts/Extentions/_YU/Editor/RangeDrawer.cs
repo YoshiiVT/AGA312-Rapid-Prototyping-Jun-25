@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(BV.Range))]
+[CustomPropertyDrawer(typeof(YU.Range))]
 public class RangeDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect fullRect, SerializedProperty property, GUIContent label)
@@ -38,12 +38,12 @@ public class RangeDrawer : PropertyDrawer
         Rect r2 = new Rect(r.x + r.width - valueWidth, r.y, valueWidth, r.height);
 
         min = EditorGUI.FloatField(r0, min);
-        EditorGUI.LabelField(r1, "to", BV.Editor.centeredLabelStyle);
+        EditorGUI.LabelField(r1, "to", YU.Editor.centeredLabelStyle);
         max = EditorGUI.FloatField(r2, max);
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return BV.Editor.lineHeight;
+        return YU.Editor.lineHeight;
     }
 }

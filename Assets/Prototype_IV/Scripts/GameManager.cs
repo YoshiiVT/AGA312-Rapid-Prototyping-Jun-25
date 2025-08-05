@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace PROTOTYPE_4
 {
@@ -30,13 +31,14 @@ namespace PROTOTYPE_4
         [Header("GameOverPanel")]
         [SerializeField] private TMP_Text finalScoreText;
 
-        
+        [SerializeField] private Button buttonA;
+        [SerializeField] private Button buttonB;
 
         [SerializeField, ReadOnly] private int points;
         [SerializeField] private TMP_Text pointText;
 
         public void Start()
-        {
+        { 
             UpdatePoints();
             deathPanel.SetActive(false);
             revivePanel.SetActive(false);
@@ -103,6 +105,7 @@ namespace PROTOTYPE_4
         public GameState CurrentGameState()
         {
             return gameState;
+            Button.ButtonClickedEvent()
         }
 
         private int GenerateRandomNumber()

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquationGenerator : MonoBehaviour
+public class EquationGenerator : GameBehaviour
 {
     public enum Difficulty { EASY, MEDIUM, HARD}
     public Difficulty difficulty;
@@ -11,9 +11,9 @@ public class EquationGenerator : MonoBehaviour
     public int correctAnswer;
     public List<int> dummyAnswers;
 
-    public BV.Range easyRange;
-    public BV.Range mediumRange;
-    public BV.Range hardRange;
+    public YU.Range easyRange;
+    public YU.Range mediumRange;
+    public YU.Range hardRange;
 
     private void Update()
     {

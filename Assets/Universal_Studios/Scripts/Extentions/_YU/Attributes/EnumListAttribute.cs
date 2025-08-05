@@ -6,7 +6,7 @@ using UnityEditor;
 #endif
 
 // Based on: https://forum.unity3d.com/threads/generic-editor-array-propertyattribute-tools.240895/
-namespace BV
+namespace YU
 {
 	public class EnumListAttribute : PropertyAttribute
 	{

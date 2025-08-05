@@ -8,7 +8,7 @@ using System;
 /// Draws the field/property ONLY if the compared property compared by the comparison type with the value of comparedValue returns true.
 /// Based on: https://forum.unity.com/threads/draw-a-field-only-if-a-condition-is-met.448855/
 /// </summary>
-namespace BV
+namespace YU
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
     public class DrawIfAttribute : PropertyAttribute

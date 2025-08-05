@@ -2,7 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace BV
+namespace YU
 {
     [System.Serializable]
     public struct Range : IEquatable<Range>

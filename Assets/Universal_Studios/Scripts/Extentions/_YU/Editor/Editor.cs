@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
 
-namespace BV
+namespace YU
 {
 	public class Editor
 	{
@@ -69,8 +69,8 @@ namespace BV
 		static public Rect GetLineRect(Rect fullRect, int lineStart, int lineCount=1)
 		{
 			Rect r = fullRect;
-			r.y += BV.Editor.lineHeight * lineStart;
-			r.height = BV.Editor.lineHeight * lineCount;
+			r.y += YU.Editor.lineHeight * lineStart;
+			r.height = YU.Editor.lineHeight * lineCount;
 			return r;
 		}
 

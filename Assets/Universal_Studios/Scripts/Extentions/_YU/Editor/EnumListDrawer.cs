@@ -2,7 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace BV
+namespace YU
 {
     [CustomPropertyDrawer(typeof(EnumListAttribute))]
     public class EnumListDrawer : PropertyDrawer
@@ -11,7 +11,7 @@ namespace BV
         {
             EnumListAttribute enumListAttrib = attribute as EnumListAttribute;
 
-            int index = BV.Editor.GetPropertyArrayIndex(property);
+            int index = YU.Editor.GetPropertyArrayIndex(property);
             string name = GetEnumNameByValue(enumListAttrib.enumType, index);
             string str = (index + enumListAttrib.startIndex).ToString() + ": " + name;
             label = new GUIContent(str);
