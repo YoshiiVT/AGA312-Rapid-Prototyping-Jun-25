@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace PROTOTYPE_4
 {
@@ -23,6 +24,9 @@ namespace PROTOTYPE_4
         [SerializeField] private GameObject deathPanel;
         [SerializeField] private GameObject revivePanel;
         [SerializeField] private GameObject gameOverPanel;
+
+        [Header("DeathPanel")]
+        [SerializeField] private int reviveOppertunityCountdown;
 
         [Header("revivePanel")]
         [SerializeField] private TMP_Text questionText;
@@ -169,6 +173,17 @@ namespace PROTOTYPE_4
                     break;
 
             }
+        }
+
+        private async Task CountdownWithBar(int countdown)
+        {
+            for (int i = countdown; i > 0l; i--)
+            {
+                Debug.Log("Countdown: " + i);
+                await Task.Delay(1000); //Wait 1 Second
+            }
+
+            Debug.Log("Countdown Finished");
         }
     }
 }
