@@ -175,16 +175,7 @@ namespace PROTOTYPE_4
             }
         }
 
-        private async Task CountdownWithBar(int countdown)
-        {
-            for (int i = countdown; i > 0l; i--)
-            {
-                Debug.Log("Countdown: " + i);
-                await Task.Delay(1000); //Wait 1 Second
-            }
-
-            Debug.Log("Countdown Finished");
-        }
+        
     }
 }
 
