@@ -73,8 +73,6 @@ namespace PROTOTYPE_4
         {
             //Spawns columns
             GameObject pipeSpawn = Instantiate(ListX.GetRandomItemFromList(obstaclePrefabs), spawnPoint.transform.position, Quaternion.identity);
-
-            
         }
     }
 }

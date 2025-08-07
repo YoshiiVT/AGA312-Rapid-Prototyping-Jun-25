@@ -79,7 +79,7 @@ namespace PROTOTYPE_4
             deathPanel.SetActive(true);
             Time.timeScale = 0;
 
-            await CountdownASY.CountdownWithBar(5, reviveOppertunityImage, () =>
+            await CountdownASY.CountdownWithBar(3, reviveOppertunityImage, () =>
             {
                 if (reviving) { reviving = false; return; }
                 GameOver();
@@ -129,7 +129,7 @@ namespace PROTOTYPE_4
 
             UsedMath();
 
-            await CountdownASY.CountdownWithBar(5, mathTimerBar, () =>
+            await CountdownASY.CountdownWithBar(3, mathTimerBar, () =>
             {
                 if (mathing) { mathing = false; return; }
                 GameOver();
