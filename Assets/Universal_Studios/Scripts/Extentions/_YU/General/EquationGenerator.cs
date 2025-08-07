@@ -102,12 +102,15 @@ public class EquationGenerator : MonoBehaviour
     public void GeneracteDivision()
     {
         equationType = EquationType.DIVISION;
-        GenerateRandomNumbers();
+        do
+        {
+            GenerateRandomNumbers();
+        }
+        while (numberOne == 0 || numberTwo == 0);
         float tempAnswer = numberOne / numberTwo;
         correctAnswer = Mathf.RoundToInt(tempAnswer);
         Debug.Log(numberOne + " / " + numberTwo + " = " + correctAnswer);
         GenerateDummyAnswers();
-
     }
 
     private void GenerateRandomNumbers()
