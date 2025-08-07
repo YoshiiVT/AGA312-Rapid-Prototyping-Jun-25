@@ -48,7 +48,9 @@ namespace PROTOTYPE_4
         [SerializeField] private GameState gameState;
         public float speed;
         public float obstacleLifespan;
-        [SerializeField, ReadOnly] int mathCounter;
+        public float countdown;
+        [SerializeField, ReadOnly] private int mathCounter;
+        
 
         public void Start()
         { 
@@ -79,7 +81,7 @@ namespace PROTOTYPE_4
             deathPanel.SetActive(true);
             Time.timeScale = 0;
 
-            await CountdownASY.CountdownWithBar(3, reviveOppertunityImage, () =>
+            await CountdownASY.CountdownWithBar(countdown, reviveOppertunityImage, () =>
             {
                 if (reviving) { reviving = false; return; }
                 GameOver();
@@ -129,7 +131,7 @@ namespace PROTOTYPE_4
 
             UsedMath();
 
-            await CountdownASY.CountdownWithBar(3, mathTimerBar, () =>
+            await CountdownASY.CountdownWithBar(countdown, mathTimerBar, () =>
             {
                 if (mathing) { mathing = false; return; }
                 GameOver();
@@ -192,6 +194,8 @@ namespace PROTOTYPE_4
                     break;
 
             }
+
+            countdown -= 0.25f;
         }
     }
 }

@@ -16,7 +16,7 @@ public static class CountdownASY
         _onComplete?.Invoke();
     }
 
-    static public async Task CountdownWithBar(int countdown, Image image, Action _onComplete = null)
+    static public async Task CountdownWithBar(float countdown, Image image, Action _onComplete = null)
     {
         float elapsed = 0f;
         int updateRateMS = 10; // how often to update (10ms = 100 FPS)

@@ -1155,6 +1155,7 @@ MonoBehaviour:
   gameState: 0
   speed: 1.5
   obstacleLifespan: 15
+  countdown: 3
   mathCounter: 0
 --- !u!4 &413454513
 Transform:
