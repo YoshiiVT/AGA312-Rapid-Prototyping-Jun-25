@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace PROTOTYPE_4
         [SerializeField] private GameManager gameManager;
 
         [Header("References")]
-        [SerializeField] private GameObject pipePrefab;
+        [SerializeField] private List<GameObject> obstaclePrefabs;
         [SerializeField] private GameObject spawnPoint;
 
         [Header("Variables")]
@@ -33,9 +32,8 @@ namespace PROTOTYPE_4
         {
             while (gameManager.CurrentGameState() == GameState.PLAYING)
             {
-                float rndHeight = Random.Range(-1f, 2f);
 
-                SpawnColumn(rndHeight);
+                SpawnColumn();
 
                 switch (gameManager.speed)
                 {
@@ -71,15 +69,12 @@ namespace PROTOTYPE_4
             }
         }
 
-        private void SpawnColumn(float rndHeight)
+        private void SpawnColumn()
         {
             //Spawns columns
-            GameObject pipeSpawn = Instantiate(pipePrefab, spawnPoint.transform.position, Quaternion.identity);
+            GameObject pipeSpawn = Instantiate(ListX.GetRandomItemFromList(obstaclePrefabs), spawnPoint.transform.position, Quaternion.identity);
 
-            // Adjust y-position
-            Vector3 newPos = pipeSpawn.transform.position;
-            newPos.y += rndHeight;
-            pipeSpawn.transform.position = newPos;
+            
         }
     }
 }
