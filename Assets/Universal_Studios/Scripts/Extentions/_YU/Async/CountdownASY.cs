@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.UI;
+using System;
 
 public static class CountdownASY
 {
-    static public async Task Countdown(int countdown)
+    static public async Task Countdown(int countdown, Action _onComplete = null)
     {
         for (int i = countdown; i > 0; i--)
         {
@@ -12,9 +13,10 @@ public static class CountdownASY
             await Task.Delay(1000); //Wait 1 Second
         }
         Debug.Log("Countdown Finished");
+        _onComplete?.Invoke();
     }
 
-    static public async Task CountdownWithBar(int countdown, Image image)
+    static public async Task CountdownWithBar(int countdown, Image image, Action _onComplete = null)
     {
         float elapsed = 0f;
         int updateRateMS = 10; // how often to update (10ms = 100 FPS)
@@ -29,5 +31,6 @@ public static class CountdownASY
 
         image.fillAmount = 0f;
         Debug.Log("Countdown Finished");
+        _onComplete?.Invoke();
     }
 }

@@ -27,6 +27,8 @@ namespace PROTOTYPE_4
 
         [Header("DeathPanel")]
         [SerializeField] private int reviveOppertunityCountdown;
+        [SerializeField] private Image reviveOppertunityImage;
+        [SerializeField, ReadOnly] private bool reviving; 
 
         [Header("revivePanel")]
         [SerializeField] private TMP_Text questionText;
@@ -70,14 +72,22 @@ namespace PROTOTYPE_4
             UpdatePoints();
         }
 
-        public void Death()
+        public async void Death()
         {
             deathPanel.SetActive(true);
             Time.timeScale = 0;
+
+            await CountdownASY.CountdownWithBar(5, reviveOppertunityImage, () =>
+            {
+                if (reviving) { reviving = false; return; }
+                GameOver();
+            });
         }
 
         public void ReviveMath()
         {
+            reviving = true;
+
             deathPanel.SetActive(false);
             revivePanel.SetActive(true);
 
@@ -174,8 +184,6 @@ namespace PROTOTYPE_4
 
             }
         }
-
-        
     }
 }
 
