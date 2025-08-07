@@ -64,7 +64,7 @@ namespace PROTOTYPE_4
                         spawnTime = Random.Range(1f, 1.5f);
                         break;
                     case <= 10:
-                        spawnTime = Random.Range(0.5f, 1f);
+                        spawnTime = Random.Range(0.75f, 1f);
                         break;
                 }
                 yield return new WaitForSeconds(spawnTime);

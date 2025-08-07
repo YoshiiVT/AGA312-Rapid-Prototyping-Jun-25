@@ -11,7 +11,7 @@ public class EquationGenerator : MonoBehaviour
 
     public int numberOne;
     public int numberTwo;
-    public int correctAnswer;
+    public float correctAnswer;
     public List<int> dummyAnswers;
 
     public YU.Range easyRange;
@@ -108,10 +108,12 @@ public class EquationGenerator : MonoBehaviour
             GenerateRandomNumbers();
         }
         while (numberOne == 0 || numberTwo == 0);
-        float tempAnswer = numberOne / numberTwo;
-        correctAnswer = (int)Mathf.Round(tempAnswer * Mathf.Pow(10, numOfRoundedDecimals)) / (int)Mathf.Pow(10, numOfRoundedDecimals);
-        //correctAnswer = Mathf.Round(tempAnswer * Mathf.Pow(10, numOfRoundedDecimals)) / Mathf.Pow(10, numOfRoundedDecimals);
 
+        float tempAnswer = (float)numberOne / numberTwo;
+
+        // Round UP to the nearest 0.01
+        float multiplier = (float)System.Math.Pow(10, numOfRoundedDecimals);
+        correctAnswer = (float)System.Math.Ceiling(tempAnswer * multiplier) / multiplier;
         GenerateDummyAnswers();
     }
 
@@ -144,7 +146,7 @@ public class EquationGenerator : MonoBehaviour
                 int dummy;
                 do
                 {
-                    dummy = Random.Range(correctAnswer - 10, correctAnswer + 10);
+                    dummy = (int)Random.Range(correctAnswer - 10, correctAnswer + 10);
                 }
                 while (dummy == correctAnswer || dummyAnswers.Contains(dummy));
                 dummyAnswers[i] = dummy;

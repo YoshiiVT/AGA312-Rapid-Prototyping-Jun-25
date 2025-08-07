@@ -41,6 +41,7 @@ namespace PROTOTYPE_4
         [SerializeField] private GameState gameState;
         public float speed;
         public float obstacleLifespan;
+        [SerializeField, ReadOnly] int mathCounter;
 
         public void Start()
         { 
@@ -53,9 +54,10 @@ namespace PROTOTYPE_4
 
         private IEnumerator SpeedGrowth()
         {
-            speed += 0.005f;
+            if (speed <= 10) { speed += 0.005f; }
+            else { speed += 0.001f; }
             yield return new WaitForSeconds(0.1f);
-            if (speed <= 10) { StartCoroutine(SpeedGrowth()); } 
+            StartCoroutine(SpeedGrowth());
         }
 
         public void addpoint()
@@ -109,6 +111,8 @@ namespace PROTOTYPE_4
                     questionText.text = equationGenerator.numberOne + " / " + equationGenerator.numberTwo + " =  ? ";
                     break;
             }
+
+            UsedMath();
         }
 
         private void ButtonIsRight(Button button)
@@ -149,10 +153,23 @@ namespace PROTOTYPE_4
             return gameState;
         }
 
-        private int GenerateRandomNumber()
+        private void UsedMath()
         {
-            int number = Random.Range(0, 10);
-            return number;
+            mathCounter++;
+
+            switch (mathCounter)
+            {
+                case <=2:
+                    equationGenerator.difficulty = EquationGenerator.Difficulty.EASY;
+                    break;
+                case <=5:
+                    equationGenerator.difficulty = EquationGenerator.Difficulty.MEDIUM;
+                    break;
+                case >= 8:
+                    equationGenerator.difficulty = EquationGenerator.Difficulty.HARD;
+                    break;
+
+            }
         }
     }
 }

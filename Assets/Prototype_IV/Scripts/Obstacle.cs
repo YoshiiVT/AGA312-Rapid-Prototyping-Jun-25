@@ -25,6 +25,7 @@ public class Obstacle : GameBehaviour
 
     void Update()
     {
+        speed = gameManager.speed;
         transform.position += Vector3.left * speed * Time.deltaTime;
     }
 
