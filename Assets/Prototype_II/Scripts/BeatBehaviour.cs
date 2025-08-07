@@ -22,8 +22,7 @@ namespace PROTOTYPE_2
         [SerializeField] private BeatBehaviour beatBehaviour;
 
         [Header("Key References")]
-        [SerializeField, ReadOnly] private Key currentColumn;
-        [SerializeField] private Key endColumn;
+        [SerializeField, ReadOnly] private Key key;
 
         [Header("Beat Variables")]
         [SerializeField, ReadOnly] bool isDead = false;
@@ -44,23 +43,31 @@ namespace PROTOTYPE_2
             #endregion
 
             transform.position = startColumn.transform.position;
-            currentColumn = startColumn;
+            key = startColumn;
             beatOrder = _beatOrder;
         }
 
         public void MoveNote(float _BPM)
         {
             if (isDead) return;
-            Key nextColumn = currentColumn.GetNextKey(); //Debug.Log("Found Next Coloumn: " + nextColumn);
-            if (nextColumn.IsStart() == true) { transform.position = nextColumn.transform.position; }
-            else { transform.DOMoveX(nextColumn.transform.position.x, _BPM); }
-            currentColumn = nextColumn;
-            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath(_BPM)); if (playerBeat) { _GameManager.NoteMissed(); } }
+
+            Key nextKey = key.GetNextKey(); //Debug.Log("Found Next Coloumn: " + nextColumn);
+            if (nextKey.IsStart() == true) { transform.position = nextKey.transform.position; }
+            else { transform.DOMoveX(nextKey.transform.position.x, _BPM); }
+            key = nextKey;
+
+            if (key.IsEnd() == true) 
+            { 
+                isDead = true; 
+
+                StartCoroutine(NotePassed(_BPM)); 
+
+                if (playerBeat) { _GameManager.NoteMissed(); } 
+            }
         }
 
-        private IEnumerator NoteDeath(float _BPM)
+        private IEnumerator NotePassed(float _BPM) //Not when a note is hit, but when it reaches the end of the screen
         {
-
             yield return new WaitForSeconds(_BPM);
             _SongPlayer.beatsInPlay.Remove(gameObject); Destroy(gameObject);
         }
