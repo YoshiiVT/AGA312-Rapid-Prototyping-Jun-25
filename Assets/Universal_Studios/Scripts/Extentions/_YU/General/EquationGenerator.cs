@@ -101,6 +101,7 @@ public class EquationGenerator : MonoBehaviour
 
     public void GeneracteDivision()
     {
+        int numOfRoundedDecimals = 2;
         equationType = EquationType.DIVISION;
         do
         {
@@ -108,8 +109,9 @@ public class EquationGenerator : MonoBehaviour
         }
         while (numberOne == 0 || numberTwo == 0);
         float tempAnswer = numberOne / numberTwo;
-        correctAnswer = Mathf.RoundToInt(tempAnswer);
-        Debug.Log(numberOne + " / " + numberTwo + " = " + correctAnswer);
+        correctAnswer = (int)Mathf.Round(tempAnswer * Mathf.Pow(10, numOfRoundedDecimals)) / (int)Mathf.Pow(10, numOfRoundedDecimals);
+        //correctAnswer = Mathf.Round(tempAnswer * Mathf.Pow(10, numOfRoundedDecimals)) / Mathf.Pow(10, numOfRoundedDecimals);
+
         GenerateDummyAnswers();
     }
 
