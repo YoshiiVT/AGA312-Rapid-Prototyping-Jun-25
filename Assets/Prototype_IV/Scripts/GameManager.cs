@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
 using System.Collections;
 
 namespace PROTOTYPE_4
@@ -73,7 +72,7 @@ namespace PROTOTYPE_4
             Time.timeScale = 0;
         }
 
-        public void Math()
+        public void ReviveMath()
         {
             deathPanel.SetActive(false);
             revivePanel.SetActive(true);
@@ -134,7 +133,7 @@ namespace PROTOTYPE_4
             playerController.DestroyLastCollidedObj();
         }
 
-        public void GameOver()
+        private void GameOver()
         {
             deathPanel.SetActive(false);
             revivePanel.SetActive(false);
