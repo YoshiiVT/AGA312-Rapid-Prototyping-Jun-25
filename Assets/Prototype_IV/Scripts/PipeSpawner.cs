@@ -40,31 +40,31 @@ namespace PROTOTYPE_4
                 switch (gameManager.speed)
                 {
                     case < 2:
-                        spawnTime = Random.Range(3.5f, 6f);
+                        spawnTime = Random.Range(3.5f, 5.5f);
                         break;
                     case < 3:
-                        spawnTime = Random.Range(3.25f, 5.75f);
+                        spawnTime = Random.Range(2f, 4.5f);
                         break;
                     case < 4:
-                        spawnTime = Random.Range(3f, 5.5f);
+                        spawnTime = Random.Range(1.75f, 3f);
                         break;
                     case < 5:
-                        spawnTime = Random.Range(2.75f, 5.25f);
+                        spawnTime = Random.Range(1.75f, 2.5f);
                         break;
                     case < 6:
-                        spawnTime = Random.Range(2.5f, 5.25f);
+                        spawnTime = Random.Range(1.55f, 2f);
                         break;
                     case < 7:
-                        spawnTime = Random.Range(2.25f, 5f);
+                        spawnTime = Random.Range(1.5f, 1.75f);
                         break;
                     case < 8:
-                        spawnTime = Random.Range(2f, 4.75f);
+                        spawnTime = Random.Range(1.25f, 1.5f);
                         break;
                     case < 9:
-                        spawnTime = Random.Range(2f, 4.5f);
+                        spawnTime = Random.Range(1f, 1.5f);
                         break;
                     case <= 10:
-                        spawnTime = Random.Range(2f, 4.5f);
+                        spawnTime = Random.Range(0.5f, 1f);
                         break;
                 }
                 yield return new WaitForSeconds(spawnTime);
