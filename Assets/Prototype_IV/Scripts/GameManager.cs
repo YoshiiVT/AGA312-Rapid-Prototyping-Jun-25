@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using System.Collections;
 
 namespace PROTOTYPE_4
 {
@@ -46,6 +48,14 @@ namespace PROTOTYPE_4
             deathPanel.SetActive(false);
             revivePanel.SetActive(false);
             gameOverPanel.SetActive(false);
+            StartCoroutine(SpeedGrowth());
+        }
+
+        private IEnumerator SpeedGrowth()
+        {
+            speed += 0.005f;
+            yield return new WaitForSeconds(0.1f);
+            if (speed <= 10) { StartCoroutine(SpeedGrowth()); } 
         }
 
         public void addpoint()

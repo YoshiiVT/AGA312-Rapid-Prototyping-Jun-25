@@ -1021,6 +1021,7 @@ MonoBehaviour:
   gameState: 0
   speed: 1.5
   obstacleLifespan: 15
+  obstacleSpawnTime: 0
 --- !u!4 &413454513
 Transform:
   m_ObjectHideFlags: 0
@@ -5296,8 +5297,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a672c64a3ea4645bf7c44f635ffc81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   pipePrefab: {fileID: 3008976458600742137, guid: 6c4e22c50a42f364b90d503b5468b676, type: 3}
   spawnPoint: {fileID: 1561481159}
+  spawnTime: 0
 --- !u!4 &1977105313
 Transform:
   m_ObjectHideFlags: 0

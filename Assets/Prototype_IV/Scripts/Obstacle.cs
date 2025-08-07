@@ -2,7 +2,7 @@ using PROTOTYPE_4;
 using System.Collections;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : GameBehaviour
 {
     [Header("Manager")]
     [SerializeField, ReadOnly] private GameManager gameManager;

@@ -7,17 +7,24 @@ namespace PROTOTYPE_4
     //This is a temp class, as I plan to add other obsticals later
     public class PipeSpawner : GameBehaviour
     {
+        [Header("Managers")]
         //Temp
-        private GameManager gameManager;
-        
+        [SerializeField] private GameManager gameManager;
+
+        [Header("References")]
         [SerializeField] private GameObject pipePrefab;
         [SerializeField] private GameObject spawnPoint;
+
+        [Header("Variables")]
+        [SerializeField, ReadOnly] private float spawnTime;
+        
 
         private void Start()
         {
             //Temp
             GameObject gameManagerobj = GameObject.Find("GameManager");
             gameManager = gameManagerobj.GetComponent<GameManager>();
+            if (gameManager == null) { Debug.LogError("GAMEMANAGER NOT FOUND!!!"); }
 
             StartCoroutine(SpawnLoop());
         }
@@ -27,11 +34,40 @@ namespace PROTOTYPE_4
             while (gameManager.CurrentGameState() == GameState.PLAYING)
             {
                 float rndHeight = Random.Range(-1f, 2f);
-                float rndTime = Random.Range(3.5f, 6);
 
                 SpawnColumn(rndHeight);
 
-                yield return new WaitForSeconds(rndTime);
+                switch (gameManager.speed)
+                {
+                    case < 2:
+                        spawnTime = Random.Range(3.5f, 6f);
+                        break;
+                    case < 3:
+                        spawnTime = Random.Range(3.25f, 5.75f);
+                        break;
+                    case < 4:
+                        spawnTime = Random.Range(3f, 5.5f);
+                        break;
+                    case < 5:
+                        spawnTime = Random.Range(2.75f, 5.25f);
+                        break;
+                    case < 6:
+                        spawnTime = Random.Range(2.5f, 5.25f);
+                        break;
+                    case < 7:
+                        spawnTime = Random.Range(2.25f, 5f);
+                        break;
+                    case < 8:
+                        spawnTime = Random.Range(2f, 4.75f);
+                        break;
+                    case < 9:
+                        spawnTime = Random.Range(2f, 4.5f);
+                        break;
+                    case <= 10:
+                        spawnTime = Random.Range(2f, 4.5f);
+                        break;
+                }
+                yield return new WaitForSeconds(spawnTime);
             }
         }
 
