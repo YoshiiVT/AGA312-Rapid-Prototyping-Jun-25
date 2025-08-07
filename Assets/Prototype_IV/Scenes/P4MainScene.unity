@@ -1009,7 +1009,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 1341502738}
   equationGenerator: {fileID: 459326198}
-  gameState: 0
   deathPanel: {fileID: 881347328}
   revivePanel: {fileID: 1632187767}
   gameOverPanel: {fileID: 1266587782}
@@ -1019,6 +1018,9 @@ MonoBehaviour:
   finalScoreText: {fileID: 1947859513}
   points: 0
   pointText: {fileID: 16227992}
+  gameState: 0
+  speed: 1.5
+  obstacleLifespan: 15
 --- !u!4 &413454513
 Transform:
   m_ObjectHideFlags: 0
@@ -4395,7 +4397,7 @@ Transform:
   m_GameObject: {fileID: 1561481159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 0}
+  m_LocalPosition: {x: 12.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,13 +1,25 @@
+using PROTOTYPE_4;
 using System.Collections;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float lifespan = 5;
+    [Header("Manager")]
+    [SerializeField, ReadOnly] private GameManager gameManager;
+
+    [Header("Attributes")]
+    [SerializeField, ReadOnly] private float speed;
+    [SerializeField, ReadOnly] private float lifespan;
 
     private void Start()
     {
+        GameObject gameManagerobj = GameObject.Find("GameManager");
+        gameManager = gameManagerobj.GetComponent<GameManager>();
+        if (gameManager == null) { Debug.LogError("GAMEMANAGER NOT FOUND!!!"); }
+
+        speed = gameManager.speed;
+        lifespan = gameManager.obstacleLifespan;
+
         StartCoroutine(LifeSpan());
     }
 

@@ -18,8 +18,6 @@ namespace PROTOTYPE_4
         [SerializeField] private PlayerController playerController;
         [SerializeField] private EquationGenerator equationGenerator;
 
-        [SerializeField] private GameState gameState;
-
         [Header("Screens")]
         [SerializeField] private GameObject deathPanel;
         [SerializeField] private GameObject revivePanel;
@@ -36,6 +34,11 @@ namespace PROTOTYPE_4
         [Header("Points")]
         [SerializeField, ReadOnly] private int points;
         [SerializeField] private TMP_Text pointText;
+
+        [Header("GameState")]
+        [SerializeField] private GameState gameState;
+        public float speed;
+        public float obstacleLifespan;
 
         public void Start()
         { 

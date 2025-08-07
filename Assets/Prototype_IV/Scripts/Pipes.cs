@@ -11,6 +11,7 @@ public class Pipes : GameBehaviour
         //Temp
         GameObject gameManagerobj = GameObject.Find("GameManager");
         gameManager = gameManagerobj.GetComponent<GameManager>();
+        if ( gameManager == null ) { Debug.LogError("GAMEMANAGER NOT FOUND!!!"); }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
