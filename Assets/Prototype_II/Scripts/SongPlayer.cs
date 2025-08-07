@@ -27,7 +27,7 @@ namespace PROTOTYPE_2
         [SerializeField, ReadOnly] private bool isLastNote;
 
         [Header("PlayArea")]
-        [SerializeField] private Column startColumn;
+        [SerializeField] private Key startColumn;
         [SerializeField] private Canvas noteArea;
         [SerializeField] private GameObject noteContainer;
         [SerializeField] private Arrow arrow;

@@ -1,66 +1,68 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PROTOTYPE_2
 {
     public class BeatBehaviour : GameBehaviour
     {
+        [Header("Managers")]
+        [SerializeField] private SongPlayer _SongPlayer;
+        [SerializeField] private GameManager _GameManager;
+
+        [Header("Beat Properties")]
         [SerializeField] private bool playerBeat; //If True, then it is a beat that the player has to hit
         [SerializeField] private bool speedUpBPM; //If True, then the BPM is increased for the next beat
         [SerializeField] private bool speedDownBPM; //If True, then the BPM is decreased for the next beat
 
+        [Header("Beat Order")]
         [SerializeField] private int beatOrder; //This shows how many beats came before it.
 
-        private BeatData beatData;
+        [Header("Beat References")]
         [SerializeField] private BeatBehaviour beatBehaviour;
 
-        [SerializeField] private Image panel;
+        [Header("Key References")]
+        [SerializeField, ReadOnly] private Key currentColumn;
+        [SerializeField] private Key endColumn;
 
+        [Header("Beat Variables")]
         [SerializeField, ReadOnly] bool isDead = false;
 
-        [Header("Coloum References")]
-        [SerializeField, ReadOnly] private Column currentColumn;
-        [SerializeField] private Column endColumn;
-
+        [Header("Tweening")]
         [SerializeField] private Ease moveEase;
 
-        [SerializeField] private SongPlayer tempSongPlayer;
-        [SerializeField] private GameManager tempGameManager;
-
-        
-        public void Initialize(Column startColumn, BeatData _beatData, int _beatOrder)
+        public void Initialize(Key startColumn, BeatData _beatData, int _beatOrder)
         {
+            #region Managers
+            _SongPlayer = GameObject.Find("SongPlayer").GetComponent<SongPlayer>();
+
+            if (_SongPlayer == null) { Debug.LogWarning("SONGPLAYER NOT FOUND!!!"); }
+
+            _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+            if (_GameManager == null) { Debug.LogWarning("GAMEMANAGER NOT FOUND!!!"); }
+            #endregion
+
             transform.position = startColumn.transform.position;
             currentColumn = startColumn;
-            tempSongPlayer = GameObject.Find("SongPlayer").GetComponent<SongPlayer>();
-            tempGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-            beatData = _beatData;
-            playerBeat = _beatData.playerBeat;
-            speedUpBPM = _beatData.speedUpBPM;
-            speedDownBPM = _beatData.speedDownBPM;
             beatOrder = _beatOrder;
-
-            panel.color = _beatData.colour;
         }
 
         public void MoveNote(float _BPM)
         {
             if (isDead) return;
-            Column nextColumn = currentColumn.GetNextColumn(); //Debug.Log("Found Next Coloumn: " + nextColumn);
+            Key nextColumn = currentColumn.GetNextKey(); //Debug.Log("Found Next Coloumn: " + nextColumn);
             if (nextColumn.IsStart() == true) { transform.position = nextColumn.transform.position; }
             else { transform.DOMoveX(nextColumn.transform.position.x, _BPM); }
             currentColumn = nextColumn;
-            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath(_BPM)); if (playerBeat) { tempGameManager.NoteMissed(); } }
+            if (currentColumn.IsEnd() == true) { isDead = true; StartCoroutine(NoteDeath(_BPM)); if (playerBeat) { _GameManager.NoteMissed(); } }
         }
 
         private IEnumerator NoteDeath(float _BPM)
         {
 
             yield return new WaitForSeconds(_BPM);
-            tempSongPlayer.beatsInPlay.Remove(gameObject); Destroy(gameObject);
+            _SongPlayer.beatsInPlay.Remove(gameObject); Destroy(gameObject);
         }
 
         public bool IsPlayerBeat()
