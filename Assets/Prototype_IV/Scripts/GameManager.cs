@@ -14,7 +14,9 @@ namespace PROTOTYPE_4
     public class GameManager : GameBehaviour
     {
         //Temp
+        [Header("Managers")]
         [SerializeField] private PlayerController playerController;
+        [SerializeField] private EquationGenerator equationGenerator;
 
         [SerializeField] private GameState gameState;
 
@@ -25,15 +27,13 @@ namespace PROTOTYPE_4
 
         [Header("revivePanel")]
         [SerializeField] private TMP_Text questionText;
-        [SerializeField] private TMP_Text answerText;
-        [SerializeField] private TMP_Text fakeText;
+        [SerializeField] private Button buttonA;
+        [SerializeField] private Button buttonB;
 
         [Header("GameOverPanel")]
         [SerializeField] private TMP_Text finalScoreText;
 
-        [SerializeField] private Button buttonA;
-        [SerializeField] private Button buttonB;
-
+        [Header("Points")]
         [SerializeField, ReadOnly] private int points;
         [SerializeField] private TMP_Text pointText;
 
@@ -63,22 +63,51 @@ namespace PROTOTYPE_4
             deathPanel.SetActive(false);
             revivePanel.SetActive(true);
 
-            int number1 = GenerateRandomNumber();
-            int number2 = GenerateRandomNumber();
+            buttonA.onClick.RemoveAllListeners();
+            buttonB.onClick.RemoveAllListeners();
 
-            int correctAnswer = number1 + number2;
+            equationGenerator.GenerateEquation();
 
-            questionText.text = number1 + " + " + number2 + " = ? ";
-            answerText.text = correctAnswer.ToString();
+            int correctButton = Random.Range(0, 2);
 
-            int dummy;
-            do
+            if (correctButton == 0) 
             {
-                dummy = Random.Range(correctAnswer - 10, correctAnswer + 10);
+                ButtonIsRight(buttonA);
+                ButtonIsWrong(buttonB);
             }
-            while (dummy == correctAnswer);
-            fakeText.text = dummy.ToString();
+            else
+            {
+                ButtonIsRight(buttonB);
+                ButtonIsWrong(buttonA);
+            }
 
+            switch (equationGenerator.equationType)
+            {
+                case EquationGenerator.EquationType.ADDITION:
+                    questionText.text = equationGenerator.numberOne + " + " + equationGenerator.numberTwo + " =  ? ";
+                    break;
+                case EquationGenerator.EquationType.SUBTRACTION:
+                    questionText.text = equationGenerator.numberOne + " - " + equationGenerator.numberTwo + " =  ? ";
+                    break;
+                case EquationGenerator.EquationType.MULTIPLICATION:
+                    questionText.text = equationGenerator.numberOne + " X " + equationGenerator.numberTwo + " =  ? ";
+                    break;
+                case EquationGenerator.EquationType.DIVISION:
+                    questionText.text = equationGenerator.numberOne + " / " + equationGenerator.numberTwo + " =  ? ";
+                    break;
+            }
+        }
+
+        private void ButtonIsRight(Button button)
+        {
+            button.onClick.AddListener(() => Revive());
+            button.GetComponentInChildren<TMP_Text>().text = equationGenerator.correctAnswer.ToString();
+        }
+
+        private void ButtonIsWrong(Button button)
+        {
+            button.onClick.AddListener(() => GameOver());
+            button.GetComponentInChildren<TMP_Text>().text = equationGenerator.dummyAnswers[0].ToString();
         }
 
         public void Revive()
