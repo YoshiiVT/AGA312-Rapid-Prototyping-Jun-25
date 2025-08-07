@@ -1018,6 +1018,8 @@ MonoBehaviour:
   questionText: {fileID: 1943646395}
   buttonA: {fileID: 1838803382}
   buttonB: {fileID: 1745058773}
+  mathTimerBar: {fileID: 380782130}
+  mathing: 0
   finalScoreText: {fileID: 1947859513}
   points: 0
   pointText: {fileID: 16227992}

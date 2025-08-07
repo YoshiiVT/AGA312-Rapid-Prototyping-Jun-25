@@ -34,6 +34,8 @@ namespace PROTOTYPE_4
         [SerializeField] private TMP_Text questionText;
         [SerializeField] private Button buttonA;
         [SerializeField] private Button buttonB;
+        [SerializeField] private Image mathTimerBar;
+        [SerializeField, ReadOnly] private bool mathing;
 
         [Header("GameOverPanel")]
         [SerializeField] private TMP_Text finalScoreText;
@@ -84,7 +86,7 @@ namespace PROTOTYPE_4
             });
         }
 
-        public void ReviveMath()
+        public async void ReviveMath()
         {
             reviving = true;
 
@@ -126,6 +128,12 @@ namespace PROTOTYPE_4
             }
 
             UsedMath();
+
+            await CountdownASY.CountdownWithBar(5, mathTimerBar, () =>
+            {
+                if (mathing) { mathing = false; return; }
+                GameOver();
+            });
         }
 
         private void ButtonIsRight(Button button)
@@ -142,6 +150,7 @@ namespace PROTOTYPE_4
 
         public void Revive()
         {
+            mathing = true;
             Time.timeScale = 1;
             revivePanel.SetActive(false);
             playerController.DestroyLastCollidedObj();
