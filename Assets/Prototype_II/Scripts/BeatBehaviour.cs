@@ -35,11 +35,11 @@ namespace PROTOTYPE_2
             #region Managers
             _SongPlayer = GameObject.Find("SongPlayer").GetComponent<SongPlayer>();
 
-            if (_SongPlayer == null) { Debug.LogWarning("SONGPLAYER NOT FOUND!!!"); }
+            if (_SongPlayer == null) { Debug.LogError("SONGPLAYER NOT FOUND!!!"); }
 
             _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-            if (_GameManager == null) { Debug.LogWarning("GAMEMANAGER NOT FOUND!!!"); }
+            if (_GameManager == null) { Debug.Error("GAMEMANAGER NOT FOUND!!!"); }
             #endregion
 
             transform.position = startColumn.transform.position;
@@ -51,10 +51,9 @@ namespace PROTOTYPE_2
         {
             if (isDead) return;
 
-            Key nextKey = key.GetNextKey(); //Debug.Log("Found Next Coloumn: " + nextColumn);
-            if (nextKey.IsStart() == true) { transform.position = nextKey.transform.position; }
-            else { transform.DOMoveX(nextKey.transform.position.x, _BPM); }
-            key = nextKey;
+            Key nextKey = key.GetNextKey();
+
+            transform.DOMoveX(nextKey.transform.position.x, _BPM);
 
             if (key.IsEnd() == true) 
             { 
