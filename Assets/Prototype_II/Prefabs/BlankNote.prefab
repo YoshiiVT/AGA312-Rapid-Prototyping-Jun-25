@@ -97,6 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5621951385127450351}
+  - component: {fileID: 3080582173984441263}
   m_Layer: 0
   m_Name: BlankNote
   m_TagString: Untagged
@@ -120,6 +121,27 @@ Transform:
   - {fileID: 8120251043869246394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3080582173984441263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797861078367101026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762a61f41caa83248b9a569eb7b26b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SongPlayer: {fileID: 0}
+  _GameManager: {fileID: 0}
+  playerBeat: 0
+  speedUpBPM: 0
+  speedDownBPM: 0
+  noteOrder: 0
+  noteBehaviour: {fileID: 0}
+  currentPoint: {fileID: 0}
+  moveEase: 0
 --- !u!1 &6205978481748170337
 GameObject:
   m_ObjectHideFlags: 0

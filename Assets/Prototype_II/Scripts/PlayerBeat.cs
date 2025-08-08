@@ -10,7 +10,7 @@ namespace PROTOTYPE_2
         [SerializeField] private GraphicRaycaster raycaster;
         [SerializeField, ReadOnly] private PointerEventData pointerEventData;
         [SerializeField] private EventSystem eventSystem;
-        [SerializeField] private SongPlayer _SP;
+        [SerializeField] private SongPlayerOLD _SP;
         [SerializeField] private GameManager _GM;
 
         [SerializeField, ReadOnly] private bool canHit = false;
@@ -57,14 +57,14 @@ namespace PROTOTYPE_2
                 GameObject hitObj = result.gameObject;
                 //Debug.Log("Checking " + hitObj);
 
-                BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
+                NoteBehaviour beat = hitObj.GetComponentInParent<NoteBehaviour>();
                 if (beat != null)
                 {
                     if (beat.IsPlayerBeat())
                     {
                         Debug.LogWarning("Has Hit player note");
                         _GM.NoteHit();
-                        _SP.DestroyNote(beat.GetBeatOrder());
+                        //_SP.DestroyNote(beat.GetBeatOrder());
                         return;
                     }
                     else { Debug.Log("Hit was not playable note"); return; }
@@ -89,7 +89,7 @@ namespace PROTOTYPE_2
             {
                 GameObject hitObj = result.gameObject;
 
-                BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
+                NoteBehaviour beat = hitObj.GetComponentInParent<NoteBehaviour>();
                 if (beat != null)
                 {
                     Debug.Log("Note in Centre");
@@ -117,18 +117,18 @@ namespace PROTOTYPE_2
                 GameObject hitObj = result.gameObject;
                 //Debug.Log("Checking " + hitObj);
 
-                BeatBehaviour beat = hitObj.GetComponentInParent<BeatBehaviour>();
+                NoteBehaviour beat = hitObj.GetComponentInParent<NoteBehaviour>();
                 if (beat != null) 
                 {
                     if (beat.IsSpeedUp())
                     {
                         //Debug.Log("IS Speed up Note");
-                        _SP.IncreaseBPM();
+                        //_SP.IncreaseBPM();
                     }
                     if (beat.IsSpeedDown())
                     {
                         //Debug.Log("IS Down up Note");
-                        _SP.DecreaseBPM();
+                        //_SP.DecreaseBPM();
                     }
                     if (beat.IsPlayerBeat()) 
                     {

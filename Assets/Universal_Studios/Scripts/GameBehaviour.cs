@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
-    protected static SongPlayer _SP { get { return SongPlayer.Instance; } }
+    protected static SongPlayerOLD _SP { get { return SongPlayerOLD.Instance; } }
     protected static SaveManager _SAVE => SaveManager.Instance;
     
     #region Prototype III
