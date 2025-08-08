@@ -43,22 +43,24 @@ namespace PROTOTYPE_2
 
         private void MoveNotes()
         {
-            foreach (NoteBehaviour note in notesInPlay)
+            for (int i = notesInPlay.Count - 1; i >= 0; i--)
             {
-                if (note.CurrentPoint().IsEnd()) { notesInPlay.Remove(note); Destroy(note.gameObject); } //If note is at the end point it passes.
+                NoteBehaviour note = notesInPlay[i];
 
-                note.MoveNote(SPB);
+                if (note.CurrentPoint().IsEnd())
+                {
+                    notesInPlay.RemoveAt(i);
+                    Destroy(note.gameObject);
+                }
+                else
+                {
+                    note.MoveNote(SPB);
+                }
             }
 
             SpawnNextNote();
-
-            //Find all notes in play. 
-            //Check what point they are currently on
-            //IF on last note then activate it as a miss
-            //Move all notes to the next point
-            //Allocate that as their current point
-            //Spawn new note
         }
+
 
         private void SpawnNextNote()
         {
