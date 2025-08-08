@@ -7,7 +7,7 @@ namespace PROTOTYPE_2
     {
         [Header("Song Loaders")]
         [SerializeField] private SongData songData; //This is where the scriptableObject holding the song is inserted
-        [SerializeField, ReadOnly] private List<GameObject> noteList; //From which I gives the notes that are in the song and their order
+        [SerializeField, ReadOnly] private List<GameObject> notesToPlay; //From which I gives the notes that are in the song and their order
         [SerializeField, ReadOnly] private int startingBPM; //And the starting BPM;
 
         [Header("Timing")]
@@ -27,7 +27,7 @@ namespace PROTOTYPE_2
         }
         public void Initialize(/*SongData _songData*/)
         {
-            noteList = songData.noteList;
+            notesToPlay = new List<GameObject>(songData.noteList);
             startingBPM = songData.startingBPM;
 
             BPM = startingBPM; //I made BPM different from startingBPM so that BPM could change freely while keeping track of what it started at
@@ -61,11 +61,11 @@ namespace PROTOTYPE_2
         {
             currentNote++;
 
-            GameObject noteToSpawn = Instantiate(noteList[0], pointList[0].transform); //Spawns the note
+            GameObject noteToSpawn = Instantiate(notesToPlay[0], pointList[0].transform); //Spawns the note
             noteToSpawn.GetComponent<NoteBehaviour>().Initialize(pointList[0].GetComponent<Point>(), currentNote); //Initialzies the Note
 
             notesInPlay.Add(noteToSpawn.GetComponent<NoteBehaviour>()); //Adds spawned note to NotesInPlay list
-            noteList.Remove(noteList[0]); //Removes spawned note from notelist
+            notesToPlay.Remove(notesToPlay[0]); //Removes spawned note from notelist
         }
     }
 }
