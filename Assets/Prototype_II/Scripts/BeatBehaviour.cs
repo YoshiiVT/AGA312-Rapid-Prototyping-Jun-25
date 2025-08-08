@@ -39,7 +39,7 @@ namespace PROTOTYPE_2
 
             _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-            if (_GameManager == null) { Debug.Error("GAMEMANAGER NOT FOUND!!!"); }
+            if (_GameManager == null) { Debug.LogError("GAMEMANAGER NOT FOUND!!!"); }
             #endregion
 
             transform.position = startColumn.transform.position;
