@@ -36,6 +36,9 @@ namespace PROTOTYPE_2
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.E)) { MoveNotes(); }
+
+            BPS = BPM / 60; //This convers BPM to seconds, and will continue to update if the beat quickens or slows
+            SPB = 1 / BPS; //Converts BeatsPerSecond into SecondsPerBeat
         }
 
         private void MoveNotes()
@@ -44,7 +47,7 @@ namespace PROTOTYPE_2
             {
                 if (note.CurrentPoint().IsEnd()) { notesInPlay.Remove(note); Destroy(note.gameObject); } //If note is at the end point it passes.
 
-                note.MoveNote(BPM);
+                note.MoveNote(SPB);
             }
 
             SpawnNextNote();

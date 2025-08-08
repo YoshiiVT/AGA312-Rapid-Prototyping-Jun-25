@@ -44,11 +44,13 @@ namespace PROTOTYPE_2
             noteOrder = _noteOrder;
         }
 
-        public void MoveNote(float _BPM)
+        public void MoveNote(float _SPB)
         {
             Point nextKey = currentPoint.GetNextKey();
 
-            transform.DOMoveX(nextKey.transform.position.x, _BPM);
+            transform.DOMoveX(nextKey.transform.position.x, _SPB);
+
+            currentPoint = nextKey;
         }
 
         public bool IsPlayerBeat()
