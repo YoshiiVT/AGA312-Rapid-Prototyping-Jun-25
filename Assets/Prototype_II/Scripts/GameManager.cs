@@ -19,7 +19,7 @@ namespace PROTOTYPE_2
         {
             currentMultiplier = 1;
 
-            multiplierText.text = "Markiplier : x" + currentMultiplier;
+            multiplierText.text = "x" + currentMultiplier;
             scoreText.text = "Score : " + currentScore;
         }
 
@@ -41,7 +41,7 @@ namespace PROTOTYPE_2
             currentScore += scorePerNote * currentMultiplier;
 
             scoreText.text = "Score : " + currentScore;
-            multiplierText.text = "Markiplier : x" + currentMultiplier;
+            multiplierText.text = "x" + currentMultiplier;
         }
         public void NoteMissed()
         {
@@ -53,7 +53,7 @@ namespace PROTOTYPE_2
             multiplierTracker = 0;
 
             scoreText.text = "Score : " + currentScore;
-            multiplierText.text = "Markiplier : x" + currentMultiplier;
+            multiplierText.text = "x" + currentMultiplier;
 
         }
     }

@@ -43,9 +43,9 @@ namespace PROTOTYPE_2
 
             if (_SongPlayer == null) { Debug.LogError("SONGPLAYER NOT FOUND!!!"); }
 
-            //_GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-            //if (_GameManager == null) { Debug.LogError("GAMEMANAGER NOT FOUND!!!"); }
+            if (_GameManager == null) { Debug.LogError("GAMEMANAGER NOT FOUND!!!"); }
             #endregion
 
             transform.position = startPoint.transform.position;
@@ -156,6 +156,17 @@ namespace PROTOTYPE_2
         public void NoteHit()
         {
             splatSprite.gameObject.SetActive(true);
+
+            if (playerBeat)
+            {
+                Debug.Log("Player hit an enemy");
+                _GameManager.NoteHit();
+            }
+            else
+            {
+                Debug.Log("Player hit a tree");
+                _GameManager.NoteMissed();
+            }
 
             beenHit = true;
         }

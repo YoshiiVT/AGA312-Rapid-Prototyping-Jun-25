@@ -70,6 +70,7 @@ namespace PROTOTYPE_2
                         if (!note.BeenHit())
                         {
                             Debug.Log("Player missed an Enemy");
+                            _GameManager.NoteMissed();
                             _PLAYER.PlayerBeenHit();
                         }
                     }
