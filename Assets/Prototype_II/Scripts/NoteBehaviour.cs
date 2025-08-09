@@ -67,8 +67,9 @@ namespace PROTOTYPE_2
             if (!passedCenter) //If it hasn't passed center, incrament sortingvalue by 3
             {
                 ChangeSortingValues(3);
+                ChangeScaleValues(0.1f, _SPB);
             }
-            else ChangeSortingValues(-3); //Else decrament by 3
+            else { ChangeSortingValues(-3); ChangeScaleValues(-0.1f, _SPB); } //Else decrament by 3
         }
 
         /// <summary>
@@ -80,6 +81,18 @@ namespace PROTOTYPE_2
             noteSprite.sortingOrder += i;
             if (enemySprite != null) { enemySprite.sortingOrder += i; }
             splatSprite.sortingOrder += i;
+        }
+
+        /// <summary>
+        /// This will change the scale of the object by f
+        /// </summary>
+        /// <param name="f"></param>
+        /// <param name="_SPB"></param>
+        private void ChangeScaleValues(float f, float _SPB)
+        {
+            Vector3 currentScale = gameObject.transform.localScale;
+            Vector3 newScale = currentScale + new Vector3(f, f, f);
+            gameObject.transform.DOScale(newScale, _SPB);
         }
 
         public bool IsPlayerBeat()
