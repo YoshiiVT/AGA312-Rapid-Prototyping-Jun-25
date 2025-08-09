@@ -223,11 +223,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SongPlayer: {fileID: 0}
   _GameManager: {fileID: 0}
+  noteBehaviour: {fileID: 0}
   playerBeat: 0
   speedUpBPM: 0
   speedDownBPM: 0
+  noteSprite: {fileID: 426987596904515976}
+  enemySprite: {fileID: 235327888128657596}
+  splatSprite: {fileID: 4721273290758576156}
   noteOrder: 0
-  noteBehaviour: {fileID: 0}
+  passedCenter: 0
   currentPoint: {fileID: 0}
   moveEase: 0
 --- !u!1 &8154448173033876069
@@ -305,7 +309,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1912158677
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 272f34db2e3f36f4bbfb7f35570e3d0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
