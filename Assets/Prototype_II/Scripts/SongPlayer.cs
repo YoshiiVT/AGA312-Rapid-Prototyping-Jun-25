@@ -14,6 +14,7 @@ namespace PROTOTYPE_2
         [SerializeField] private SongData songData; //This is where the scriptableObject holding the song is inserted
         [SerializeField, ReadOnly] private List<GameObject> notesToPlay; //From which I gives the notes that are in the song and their order
         [SerializeField, ReadOnly] private int startingBPM; //And the starting BPM;
+        [SerializeField, ReadOnly] private bool endOfSong;
 
         [Header("Timing")]
         [SerializeField, ReadOnly] private float BPM; //Beats per Minute
@@ -53,7 +54,7 @@ namespace PROTOTYPE_2
         {
             MoveNotes();
             yield return new WaitForSeconds(SPB);
-            StartCoroutine(BeatPlayer());
+            if (!endOfSong) { StartCoroutine(BeatPlayer()); }
         }
 
         private void MoveNotes()
@@ -92,7 +93,11 @@ namespace PROTOTYPE_2
             {
                 SpawnNextNote();
             }
-
+            else
+            {
+                endOfSong = true;
+                StartCoroutine(MoveRestOfNotes(notesInPlay.Count + 1));
+            }
 
             NoteBehaviour centerNote = CheckCenterNote();
 
@@ -120,6 +125,15 @@ namespace PROTOTYPE_2
 
             notesInPlay.Add(noteToSpawn.GetComponent<NoteBehaviour>()); //Adds spawned note to NotesInPlay list
             notesToPlay.Remove(notesToPlay[0]); //Removes spawned note from notelist
+        }
+
+        private IEnumerator MoveRestOfNotes(int rounds)
+        {
+            for (int i = 0; i < rounds; i++)
+            {
+                MoveNotes();
+                yield return new WaitForSeconds(SPB);
+            }
         }
 
         public NoteBehaviour CheckCenterNote()
