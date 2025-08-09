@@ -224,7 +224,7 @@ MonoBehaviour:
   _SongPlayer: {fileID: 0}
   _GameManager: {fileID: 0}
   noteBehaviour: {fileID: 0}
-  playerBeat: 0
+  playerBeat: 1
   speedUpBPM: 0
   speedDownBPM: 0
   noteSprite: {fileID: 426987596904515976}
@@ -232,6 +232,7 @@ MonoBehaviour:
   splatSprite: {fileID: 4721273290758576156}
   noteOrder: 0
   passedCenter: 0
+  beenHit: 0
   currentPoint: {fileID: 0}
   moveEase: 0
 --- !u!1 &8154448173033876069

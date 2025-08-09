@@ -1020,6 +1020,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songPlayer: {fileID: 2144626422}
   gameManager: {fileID: 0}
+  splatSprite: {fileID: 1264963634}
+  splatLifetime: 3
 --- !u!4 &891985051
 Transform:
   m_ObjectHideFlags: 0
@@ -2639,6 +2641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8b7a33254822742ac9d79fb5de7401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PLAYER: {fileID: 891985050}
+  _GameManager: {fileID: 0}
   songData: {fileID: 11400000, guid: 140dec25c91aff44abdabc4f24079e76, type: 2}
   notesToPlay: []
   startingBPM: 0

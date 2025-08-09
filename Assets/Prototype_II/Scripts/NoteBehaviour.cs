@@ -143,6 +143,11 @@ namespace PROTOTYPE_2
             passedCenter = true;
         }
 
+        public bool BeenHit()
+        {
+            return beenHit;
+        }
+
         public void NoteHit()
         {
             splatSprite.gameObject.SetActive(true);

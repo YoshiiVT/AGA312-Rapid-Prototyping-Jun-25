@@ -6,6 +6,10 @@ namespace PROTOTYPE_2
 {
     public class SongPlayer : MonoBehaviour
     {
+        [Header("Managers")]
+        [SerializeField] private PlayerController _PLAYER;
+        [SerializeField] private GameManager _GameManager;
+
         [Header("Song Loaders")]
         [SerializeField] private SongData songData; //This is where the scriptableObject holding the song is inserted
         [SerializeField, ReadOnly] private List<GameObject> notesToPlay; //From which I gives the notes that are in the song and their order
@@ -60,10 +64,17 @@ namespace PROTOTYPE_2
 
                 if (note.CurrentPoint().IsEnd()) //If the note is at the end it destroys it
                 {
+                    if (note.IsPlayerBeat())
+                    {
+                        if (!note.BeenHit())
+                        {
+                            Debug.Log("Player missed an Enemy");
+                            _PLAYER.PlayerBeenHit();
+                        }
+                    }
                     notesInPlay.RemoveAt(i);
                     Destroy(note.gameObject);
 
-                    //put logic for note failure here
                 }
                 else
                 {
