@@ -82,7 +82,7 @@ namespace PROTOTYPE_2
                 }
                 else
                 {
-                    float delayedSPB = SPB - (SPB * (25 / 100));
+                    float delayedSPB = SPB - (SPB * (25f / 100f));
                     note.MoveNote(delayedSPB); //Moves the note
 
                     if (note.CurrentPoint().IsCenter()) { note.PassedCentre(); } //This lets the note know its passed centre
@@ -92,11 +92,6 @@ namespace PROTOTYPE_2
             if (notesToPlay.Count > 0)
             {
                 SpawnNextNote();
-            }
-            else
-            {
-                endOfSong = true;
-                StartCoroutine(MoveRestOfNotes(notesInPlay.Count + 1));
             }
 
             NoteBehaviour centerNote = CheckCenterNote();
@@ -112,6 +107,8 @@ namespace PROTOTYPE_2
                     BPM += 30; Debug.Log("Speeding Up");
                 }
             }
+
+            if (notesInPlay.Count == 0) { endOfSong = true; }
         }
 
         private void SpawnNextNote()
@@ -125,15 +122,6 @@ namespace PROTOTYPE_2
 
             notesInPlay.Add(noteToSpawn.GetComponent<NoteBehaviour>()); //Adds spawned note to NotesInPlay list
             notesToPlay.Remove(notesToPlay[0]); //Removes spawned note from notelist
-        }
-
-        private IEnumerator MoveRestOfNotes(int rounds)
-        {
-            for (int i = 0; i < rounds; i++)
-            {
-                MoveNotes();
-                yield return new WaitForSeconds(SPB);
-            }
         }
 
         public NoteBehaviour CheckCenterNote()
