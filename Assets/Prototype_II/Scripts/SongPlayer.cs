@@ -76,14 +76,11 @@ namespace PROTOTYPE_2
 
                 if (note.CurrentPoint().IsEnd()) //If the note is at the end it destroys it
                 {
-                    
                     notesInPlay.RemoveAt(i);
                     Destroy(note.gameObject);
-
                 }
                 else
                 {
-
                     float delayedSPB = SPB - (SPB * (25 / 100));
                     note.MoveNote(delayedSPB); //Moves the note
 
@@ -94,6 +91,21 @@ namespace PROTOTYPE_2
             if (notesToPlay.Count > 0)
             {
                 SpawnNextNote();
+            }
+
+
+            NoteBehaviour centerNote = CheckCenterNote();
+
+            if (centerNote != null)
+            {
+                if (centerNote.IsSpeedDown())
+                {
+                    BPM -= 30; Debug.Log("Speeding Down");
+                }
+                else if (centerNote.IsSpeedUp())
+                {
+                    BPM += 30; Debug.Log("Speeding Up");
+                }
             }
         }
 
