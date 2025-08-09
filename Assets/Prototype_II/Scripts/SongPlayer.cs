@@ -73,7 +73,10 @@ namespace PROTOTYPE_2
                 }
             }
 
-            SpawnNextNote();
+            if (notesToPlay.Count > 0)
+            {
+                SpawnNextNote();
+            }
         }
 
 
