@@ -2,15 +2,18 @@ using UnityEngine;
 
 namespace PROTOTYPE_2
 {
-    public class Point : MonoBehaviour
+    public class Point : GameBehaviour
     {
+        [Header("Point References")]
         [SerializeField] private Point nextPoint;
         [SerializeField] private Point prevPoint;
+
+        [Header("Point Variables")]
         [SerializeField] private bool isEnd;
         [SerializeField] private bool isCenter;
         [SerializeField] private bool isStart;
 
-        public Point GetNextKey()
+        public Point GetNextPoint()
         {
             if (nextPoint == null) Debug.LogError("The Next Point is Null");
             return nextPoint;

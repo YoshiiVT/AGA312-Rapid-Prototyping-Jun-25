@@ -58,19 +58,23 @@ namespace PROTOTYPE_2
 
         public void MoveNote(float _SPB)
         {
-            Point nextKey = currentPoint.GetNextKey();
+            Point nextPoint = currentPoint.GetNextPoint(); //Finds the next point to move to
 
-            transform.DOMoveX(nextKey.transform.position.x, _SPB);
+            transform.DOMoveX(nextPoint.transform.position.x, _SPB); //Moves to that point
 
-            currentPoint = nextKey;
+            currentPoint = nextPoint; //Sets the next point to current point
 
-            if (!passedCenter)
+            if (!passedCenter) //If it hasn't passed center, incrament sortingvalue by 3
             {
                 ChangeSortingValues(3);
             }
-            else ChangeSortingValues(-3);
+            else ChangeSortingValues(-3); //Else decrament by 3
         }
 
+        /// <summary>
+        /// Changes the Sorting Layer of the 3 sprites used in notes.
+        /// </summary>
+        /// <param name="i"></param>
         private void ChangeSortingValues(int i)
         {
             noteSprite.sortingOrder += i;

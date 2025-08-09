@@ -44,20 +44,22 @@ namespace PROTOTYPE_2
 
         private void MoveNotes()
         {
-            for (int i = notesInPlay.Count - 1; i >= 0; i--)
+            for (int i = notesInPlay.Count - 1; i >= 0; i--) //This goes through all notes that are currently in Play.
             {
                 NoteBehaviour note = notesInPlay[i];
 
-                if (note.CurrentPoint().IsEnd())
+                if (note.CurrentPoint().IsEnd()) //If the note is at the end it destroys it
                 {
                     notesInPlay.RemoveAt(i);
                     Destroy(note.gameObject);
+
+                    //put logic for note failure here
                 }
                 else
                 {
-                    note.MoveNote(SPB);
+                    note.MoveNote(SPB); //Moves the note
 
-                    if (note.CurrentPoint().IsCenter()) { note.PassedCentre(); }
+                    if (note.CurrentPoint().IsCenter()) { note.PassedCentre(); } //This lets the note know its passed centre
                 }
             }
 
