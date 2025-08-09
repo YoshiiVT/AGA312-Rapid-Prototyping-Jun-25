@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace PROTOTYPE_2
 {
-    public class PlayerBeat : MonoBehaviour
+    public class PlayerBeatOLD : MonoBehaviour
     {
         [SerializeField] private GraphicRaycaster raycaster;
         [SerializeField, ReadOnly] private PointerEventData pointerEventData;

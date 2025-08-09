@@ -7,8 +7,8 @@ namespace PROTOTYPE_2
     public class NoteBehaviour : GameBehaviour
     {
         [Header("Managers")]
-        [SerializeField] private SongPlayer _SongPlayer;
-        [SerializeField] private GameManager _GameManager;
+        [SerializeField, ReadOnly] private SongPlayer _SongPlayer;
+        [SerializeField, ReadOnly] private GameManager _GameManager;
 
         [Header("Note References")]
         [SerializeField] private NoteBehaviour noteBehaviour;
@@ -28,6 +28,7 @@ namespace PROTOTYPE_2
 
         [Header("Note Variables")]
         [SerializeField, ReadOnly] private bool passedCenter;
+        [SerializeField, ReadOnly] private bool beenHit;
 
         [Header("Point References")]
         [SerializeField, ReadOnly] private Point currentPoint; //This is the point the note is currently on, changes after every move.
@@ -140,6 +141,13 @@ namespace PROTOTYPE_2
         public void PassedCentre() 
         {
             passedCenter = true;
+        }
+
+        public void NoteHit()
+        {
+            splatSprite.gameObject.SetActive(true);
+
+            beenHit = true;
         }
     }
 }
