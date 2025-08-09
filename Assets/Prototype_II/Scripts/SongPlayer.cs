@@ -62,7 +62,7 @@ namespace PROTOTYPE_2
             {
                 NoteBehaviour note = notesInPlay[i];
 
-                if (note.CurrentPoint().IsEnd()) //If the note is at the end it destroys it
+                if (note.EnemyPassedCentre())
                 {
                     if (note.IsPlayerBeat())
                     {
@@ -72,6 +72,11 @@ namespace PROTOTYPE_2
                             _PLAYER.PlayerBeenHit();
                         }
                     }
+                }
+
+                if (note.CurrentPoint().IsEnd()) //If the note is at the end it destroys it
+                {
+                    
                     notesInPlay.RemoveAt(i);
                     Destroy(note.gameObject);
 

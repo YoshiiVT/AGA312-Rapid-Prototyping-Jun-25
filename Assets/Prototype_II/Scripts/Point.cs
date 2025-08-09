@@ -11,6 +11,7 @@ namespace PROTOTYPE_2
         [Header("Point Variables")]
         [SerializeField] private bool isEnd;
         [SerializeField] private bool isCenter;
+        [SerializeField] private bool justPassedCenter;
         [SerializeField] private bool isStart;
 
         public Point GetNextPoint()
@@ -28,6 +29,11 @@ namespace PROTOTYPE_2
         public bool IsCenter()
         {
             return isCenter;
+        }
+
+        public bool JustPassedCenter()
+        {
+            return justPassedCenter;
         }
 
         public bool IsEnd()

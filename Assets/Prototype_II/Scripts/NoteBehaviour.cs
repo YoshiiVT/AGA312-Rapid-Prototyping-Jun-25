@@ -143,6 +143,11 @@ namespace PROTOTYPE_2
             passedCenter = true;
         }
 
+        public bool EnemyPassedCentre()
+        {
+            if (currentPoint.JustPassedCenter()) { return true; } else { return false; }
+        }
+
         public bool BeenHit()
         {
             return beenHit;
