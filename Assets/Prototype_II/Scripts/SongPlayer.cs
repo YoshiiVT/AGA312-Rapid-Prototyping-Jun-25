@@ -19,6 +19,7 @@ namespace PROTOTYPE_2
         [Header("PlayArea")]
         [SerializeField] private List<GameObject> pointList; //Points are the areas notes can exist. The centre point is where players hit the note.
         [SerializeField] private List<NoteBehaviour> notesInPlay;
+        [SerializeField] private GameObject notesHolder; //Just for organisation in the inspector
 
         //this is temp, incase I dont want it to start on load.
         public void Start()
@@ -68,6 +69,8 @@ namespace PROTOTYPE_2
 
             GameObject noteToSpawn = Instantiate(notesToPlay[0], pointList[0].transform); //Spawns the note
             noteToSpawn.GetComponent<NoteBehaviour>().Initialize(pointList[0].GetComponent<Point>(), currentNote); //Initialzies the Note
+
+            noteToSpawn.transform.SetParent(notesHolder.transform); //Puts the spawned notes into the holder
 
             notesInPlay.Add(noteToSpawn.GetComponent<NoteBehaviour>()); //Adds spawned note to NotesInPlay list
             notesToPlay.Remove(notesToPlay[0]); //Removes spawned note from notelist
