@@ -447,6 +447,7 @@ MonoBehaviour:
   nextPoint: {fileID: 0}
   prevPoint: {fileID: 1317103652}
   isEnd: 1
+  isCenter: 0
   isStart: 0
 --- !u!1 &152784332
 GameObject:
@@ -495,6 +496,7 @@ MonoBehaviour:
   nextPoint: {fileID: 1981105982}
   prevPoint: {fileID: 0}
   isEnd: 0
+  isCenter: 0
   isStart: 1
 --- !u!1 &190634609
 GameObject:
@@ -543,6 +545,7 @@ MonoBehaviour:
   nextPoint: {fileID: 1216089280}
   prevPoint: {fileID: 1591379728}
   isEnd: 0
+  isCenter: 1
   isStart: 0
 --- !u!1 &464341484
 GameObject:
@@ -1623,6 +1626,7 @@ MonoBehaviour:
   nextPoint: {fileID: 1317103652}
   prevPoint: {fileID: 190634611}
   isEnd: 0
+  isCenter: 0
   isStart: 0
 --- !u!1 &1226882221
 GameObject:
@@ -2015,6 +2019,7 @@ MonoBehaviour:
   nextPoint: {fileID: 42498316}
   prevPoint: {fileID: 1216089280}
   isEnd: 0
+  isCenter: 0
   isStart: 0
 --- !u!1 &1359410533
 GameObject:
@@ -2354,6 +2359,7 @@ MonoBehaviour:
   nextPoint: {fileID: 190634611}
   prevPoint: {fileID: 1981105982}
   isEnd: 0
+  isCenter: 0
   isStart: 0
 --- !u!1 &1889440487
 GameObject:
@@ -2520,6 +2526,7 @@ MonoBehaviour:
   nextPoint: {fileID: 1591379728}
   prevPoint: {fileID: 152784334}
   isEnd: 0
+  isCenter: 0
   isStart: 0
 --- !u!1 &2076375362
 GameObject:

@@ -56,6 +56,8 @@ namespace PROTOTYPE_2
                 else
                 {
                     note.MoveNote(SPB);
+
+                    if (note.CurrentPoint().IsCenter()) { note.PassedCentre(); }
                 }
             }
 

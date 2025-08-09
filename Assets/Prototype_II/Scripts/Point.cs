@@ -7,6 +7,7 @@ namespace PROTOTYPE_2
         [SerializeField] private Point nextPoint;
         [SerializeField] private Point prevPoint;
         [SerializeField] private bool isEnd;
+        [SerializeField] private bool isCenter;
         [SerializeField] private bool isStart;
 
         public Point GetNextKey()
@@ -19,6 +20,11 @@ namespace PROTOTYPE_2
         {
             if (prevPoint == null) Debug.LogError("The Previous Point is Null");
             return prevPoint;
+        }
+
+        public bool IsCenter()
+        {
+            return isCenter;
         }
 
         public bool IsEnd()
