@@ -22,4 +22,4 @@ MonoBehaviour:
   - {fileID: 797861078367101026, guid: f180cbaf15d3f6f46abd0ede6dfd4ffb, type: 3}
   - {fileID: 797861078367101026, guid: f180cbaf15d3f6f46abd0ede6dfd4ffb, type: 3}
   - {fileID: 797861078367101026, guid: f180cbaf15d3f6f46abd0ede6dfd4ffb, type: 3}
-  startingBPM: 120
+  startingBPM: 60
