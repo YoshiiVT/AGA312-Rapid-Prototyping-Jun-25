@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace PROTOTYPE_2
@@ -32,6 +33,8 @@ namespace PROTOTYPE_2
             startingBPM = songData.startingBPM;
 
             BPM = startingBPM; //I made BPM different from startingBPM so that BPM could change freely while keeping track of what it started at
+
+            StartCoroutine(BeatPlayer());
         }
 
         private void Update()
@@ -40,6 +43,13 @@ namespace PROTOTYPE_2
 
             BPS = BPM / 60; //This convers BPM to seconds, and will continue to update if the beat quickens or slows
             SPB = 1 / BPS; //Converts BeatsPerSecond into SecondsPerBeat
+        }
+
+        private IEnumerator BeatPlayer()
+        {
+            MoveNotes();
+            yield return new WaitForSeconds(SPB);
+            StartCoroutine(BeatPlayer());
         }
 
         private void MoveNotes()
