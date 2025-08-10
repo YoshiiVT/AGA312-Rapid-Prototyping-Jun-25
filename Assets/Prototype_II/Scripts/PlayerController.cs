@@ -59,6 +59,8 @@ namespace PROTOTYPE_2
 
         public void PlayerBeenHit()
         {
+            splatSprite.color = ColorX.GetRandomColour();
+
             splatSprite.gameObject.SetActive(true);
 
             // Reset alpha to fully visible
