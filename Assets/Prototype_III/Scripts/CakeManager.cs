@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 namespace PROTOTYPE_3
 {
     public class CakeManager : GameBehaviour<CakeManager>
@@ -30,6 +31,15 @@ namespace PROTOTYPE_3
         [SerializeField, ReadOnly] private List<GameObject> chocolatePurity;
         [SerializeField, ReadOnly] private List<GameObject> strawberryPurity;
         [SerializeField, ReadOnly] private List<GameObject> icecreamPurity;
+
+
+        [Header("Cake Images")]
+        [SerializeField] private Image trashCake;
+        [SerializeField] private Image mixedCake;
+        [SerializeField] private Image vanillaCake;
+        [SerializeField] private Image chocolateCake;
+        [SerializeField] private Image strawberryCake;
+        [SerializeField] private Image iceCreamCake;
 
         public void addTrash(GameObject _trash)
         {
@@ -92,6 +102,7 @@ namespace PROTOTYPE_3
             if (trashPurity.Count >= 4 || ingredientPurity.Count <= 2)
             {
                 Debug.Log("You made a trash cake");
+                trashCake.gameObject.SetActive(true);
                 _GM.CakeResult("Trash");
                 return;
             }
@@ -99,29 +110,34 @@ namespace PROTOTYPE_3
             if (chocolatePurity.Count >= 4 && strawberryPurity.Count <= 2 && icecreamPurity.Count <= 2)
             {
                 Debug.Log("You made a chocolate cake");
+                chocolateCake.gameObject.SetActive(true);
                 _GM.CakeResult("Chocolate");
                 return;
             }
             if (strawberryPurity.Count >= 4 && chocolatePurity.Count <= 2 && icecreamPurity.Count <= 2)
             {
                 Debug.Log("You made a strawberry cake");
+                strawberryCake.gameObject.SetActive(true);
                 _GM.CakeResult("Strawberry");
                 return;
             }
             if (icecreamPurity.Count >= 4 && strawberryPurity.Count <= 2 && chocolatePurity.Count <= 2)
             {
                 Debug.Log("You made an ice-cream cake");
+                iceCreamCake.gameObject.SetActive(true);
                 _GM.CakeResult("Ice-Cream");
                 return;
             }
             if (icecreamPurity.Count <= 2 && strawberryPurity.Count <= 2 && chocolatePurity.Count <= 2)
             {
                 Debug.Log("You made a vanilla cake");
+                vanillaCake.gameObject.SetActive(true);
                 _GM.CakeResult("Vanila");
                 return;
             }
 
             Debug.Log("You made a mixed cake");
+            mixedCake.gameObject.SetActive(true);
             _GM.CakeResult("Mixed");
         }
     }
