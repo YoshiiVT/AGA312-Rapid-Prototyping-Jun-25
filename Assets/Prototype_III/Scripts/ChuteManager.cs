@@ -55,7 +55,7 @@ namespace PROTOTYPE_3
             objectsPlayed.Add(chuteObj);
             flavoursInChute.Remove(flavoursInChute[0]);
             
-            if (chuteObjList.Count == 0) { _GM.EndGame();}
+            if (flavoursInChute.Count == 0) { _GM.EndGame();}
         }
     }
 }
