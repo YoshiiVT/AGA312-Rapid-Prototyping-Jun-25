@@ -2651,7 +2651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PLAYER: {fileID: 891985050}
   _GameManager: {fileID: 13672280}
-  songData: {fileID: 11400000, guid: 8744d758d70e8fb42b13516c4089d612, type: 2}
+  songData: {fileID: 11400000, guid: 5e3607e983eaaff4b849a9d429fe28e3, type: 2}
   notesToPlay: []
   startingBPM: 0
   endOfSong: 0
