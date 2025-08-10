@@ -43,7 +43,6 @@ namespace PROTOTYPE_3
                 yield return new WaitForSeconds(1);
                 SpawnObj();
             }
-           
         }
 
         private void SpawnObj()
@@ -52,7 +51,6 @@ namespace PROTOTYPE_3
             print(_COD.flavourID);
             int modelID = Random.Range(0, _COD.model.Length);
             GameObject chuteObj = Instantiate(_COD.model[modelID], chuteDispenser.transform);
-                //chuteObj.GetComponent<ChuteOBJ>().Initialize(chuteObjList[0]);
 
             objectsPlayed.Add(chuteObj);
             flavoursInChute.Remove(flavoursInChute[0]);

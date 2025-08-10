@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1218018676857811056}
   - component: {fileID: 5571553835614901156}
   - component: {fileID: 367583004110081842}
+  - component: {fileID: -197300275345662900}
   m_Layer: 0
   m_Name: Trash_Bag
   m_TagString: Untagged
@@ -137,3 +138,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
+--- !u!114 &-197300275345662900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156520718126511041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95c6d76408f01148b09be8c5aed7ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 0

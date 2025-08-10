@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 505871370908041774}
   - component: {fileID: 7366028122060236789}
   - component: {fileID: 8818353356726266424}
+  - component: {fileID: -5881239882445785156}
   m_Layer: 0
   m_Name: Food_Egg
   m_TagString: Untagged
@@ -136,3 +137,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8829459, y: 1.1853479, z: 0.88294613}
   m_Center: {x: -0.000000074505806, y: 0.5967292, z: 0.000000044703484}
+--- !u!114 &-5881239882445785156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377285738261137408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95c6d76408f01148b09be8c5aed7ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 1
