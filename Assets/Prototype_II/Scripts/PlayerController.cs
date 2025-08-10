@@ -29,6 +29,8 @@ namespace PROTOTYPE_2
 
             if (noteHit != null)
             {
+                if (noteHit.BeenHit()) { return; }
+
                 // Define original scale
                 Vector3 originalScale = new Vector3(2.5f, 2.5f, 1f);
 
