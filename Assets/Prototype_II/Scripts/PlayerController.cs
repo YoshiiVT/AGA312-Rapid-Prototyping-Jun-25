@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 namespace PROTOTYPE_2
 {
@@ -11,6 +12,7 @@ namespace PROTOTYPE_2
 
         [Header("PlayerReferences")]
         [SerializeField] private SpriteRenderer splatSprite;
+        [SerializeField] private GameObject paintGun;
 
         [SerializeField] private float splatLifetime;
         private Coroutine fadeCoroutine;
@@ -25,8 +27,35 @@ namespace PROTOTYPE_2
         {
             NoteBehaviour noteHit = songPlayer.CheckCenterNote();
 
-            noteHit.NoteHit();
+            if (noteHit != null)
+            {
+                // Define original scale
+                Vector3 originalScale = new Vector3(2.5f, 2.5f, 1f);
+
+                // Kill any ongoing tweens
+                paintGun.transform.DOKill();
+
+                // Ensure it starts at its original scale
+                paintGun.transform.localScale = originalScale;
+
+                // Create the squeeze scale (slightly squashed horizontally, stretched vertically)
+                Vector3 squeezedScale = new Vector3(2.0f, 3.0f, 1f);
+
+                // Animate the squeeze and return
+                paintGun.transform
+                    .DOScale(squeezedScale, 0.1f)
+                    .SetEase(Ease.OutQuad)
+                    .OnComplete(() =>
+                    {
+                        paintGun.transform
+                            .DOScale(originalScale, 0.1f)
+                            .SetEase(Ease.InQuad);
+                    });
+
+                noteHit.NoteHit();
+            }
         }
+
 
         public void PlayerBeenHit()
         {
