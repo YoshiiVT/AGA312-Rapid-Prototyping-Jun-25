@@ -17,6 +17,10 @@ namespace PROTOTYPE_2
         [SerializeField] private float splatLifetime;
         private Coroutine fadeCoroutine;
 
+        [Header("Audio")]
+        [SerializeField] private AudioSource kick;
+        [SerializeField] private AudioSource splat;
+
 
         void Update()
         {
@@ -30,6 +34,9 @@ namespace PROTOTYPE_2
             if (noteHit != null)
             {
                 if (noteHit.BeenHit()) { return; }
+
+                kick.Play();
+                splat.Play();
 
                 // Define original scale
                 Vector3 originalScale = new Vector3(2.5f, 2.5f, 1f);
@@ -61,6 +68,8 @@ namespace PROTOTYPE_2
 
         public void PlayerBeenHit()
         {
+            splat.Play();
+
             splatSprite.color = ColorX.GetRandomColour();
 
             splatSprite.gameObject.SetActive(true);

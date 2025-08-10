@@ -155,8 +155,6 @@ namespace PROTOTYPE_2
 
         public void NoteHit()
         {
-            if (beenHit == true) { return; }
-
             splatSprite.color = ColorX.GetRandomColour();
 
             splatSprite.gameObject.SetActive(true);

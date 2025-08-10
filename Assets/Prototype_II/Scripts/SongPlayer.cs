@@ -27,6 +27,8 @@ namespace PROTOTYPE_2
         [SerializeField] private List<NoteBehaviour> notesInPlay;
         [SerializeField] private GameObject notesHolder; //Just for organisation in the inspector
 
+        [Header("Audio")]
+        [SerializeField] private AudioSource beat;
         //this is temp, incase I dont want it to start on load.
         public void Start()
         {
@@ -110,6 +112,8 @@ namespace PROTOTYPE_2
             }
 
             if (notesInPlay.Count == 0) { endOfSong = true; }
+
+            beat.Play();
         }
 
         private void SpawnNextNote()
