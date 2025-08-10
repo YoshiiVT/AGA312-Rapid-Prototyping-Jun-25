@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
   m_Name: ChocolateObj
   m_EditorClassIdentifier: 
-  model: []
+  model:
+  - {fileID: 6924967447574457949, guid: 479a7f75a1aa0094f9e5f385414c4538, type: 3}
   flavourID: 2

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
   m_Name: StrawberryObj
   m_EditorClassIdentifier: 
-  model: []
+  model:
+  - {fileID: 659249523417808836, guid: a14096ae1212b6e458300c01d18b2d17, type: 3}
   flavourID: 3

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f841cc82c83e09746913e28c6f600535, type: 3}
   m_Name: IceCreamObj
   m_EditorClassIdentifier: 
-  model: []
+  model:
+  - {fileID: 2126962777243913539, guid: 0f52d784d3c847e4f881198cf1f74770, type: 3}
   flavourID: 4

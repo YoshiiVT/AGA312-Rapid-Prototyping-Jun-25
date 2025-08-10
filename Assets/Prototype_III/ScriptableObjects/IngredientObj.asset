@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model:
   - {fileID: 7777221344657950699, guid: 0d9ad6904debda946b3bccbbe7b440f8, type: 3}
+  - {fileID: 2377285738261137408, guid: cf1e65f595e14c64291d5d47b7fe74ca, type: 3}
+  - {fileID: 5045188796214001734, guid: 784648c1f95fb8741a87a1733f574d13, type: 3}
   flavourID: 1
