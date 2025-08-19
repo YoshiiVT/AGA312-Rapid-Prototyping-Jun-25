@@ -1,11 +1,11 @@
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace PROTOTYPE_5
 {
-    public class PlayerMovement : MonoBehaviour
+    public class FPController : GameBehaviour<FPController>
     {
-        [SerializeField, ReadOnly] private CharacterController controller;
+
+        [Header("Movement")]
 
         [SerializeField] private float speed = 12f;
         [SerializeField] private float gravity = -9.81f;
@@ -19,15 +19,16 @@ namespace PROTOTYPE_5
 
         [SerializeField, ReadOnly] private bool isGrounded;
 
-        void Start()
+        private void Awake()
         {
-            controller = GetComponent<CharacterController>();
-            if (controller == null) { Debug.LogError("Controller returned NULL"); }
+            if (!Instantiate()) return;
         }
+
 
 
         void Update()
         {
+
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             if (isGrounded && velocity.y < 0) { velocity.y = -2f; }
@@ -37,7 +38,7 @@ namespace PROTOTYPE_5
 
             Vector3 move = transform.right * x + transform.forward * z;
 
-            controller.Move(move * speed * Time.deltaTime);
+            //controller.Move(move * speed * Time.deltaTime);
 
             if(Input.GetButtonDown("Jump") && isGrounded)
             {
@@ -46,7 +47,7 @@ namespace PROTOTYPE_5
 
             velocity.y += gravity * Time.deltaTime;
 
-            controller.Move(velocity * Time.deltaTime);
+            //controller.Move(velocity * Time.deltaTime);
         }
     }
 

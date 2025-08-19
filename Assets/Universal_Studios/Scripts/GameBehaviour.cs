@@ -1,13 +1,11 @@
-using PROTOTYPE_2;
 using PROTOTYPE_3;
+using PROTOTYPE_5;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
-    protected static SongPlayerOLD _SP { get { return SongPlayerOLD.Instance; } }
     protected static SaveManager _SAVE => SaveManager.Instance;
     
     #region Prototype III
@@ -15,6 +13,8 @@ public class GameBehaviour : MonoBehaviour
     protected static PROTOTYPE_3.GameManager _GM {  get { return PROTOTYPE_3.GameManager.Instance; } }
     protected static ChuteManager _ChM { get { return ChuteManager.Instance; } }
     #endregion
+
+    protected static FPController _FPC => FPController.Instance;
 
     #region Coroutine Helpers
 
