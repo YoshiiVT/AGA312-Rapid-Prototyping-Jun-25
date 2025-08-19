@@ -6,7 +6,9 @@ namespace PROTOTYPE_5
     {
 
         [Header("Movement")]
-        [SerializeField] private float moveSpeed;
+        [SerializeField, ReadOnly] private float moveSpeed;
+        [SerializeField] private float walkSpeed;
+        [SerializeField] private float sprintSpeed;
 
         [SerializeField] private float groundDrag;
 
@@ -18,6 +20,7 @@ namespace PROTOTYPE_5
 
         [Header("Keybinds")]
         public KeyCode jumpKey = KeyCode.Space;
+        public KeyCode sprintKey = KeyCode.LeftShift;
 
         [Header("Ground Check")]
         [SerializeField] private float playerHeight;
@@ -32,6 +35,9 @@ namespace PROTOTYPE_5
         [SerializeField, ReadOnly] private Vector3 moveDirection;
 
         [SerializeField, ReadOnly] private Rigidbody rb;
+
+        [SerializeField, ReadOnly] MovementState state;
+        public enum MovementState { walking, sprinting, air}
 
         private void Awake()
         {
@@ -56,6 +62,7 @@ namespace PROTOTYPE_5
 
             MyInput();
             SpeedControl();
+            StateHandler();
 
             // handle drag
             if (grounded)
@@ -82,6 +89,29 @@ namespace PROTOTYPE_5
                 Jump();
 
                 Invoke(nameof(ResetJump), jumpCooldown);
+            }
+        }
+
+        private void StateHandler()
+        {
+            // Mode - Sprinting
+            if (grounded && Input.GetKey(sprintKey))
+            {
+                state = MovementState.sprinting;
+                moveSpeed = sprintSpeed;
+            }
+
+            // Mode - Walking
+            else if (grounded)
+            {
+                state = MovementState.walking;
+                moveSpeed = walkSpeed;
+            }
+
+            // Mode - Air
+            else
+            {
+                state = MovementState.air;
             }
         }
 
