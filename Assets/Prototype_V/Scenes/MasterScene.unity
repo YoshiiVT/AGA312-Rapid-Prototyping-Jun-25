@@ -343,8 +343,12 @@ MonoBehaviour:
   jumpCooldown: 0.25
   airMultiplier: 0.1
   readyToJump: 0
+  crouchSpeed: 3.5
+  crouchYScale: 0.5
+  startYScale: 0
   jumpKey: 32
   sprintKey: 304
+  crouchKey: 99
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
