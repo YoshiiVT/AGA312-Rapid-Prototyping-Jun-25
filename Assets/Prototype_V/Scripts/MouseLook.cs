@@ -2,19 +2,15 @@ using UnityEngine;
 
 namespace PROTOTYPE_5
 {
-    public class MouseLook : MonoBehaviour
+    public class MouseLook : GameBehaviour
     {
         [SerializeField] private float mouseSensitivity = 100f;
-
-        [SerializeField] private Transform orientation;
 
         [SerializeField, ReadOnly] private float xRotation = 0f;
         [SerializeField, ReadOnly] private float yRotation = 0f;
 
         void Start()
-        {
-            if (orientation == null) { Debug.LogError("Orientation is NULL"); }
-
+        { 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -32,7 +28,7 @@ namespace PROTOTYPE_5
             
             // rotate cam and orientation
             transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-            orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+            _FPC.orientation.rotation = Quaternion.Euler(0, yRotation, 0);
         }
     }
 }
