@@ -36,7 +36,7 @@ namespace PROTOTYPE_5
             OnFoot.Fire.performed += ctx => weapon.FireWeapon();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             //Tell the playermotor to move using the value from our movement action
             motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());

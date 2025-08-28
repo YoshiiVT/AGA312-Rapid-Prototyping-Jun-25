@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PROTOTYPE_5
 {
@@ -18,6 +19,17 @@ namespace PROTOTYPE_5
 
         [SerializeField, ReadOnly] private bool firing;
         private Coroutine fireRoutine;
+
+        [SerializeField] private List<AudioClip> fireSounds = new List<AudioClip>();
+        [SerializeField, ReadOnly] private AudioSource fireSource;
+
+        [SerializeField] private Animator animator; // handles animations
+
+        private void Awake()
+        {
+            fireSource = GetComponent<AudioSource>();
+            animator = GetComponent<Animator>();
+        }
 
         public void FireWeapon()
         {
@@ -38,7 +50,13 @@ namespace PROTOTYPE_5
 
         private void Shoot()
         {
+            AudioClip rndSound = ListX.GetRandomItemFromList(fireSounds);
+            AudioSource.PlayClipAtPoint(rndSound, transform.position);
+
+            // Play animation + effects
+            animator.SetTrigger("Fire");
             muzzleFlash.Play();
+            
             Debug.Log("Flash");
 
             RaycastHit hit;

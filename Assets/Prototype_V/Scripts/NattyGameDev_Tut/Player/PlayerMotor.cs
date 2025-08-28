@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PROTOTYPE_5
@@ -7,6 +8,18 @@ namespace PROTOTYPE_5
         [Header("Player Movement References")]
         [SerializeField, ReadOnly] CharacterController controller;
         [SerializeField, ReadOnly] Vector3 playerVelocity;
+
+        [Header("Audio")]
+        [SerializeField,ReadOnly] AudioSource playerAudioSource;
+        [SerializeField] List<AudioClip> footsteps;
+
+        [Header("Footstep Settings")]
+        [SerializeField,ReadOnly] private bool isMoving;
+
+        [SerializeField] private float stepInterval = 0.5f; // time between steps
+        private float stepCooldown = 0f;
+        private int lastFootstepIndex = -1; // track last played sound
+
 
         [Header("Jump and Gravity Variables")]
         [SerializeField, ReadOnly] bool isGrounded;
@@ -28,12 +41,13 @@ namespace PROTOTYPE_5
         {
             controller = GetComponent<CharacterController>();
             if (controller == null) { Debug.LogError("Character Controller returned NULL"); }
+
+            playerAudioSource = GetComponent<AudioSource>();
+            if (controller == null) { Debug.LogError("Audio Source returned NULL"); }
         }
 
         private void Update()
         {
-            isGrounded = controller.isGrounded;
-
             //Crouch Logic
 
             if (lerpCrouch) //Nani da fuk is happening here?
@@ -54,6 +68,12 @@ namespace PROTOTYPE_5
 
         public void ProcessMove(Vector2 input)
         {
+            // update grounded state at the start of movement processing
+            isGrounded = controller.isGrounded;
+
+            // mark moving based on input magnitude and grounded state
+            isMoving = input.sqrMagnitude > 0.0001f && isGrounded;
+
             Vector3 moveDirection = Vector3.zero;
             moveDirection.x = input.x;
             moveDirection.z = input.y;
@@ -64,8 +84,42 @@ namespace PROTOTYPE_5
             if (isGrounded && playerVelocity.y < 0) { playerVelocity.y = -2; }
 
             controller.Move(playerVelocity * Time.deltaTime);
-            //Debug.Log(playerVelocity);
+
+            HandleFootsteps();
         }
+
+        private void HandleFootsteps()
+        {
+            if (!isMoving || footsteps == null || footsteps.Count == 0 || playerAudioSource == null)
+            {
+                stepCooldown = Mathf.Min(stepCooldown, stepInterval);
+                return;
+            }
+
+            stepCooldown -= Time.deltaTime;
+            if (stepCooldown <= 0f)
+            {
+                int index;
+
+                // reroll until it's different (safe for >1 clips)
+                do
+                {
+                    index = Random.Range(0, footsteps.Count);
+                }
+                while (index == lastFootstepIndex && footsteps.Count > 1);
+
+                playerAudioSource.PlayOneShot(footsteps[index]);
+                lastFootstepIndex = index;
+
+                // reset cooldown with sprint/crouch adjustments
+                float interval = stepInterval;
+                if (sprinting) interval *= 0.6f;
+                if (crouching) interval *= 1.4f;
+
+                stepCooldown = interval;
+            }
+        }
+
 
         public void Jump()
         {
