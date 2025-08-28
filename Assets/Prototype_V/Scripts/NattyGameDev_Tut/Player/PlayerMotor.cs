@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PROTOTYPE_5
 {
-    public class PlayerMotor : MonoBehaviour
+    public class PlayerMotor : GameBehaviour
     {
         [Header("Player Movement References")]
         [SerializeField, ReadOnly] CharacterController controller;
@@ -64,6 +64,8 @@ namespace PROTOTYPE_5
                     crouchTimer = 0f;
                 }
             }
+
+            
         }
 
         public void ProcessMove(Vector2 input)
@@ -149,6 +151,13 @@ namespace PROTOTYPE_5
                 sprinting = !sprinting;
                 if (sprinting) { speed = 8; }
                 else { speed = 5; } //Don't like how this is HardCoded!! >_<
+            }
+            if (!isGrounded && sprinting)
+            {
+                ExecuteAfterSeconds(0.1f, () =>
+                {
+                    Sprint();
+                });
             }
         }
     }
