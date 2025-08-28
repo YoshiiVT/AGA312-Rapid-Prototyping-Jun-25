@@ -25,6 +25,8 @@ namespace PROTOTYPE_5
 
             //Button Event Logic
             onFoot.Jump.performed += ctx => motor.Jump();
+            onFoot.Crouch.performed += ctx => motor.Crouch();
+            onFoot.Sprint.performed += ctx => motor.Sprint();
         }
 
         private void FixedUpdate()
