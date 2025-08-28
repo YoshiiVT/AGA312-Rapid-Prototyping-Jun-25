@@ -1,4 +1,3 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +7,7 @@ namespace PROTOTYPE_5
     {
         [SerializeField, ReadOnly] private PlayerInput playerInput;
         [SerializeField, ReadOnly] private PlayerInput.OnFootActions onFoot;
+        public PlayerInput.OnFootActions OnFoot => onFoot;
 
         [SerializeField, ReadOnly] private PlayerMotor motor;
         [SerializeField, ReadOnly] private PlayerLook look;

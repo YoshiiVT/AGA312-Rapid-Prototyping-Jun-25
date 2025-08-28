@@ -64,7 +64,7 @@ namespace PROTOTYPE_5
             if (isGrounded && playerVelocity.y < 0) { playerVelocity.y = -2; }
 
             controller.Move(playerVelocity * Time.deltaTime);
-            Debug.Log(playerVelocity);
+            //Debug.Log(playerVelocity);
         }
 
         public void Jump()

@@ -1,11 +1,12 @@
 using UnityEngine;
-using UnityEngine.Windows.WebCam;
 
 namespace PROTOTYPE_5
 {
     public class PlayerLook : MonoBehaviour
     {
-        [SerializeField] Camera cam;
+        [SerializeField] private Camera cam;
+        public Camera Cam => cam;
+
         [SerializeField,ReadOnly] private float xRotation = 0f;
 
         [SerializeField] private float xSensitivity = 30f;
