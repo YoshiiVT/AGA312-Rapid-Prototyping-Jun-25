@@ -15,6 +15,8 @@ namespace PROTOTYPE_5
         private void Awake()
         {
             if (cam == null) { Debug.LogError("Camera returned NULL"); }
+
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void ProcessLook(Vector2 input)

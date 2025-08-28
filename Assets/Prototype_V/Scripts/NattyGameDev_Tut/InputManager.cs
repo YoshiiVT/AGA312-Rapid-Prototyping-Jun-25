@@ -11,6 +11,7 @@ namespace PROTOTYPE_5
 
         [SerializeField, ReadOnly] private PlayerMotor motor;
         [SerializeField, ReadOnly] private PlayerLook look;
+        [SerializeField, ReadOnly] private PlayerWeapon weapon;
 
         private void Awake()
         {
@@ -20,13 +21,19 @@ namespace PROTOTYPE_5
             motor = GetComponent<PlayerMotor>();
             if (motor == null) { Debug.LogError("Player Motor returned NULL"); }
 
+
+
             look = GetComponent<PlayerLook>();
             if (look == null) { Debug.LogError("Player Look returned NULL"); }
+
+            weapon = GetComponent<PlayerWeapon>();
+            if (weapon == null) { Debug.LogError("Player Weapon returned NULL"); }
 
             //Button Event Logic
             onFoot.Jump.performed += ctx => motor.Jump();
             onFoot.Crouch.performed += ctx => motor.Crouch();
             onFoot.Sprint.performed += ctx => motor.Sprint();
+            OnFoot.Fire.performed += ctx => weapon.FireWeapon();
         }
 
         private void FixedUpdate()
