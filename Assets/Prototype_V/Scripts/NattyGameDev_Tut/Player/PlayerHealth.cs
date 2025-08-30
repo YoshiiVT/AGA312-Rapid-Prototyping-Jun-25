@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -38,6 +39,19 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void End()
+    {
+        StartCoroutine(DeathEnd());
+    }
+
+    private IEnumerator DeathEnd()
+    {
+        yield return new WaitForSeconds(5f);
+        Debug.Log("EndingScene");
+        SceneController SC = new SceneController();
+        SC.LoadTitle();
+        Debug.Log("SceneEnded");
+    }
     private void UpdateHealthUI()
     {
         //Debug.Log(health);

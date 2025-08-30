@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Prototype_IV/Scenes/P4MainScene.unity
     guid: 4cbcbc9cf8f556f42808c84199f921ac
+  - enabled: 1
+    path: Assets/Prototype_V/Scenes/MasterScene.unity
+    guid: c86bb004221b1d943a0d4d496a6e5f82
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

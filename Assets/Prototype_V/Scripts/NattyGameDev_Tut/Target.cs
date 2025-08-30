@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace PROTOTYPE_5
@@ -7,6 +8,8 @@ namespace PROTOTYPE_5
         public float health = 50f;
 
         [SerializeField] private GameObject explosionPrefab;
+        [SerializeField] private bool endGame;
+        [SerializeField] private PlayerHealth ph;
 
         public void TakeDamage (float _damage)
         {
@@ -22,9 +25,12 @@ namespace PROTOTYPE_5
             GameObject Explosion = Instantiate(explosionPrefab);
             Explosion.transform.position = gameObject.transform.position;
             Explosion.GetComponent<ParticleSystem>().Play();
-            Destroy(gameObject);
-        }
 
+            if (endGame ) { ph.End(); }
+
+            Destroy(gameObject);
+
+        }
     }
 }
 

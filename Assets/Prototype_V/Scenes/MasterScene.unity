@@ -36531,6 +36531,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   explosionPrefab: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
+  endGame: 1
+  ph: {fileID: 799013378}
 --- !u!65 &3481198446432644462
 BoxCollider:
   m_ObjectHideFlags: 0
